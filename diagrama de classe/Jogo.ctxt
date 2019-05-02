@@ -1,3 +1,5 @@
 #BlueJ class context
 comment0.target=Jogo
-numComments=1
+comment1.params=y\ x
+comment1.target=void\ movimento(int,\ int)
+numComments=2

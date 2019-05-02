@@ -1,4 +1,4 @@
-public abstract class Inimigo extends CardInterativo
+public abstract class Inimigo extends CardInteragivel
 {
     private static int qtdInimigos = 0;
     
