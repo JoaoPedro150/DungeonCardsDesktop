@@ -49,24 +49,20 @@ public class Grid {
 		int oldX = posicaoCursor.getX(), oldY = posicaoCursor.getY();
 		try {
 			
-			
 			grid[oldX + x][oldY + y] = 1;
 			posicaoCursor.addX(x);
 			posicaoCursor.addY(y);
 			grid[oldX][oldY] = 0;
-			
-
+			return posicaoCursor;
 		}catch(ArrayIndexOutOfBoundsException e) {
 			
 			throw new MovimentoException();
 		}
 
-		return posicaoCursor;
+		
 	}
 	
 	public Posicao interagir() throws InteracaoException {
-		System.out.println(posicaoCursor);
-		System.out.println(posicaoHeroi);
 		Boolean interacao = posicaoCursor.isAdjacente(posicaoHeroi);
 		if (interacao == Boolean.TRUE) {
 			System.out.println("Interagiu com " + posicaoCursor.toString());

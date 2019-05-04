@@ -1,6 +1,14 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
-GridPane Line {
+#gridPane Line {
   -fx-stroke   : #22282c;
   -fx-stroke-width: 5;
+}
+#gridPane Pane{
+	-fx-border-color: #22282c;
+	-fx-border-width: 1.7;
+}
+
+.colorBlock{
+	-fx-border-color: #b1850c !important;	
 }

@@ -35,7 +35,8 @@ public class Controle {
 				else {
 					switch(event.getCode()) {
 					case DOWN:
-						game.moverCursor(Grid.BAIXO); break;
+						game.moverCursor(Grid.BAIXO);
+							break;
 					case UP:
 						game.moverCursor(Grid.CIMA); break;
 					case LEFT:

@@ -34,26 +34,27 @@ public class DungeonCards extends Application {
 	private void estilizar() {
 
 		stage.setWidth(500);
-		stage.setTitle("Dungeon Cards");
 		stage.setHeight(600);
-		stage.setWidth(500);
+
 		stage.setTitle("Dungeon Cards");
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		colorirCelula(null);
 	}
 
 	private void inicializar(Stage stage) {
 		BorderPane root;
 		try {
-			root = (BorderPane)FXMLLoader.load(getClass().getResource("gridPane.fxml"));
+			root = (BorderPane)FXMLLoader.load(getClass().getResource("index.fxml"));
 			scene = new Scene(root,0,0);
 			
 			this.stage = stage;
-			estilizar();
+			
 			stage.setScene(scene);
 			
 			controle = new Controle(this);
 			grid = new Grid();
 			
+			estilizar();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,8 +64,6 @@ public class DungeonCards extends Application {
 	
 
 	public void interagir() {
-		// TODO Auto-generated method stub
-		//System.out.println("Espaço");
 		try {
 			grid.interagir();
 		}catch(InteracaoException e) {
@@ -78,11 +77,15 @@ public class DungeonCards extends Application {
 
 	
 	public boolean moverCursor(int movimento) {
-	
+		
 		try {
-			Posicao posicao = grid.moverCursor(movimento);
-			System.out.println(posicao);
-			//cursor.acender(posicao);
+			Posicao posicaoAnterior = new Posicao(grid.getPosicaoCursor().getX(),
+					grid.getPosicaoCursor().getY());
+			
+			grid.moverCursor(movimento);
+			
+			colorirCelula(posicaoAnterior);
+			
 			return true;
 		} catch (MovimentoException e) {
 			System.out.println(e);
@@ -91,6 +94,35 @@ public class DungeonCards extends Application {
 		
 	}
 	
+	/*AVISO: Os métodos abaixo podem não estar nas classes corretas. Temos que pensar onde encaixá-los.*/
+	
+	/**Transforma uma posição do grid na tag FXML do painel que corresponde a essa posição.
+	 * Por exemplo: Posicão (x=0, y=2), corresponde ao painel de tag "#pane20";
+	 * @param posicao a ser acessada no painel
+	 * @return tag FXML da posição fornecida.
+	 */
+	private String formatarPaneTag(Posicao posicao) {
+		return String.format("#pane%d%d", posicao.getY(),  posicao.getX());
+	}
+	
+	/**Produz a indicação visual do cursor, colorindo a posição que este atualmente se encontra.
+	 * 
+	 * @param posicaoAnterior posição anterior que deve ser descolorida no grid. 
+	 * Pode ser passado <b>null</b> caso não se deseje apagar a posição anteriormente colorida
+	 */
+	private void colorirCelula(Posicao posicaoAnterior) {
+		
+		//Apaga a cor de seleção da célula antes selecionada
+		if(posicaoAnterior != null) {
+			String paneIDAnterior = formatarPaneTag(posicaoAnterior);
+			scene.lookup(paneIDAnterior).getStyleClass().remove("colorBlock");
+		}
+		
+		//Acende a cor na célula do grid atual
+		String paneID = formatarPaneTag(grid.getPosicaoCursor());
+		scene.lookup(paneID).getStyleClass().add("colorBlock");
+		
+	}
 
 	public static void main(String[] args) {
 		launch(args);
