@@ -2,14 +2,12 @@ package com.tsi.app;
 
 import java.io.IOException;
 
-import com.tsi.card.CardPane;
-import com.tsi.chars.Heroi;
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
+import com.tsi.ui.CardPane;
 import com.tsi.ui.Controle;
-import com.tsi.ui.Sprite;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +19,8 @@ import javafx.stage.Stage;
 public class DungeonCards extends Application {
 	private Scene scene;
 	private Stage stage;
-	private Grid grid;
 	private Controle controle;
+	private Jogo jogo;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -31,23 +29,12 @@ public class DungeonCards extends Application {
 
 		controle.eventosDeTeclado(scene);
 
-
-		CardPane cardPane = obterCard(new Posicao(0, 0));
-
-		Heroi heroi = new Heroi();
-		heroi.setNome("Herói");
-		heroi.setSprite(new Sprite("ZumbiMascarado.png"));
-		cardPane.setCard(heroi);
-
-
 		stage.show();
 	}
 
 	private void estilizar() {
-
 		stage.setWidth(500);
 		stage.setHeight(600);
-
 		stage.setTitle("Dungeon Cards");
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		colorirCelula(null);
@@ -64,7 +51,9 @@ public class DungeonCards extends Application {
 			stage.setScene(scene);
 
 			controle = new Controle(this);
-			grid = new Grid();
+			jogo = new Jogo();
+
+			atualizar();
 
 			estilizar();
 		} catch (IOException e) {
@@ -74,13 +63,20 @@ public class DungeonCards extends Application {
 
 	}
 
-
 	public void interagir() {
 		try {
-			grid.interagir();
+			jogo.interagir();
+			atualizar();
+
 		}catch(InteracaoException e) {
 			System.out.println(e);
 		}
+	}
+
+	private void atualizar() {
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++)
+				obterCard(new Posicao(i, j)).setCard(jogo.getGrid().getCard(new Posicao(i, j)));
 	}
 
 	public void informacao() {
@@ -91,10 +87,10 @@ public class DungeonCards extends Application {
 	public boolean moverCursor(int movimento) {
 
 		try {
-			Posicao posicaoAnterior = new Posicao(grid.getPosicaoCursor().getX(),
-					grid.getPosicaoCursor().getY());
+			Posicao posicaoAnterior = new Posicao(jogo.getGrid().getPosicaoCursor().getX(),
+					jogo.getGrid().getPosicaoCursor().getY());
 
-			grid.moverCursor(movimento);
+			jogo.getGrid().moverCursor(movimento);
 
 			colorirCelula(posicaoAnterior);
 
@@ -135,7 +131,7 @@ public class DungeonCards extends Application {
 		}
 
 		//Acende a cor na cÃ©lula do grid atual
-		String paneID = formatarPaneTag(grid.getPosicaoCursor());
+		String paneID = formatarPaneTag(jogo.getGrid().getPosicaoCursor());
 		scene.lookup(paneID).getStyleClass().add("colorBlock");
 
 	}

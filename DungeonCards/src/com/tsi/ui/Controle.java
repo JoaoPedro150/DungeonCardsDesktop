@@ -14,7 +14,6 @@ import javafx.scene.input.KeyEvent;
 /**Esta classe é responsável por capturar os inputs do usuário e tratá-los com os comandos correspondentes*/
 public class Controle {
 
-
 	private DungeonCards game;
 
 	public Controle(DungeonCards game) {

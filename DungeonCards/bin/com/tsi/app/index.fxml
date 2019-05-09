@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import com.tsi.card.CardPane?>
+<?import com.tsi.ui.CardPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
@@ -21,7 +21,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CardPane fx:id="pane00" prefHeight="200.0" prefWidth="200.0" />
+            <CardPane  fx:id="pane00" prefHeight="200.0" prefWidth="200.0" />
             <CardPane fx:id="pane01" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
             <CardPane fx:id="pane02" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
             <CardPane fx:id="pane10" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />

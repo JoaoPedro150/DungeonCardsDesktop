@@ -1,0 +1,89 @@
+[
+  {
+    "tipo": "inimigos",
+    "lista": [
+      {
+        "nome": "Javali",
+        "sprite": "Javali.png"
+      },
+      {
+        "nome": "Mosca",
+        "sprite": "Mosca.png"
+      },
+      {
+        "nome": "Morcego",
+        "sprite": "Morcego.png"
+      },
+      {
+        "nome": "Esqueleto",
+        "sprite": "Esqueleto.png"
+      },
+      {
+        "nome": "Monstro de tentaculo",
+        "sprite": "MonstroTentaculo.png"
+      },
+      {
+        "nome": "Zumbi",
+        "sprite": "Zumbi.png"
+      },
+      {
+        "nome": "Zumbi Mascarado",
+        "sprite": "ZumbiMascarado.png"
+      }
+    ]
+  },
+  {
+    "tipo": "armas",
+    "lista": [
+      {
+        "nome": "Espada de Prata",
+        "sprite": "EspadaDePrata.png"
+      },
+      {
+        "nome": "Espada de Ouro",
+        "sprite": "EspadaDeOuro.png"
+      },
+      {
+        "nome": "Varinha de Fogo",
+        "sprite": "VarinhaDeFogo.png"
+      },
+      {
+        "nome": "Varinha de Gelo",
+        "sprite": "VarinhaDeGelo.png"
+      }
+    ]
+  },
+  {
+    "tipo": "pocoes",
+    "lista": [
+      {
+        "nome": "Poção Azul",
+        "sprite": "PocaoAzul.png",
+        "tipo": "bom",
+        "info": "Cura o herói ao longo do tempo. Anula o efeito do veneno."
+      },
+      {
+        "nome": "Poção Vermelha",
+        "sprite": "PocaoVermelha.png",
+        "tipo": "bom",
+        "info": "Cura o herói. Anula o efeito do veneno."
+      },
+      {
+        "nome": "Veneno",
+        "sprite": "Veneno.png",
+        "tipo": "ruim",
+        "info": "Envenena o herói. Heróis envenenados sofrem 1 de dano a cada rodada e são curados ao chegar em 1 de vida. Este efeito também pode ser curado com a poção de cura."
+      }
+    ]
+  },
+  {
+    "tipo": "outros",
+    "lista": [
+      {
+        "tipo": "Moeda",
+        "nome": "Moeda",
+        "sprite": "Moeda.png"
+      }
+    ]
+  }
+]

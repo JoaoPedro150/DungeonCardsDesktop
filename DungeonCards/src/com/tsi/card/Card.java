@@ -9,7 +9,7 @@ public class Card {
 	private Sprite sprite;
 
     /**Nome do Card */
-    private String nome;
+    private String nome = "Vazio";
 
     /**  Valor do Card, pode representar qualquer valor necess�rio ao card*/
     private int valor;
@@ -17,11 +17,10 @@ public class Card {
     /**Uma mensagem informativa sobre o card.*/
     private String informacao;
 
-
     /**Tipo do card, bom ou ruim*/
-    public enum Tipo{BOM, RUIM};
+    public enum TipoCard{BOM, RUIM};
 
-    private Tipo tipo;
+    private TipoCard tipo;
 
     /** Posi��o na matriz do jogo.*/
     private Posicao posicao;
@@ -66,13 +65,31 @@ public class Card {
 		this.posicao = posicao;
 	}
 
-	public Tipo getTipo() {
+	public TipoCard getTipoCard() {
 		return tipo;
 	}
 
+	public void setTipoCard(TipoCard tipo) {
+		this.tipo = tipo;
+	}
 
+	@Override
+	public Card clone() {
+		Card card = new Card();
+		card.setInformacao(informacao);
+		card.setNome(nome);
 
+		if (posicao != null)
+			card.setPosicao(posicao.clone());
 
+		if (sprite != null)
+			card.setSprite(sprite.clone());
 
+		if (tipo != null)
+			card.setTipoCard(TipoCard.valueOf(tipo.toString()));
 
+		card.setValor(valor);
+
+		return card;
+	}
 }

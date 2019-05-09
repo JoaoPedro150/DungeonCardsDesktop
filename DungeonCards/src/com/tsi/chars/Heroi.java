@@ -2,19 +2,22 @@ package com.tsi.chars;
 
 import com.tsi.card.Card;
 import com.tsi.item.Arma;
+import com.tsi.item.Pocao;
+import com.tsi.ui.Sprite;
 
 public class Heroi extends Card {
 
 	private Arma arma;
 
-	private int x;
+	private Pocao pocao;
 
-	public int getX() {
-		return x;
-	}
+	private int qtdMoedas;
 
-	public void setX(int x) {
-		this.x = x;
+	public Heroi() {
+		setValor(10);
+		setNome("Herói");
+		setSprite(new Sprite("Esqueleto.png"));
+		setInformacao("O cavaleiro adora tomar chá enquanto lê um bom livro. Ele também gosta de matar monstros e possui muita vida.");
 	}
 
 	public Arma getArma() {
@@ -25,7 +28,19 @@ public class Heroi extends Card {
 		this.arma = arma;
 	}
 
+	public Pocao getPocao() {
+		return pocao;
+	}
 
+	public void setPocao(Pocao pocao) {
+		this.pocao = pocao;
+	}
 
+	public void adicionarMoedas(int valor) {
+		qtdMoedas += valor;
+	}
 
+	public int getQtdMoedas() {
+		return qtdMoedas;
+	}
 }
