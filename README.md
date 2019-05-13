@@ -1,6 +1,10 @@
 # Dungeon Cards Desktop
 Trabalho de Linguagem de Programação Visual, cujo objetivo é desenvolver uma cópia para desktop do jogo mobile "Dungeon Cards".
 
+<p align="center">
+  <img src="https://github.com/JoaoPedro150/DugeonCardsDesktop/blob/master/static/DungeonCards.png" width="600"/>
+</p>
+
 ## Equipe  
  
     
