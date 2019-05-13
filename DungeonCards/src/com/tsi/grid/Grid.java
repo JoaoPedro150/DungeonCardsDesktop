@@ -13,12 +13,13 @@ public class Grid {
 	private Posicao posicaoCursor, posicaoHeroi;
 
 	public static final int CIMA = 1, BAIXO = 2, DIREITA = 3, ESQUERDA = 4;
+	public static final int TAMANHO_X = 3, TAMANHO_Y = 3;
 
 	private Card[][] cards;
 
 	public Grid() {
-		cards = new Card[3][3];
-		grid = new int[3][3];
+		cards = new Card[TAMANHO_X][TAMANHO_Y];
+		grid = new int[TAMANHO_X][TAMANHO_Y];
 		posicaoCursor = new Posicao();
 		posicaoHeroi = new Posicao();
 	}

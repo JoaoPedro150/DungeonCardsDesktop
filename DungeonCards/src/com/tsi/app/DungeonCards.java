@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
-import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
 import com.tsi.ui.CardPane;
 import com.tsi.ui.Controle;
@@ -18,7 +17,7 @@ import javafx.stage.Stage;
 /**Nesta classe encontra-se o método main*/
 public class DungeonCards extends Application {
 	private Scene scene;
-	private Stage stage;
+	private static Stage stage;
 	private Controle controle;
 	private Jogo jogo;
 
@@ -30,6 +29,11 @@ public class DungeonCards extends Application {
 		controle.eventosDeTeclado(scene);
 
 		stage.show();
+	}
+
+
+	public static Stage getStage(){
+		return stage;
 	}
 
 	private void estilizar() {
@@ -46,7 +50,7 @@ public class DungeonCards extends Application {
 			root = (BorderPane)FXMLLoader.load(getClass().getResource("index.fxml"));
 			scene = new Scene(root,0,0);
 
-			this.stage = stage;
+			DungeonCards.stage = stage;
 
 			stage.setScene(scene);
 

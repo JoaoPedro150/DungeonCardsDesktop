@@ -34,8 +34,8 @@ public class Jogo {
 
 		Card card;
 
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < Grid.TAMANHO_X; i++)
+			for (int j = 0; j < Grid.TAMANHO_Y; j++) {
 				card = cards.getRandomCard();
 				card.setPosicao(new Posicao(i, j));
 				grid.setCard(card);
@@ -51,8 +51,8 @@ public class Jogo {
 
    public void interagir() throws InteracaoException {
 	   Posicao pos = grid.interagir();
-
 	   Card card = grid.getCard(pos);
+
 
 	   if (card != null)
 		   card = ((CardInteragivel)card).interagir(heroi);
@@ -68,8 +68,7 @@ public class Jogo {
 	   grid.setCard(card);
    }
 
-
-   public Grid getGrid() {
+public Grid getGrid() {
 	   return grid;
    }
 
