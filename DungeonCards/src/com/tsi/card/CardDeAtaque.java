@@ -1,7 +1,13 @@
 package com.tsi.card;
 
 public abstract class CardDeAtaque extends CardInteragivel {
-    public enum TipoArma{FOGO, GELO, VENENO};
+	
+	public CardDeAtaque() {
+	}
+    public CardDeAtaque(Card card) {
+		super(card);
+	}
+	public enum TipoArma{FOGO, GELO, VENENO};
 
     private TipoArma tipoArma;
 

@@ -21,7 +21,7 @@ public class CardPane extends BorderPane {
 			BorderPane pane;
 
 			if (card.getSprite() != null) {
-				pane = new BorderPane(card.getSprite().getImagem(), null, null, new Text(card.getNome()), null);
+				pane = new BorderPane(card.getSprite().clone().getImagem(), null, null, new Text(card.getNome()), null);
 			}
 			else {
 				pane = new BorderPane(null, null, null, new Text(card.getNome()), null);

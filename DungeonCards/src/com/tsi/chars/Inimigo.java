@@ -12,20 +12,15 @@ public class Inimigo extends CardInteragivel {
 	}
 
 	public Inimigo(Card card) {
-		this();
-		setInformacao(card.getInformacao());
-		setNome(card.getNome());
-		setPosicao(card.getPosicao());
-		setSprite(card.getSprite());
-		setValor(card.getValor());
+		super(card);
 	}
-
+	
 	@Override
 	public Card receberAtaque(CardDeAtaque cardAtaque) {
 		if (cardAtaque instanceof Arma)
 			return lutar(cardAtaque);
 		else
-			return super.receberAtaque(cardAtaque);
+			return receberAtaque(cardAtaque);
 	}
 
 	@Override

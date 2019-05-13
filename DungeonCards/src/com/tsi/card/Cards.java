@@ -14,8 +14,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.tsi.card.Card.TipoCard;
 import com.tsi.chars.Heroi;
 import com.tsi.chars.Inimigo;
+import com.tsi.item.Pocao;
 import com.tsi.ui.Sprite;
 
 @SuppressWarnings("unused")
@@ -25,6 +27,7 @@ public class Cards {
 
 	public Cards() {
 		Card card;
+		Pocao pocao;
 
         try {
         	for (Object tipos : (JSONArray) new JSONParser().parse(new FileReader("cards.json"))) {
@@ -36,14 +39,18 @@ public class Cards {
 						cards.put(card.getNome(), new Inimigo(card));
 						cardsPorNome.add(card.getNome());
 						break;
-					default:
+					case "pocoes":
+						pocao = new Pocao(card);
+						pocao.setTipoCard(TipoCard.valueOf(((JSONObject) obj).get("tipo").toString()));
+						cards.put(pocao.getNome(), pocao);
+						cardsPorNome.add(pocao.getNome());
 						break;
 					}
-
+        			
+        			
         		}
             }
 
-        	System.out.println(getCard("Zumbi Mascarado").getInformacao());
         }
         //Trata as exceptions que podem ser lançadas no decorrer do processo
         catch (FileNotFoundException e) {
@@ -57,9 +64,7 @@ public class Cards {
 	}
 
 	public Card getRandomCard() {
-		Card card = getCard((cardsPorNome.get(new Random().nextInt(cardsPorNome.size()))));
-		card.setValor(new Random().nextInt(15) + 2);
-		return card;
+		return getCard((cardsPorNome.get(new Random().nextInt(cardsPorNome.size()))));
 	}
 
 	public Card getCard(String nome) {
@@ -73,7 +78,7 @@ public class Cards {
 				card = (Card) method.invoke(this, card);
 
 			} catch (NoSuchMethodException e) {
-				return card.clone();
+				
 			}
 			catch (IllegalAccessException | IllegalArgumentException |
 					InvocationTargetException | SecurityException e) {
@@ -81,7 +86,8 @@ public class Cards {
 				e.printStackTrace();
 			}
 		}
-
+		
+		card.setValor(new Random().nextInt(15) + 1);
 		return card.clone();
 	}
 
@@ -98,11 +104,16 @@ public class Cards {
     	card.setInformacao("Transforma-se em Zumbi.");
 
         return new Inimigo(card) {
-            @Override
-            public Card interagir(Heroi heroi) {
-                Card card = super.interagir(heroi);
-                return (card == null) ? cards.get("Zumbi") : card;
-            }
+    		@Override
+        	public Inimigo clone() {
+        		return new Inimigo(super.clone()) {
+        			@Override
+                    public Card interagir(Heroi heroi) {
+                        Card card = super.interagir(heroi);
+                        return (card == null) ? getCard("Zumbi") : card;
+                    }
+        		};
+        	}
         };
     }
 }

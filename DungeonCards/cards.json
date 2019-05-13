@@ -59,19 +59,19 @@
       {
         "nome": "Poção Azul",
         "sprite": "PocaoAzul.png",
-        "tipo": "bom",
+        "tipo": "BOM",
         "info": "Cura o herói ao longo do tempo. Anula o efeito do veneno."
       },
       {
         "nome": "Poção Vermelha",
         "sprite": "PocaoVermelha.png",
-        "tipo": "bom",
+        "tipo": "BOM",
         "info": "Cura o herói. Anula o efeito do veneno."
       },
       {
         "nome": "Veneno",
         "sprite": "Veneno.png",
-        "tipo": "ruim",
+        "tipo": "RUIM",
         "info": "Envenena o herói. Heróis envenenados sofrem 1 de dano a cada rodada e são curados ao chegar em 1 de vida. Este efeito também pode ser curado com a poção de cura."
       }
     ]

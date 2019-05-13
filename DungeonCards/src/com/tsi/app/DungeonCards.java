@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
-import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
 import com.tsi.ui.CardPane;
 import com.tsi.ui.Controle;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -49,13 +49,14 @@ public class DungeonCards extends Application {
 			this.stage = stage;
 
 			stage.setScene(scene);
+			
+			Platform.runLater(() ->  atualizar());
 
 			controle = new Controle(this);
 			jogo = new Jogo();
 
-			atualizar();
-
 			estilizar();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,7 +67,7 @@ public class DungeonCards extends Application {
 	public void interagir() {
 		try {
 			jogo.interagir();
-			atualizar();
+			Platform.runLater(() ->  atualizar());
 
 		}catch(InteracaoException e) {
 			System.out.println(e);

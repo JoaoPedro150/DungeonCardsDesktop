@@ -24,6 +24,18 @@ public class Card {
 
     /** Posi��o na matriz do jogo.*/
     private Posicao posicao;
+ 
+    public Card() {
+	} 
+    
+	public Card(Card card) {
+		this.sprite = card.sprite;
+		this.nome = card.nome;
+		this.valor = card.valor;
+		this.informacao = card.informacao;
+		this.tipo = card.tipo;
+		this.posicao = card.posicao;
+	}
 
 	public Sprite getSprite() {
 		return sprite;
@@ -72,7 +84,6 @@ public class Card {
 	public void setTipoCard(TipoCard tipo) {
 		this.tipo = tipo;
 	}
-
 	@Override
 	public Card clone() {
 		Card card = new Card();
