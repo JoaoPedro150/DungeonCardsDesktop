@@ -1,6 +1,7 @@
 package com.tsi.card;
 
 import com.tsi.grid.Posicao;
+import com.tsi.ui.Audio;
 import com.tsi.ui.Sprite;
 
 
@@ -17,6 +18,8 @@ public class Card {
     /**Uma mensagem informativa sobre o card.*/
     private String informacao;
 
+    private Audio audio;
+
     /**Tipo do card, bom ou ruim*/
     public enum TipoCard{BOM, RUIM};
 
@@ -24,10 +27,10 @@ public class Card {
 
     /** Posi��o na matriz do jogo.*/
     private Posicao posicao;
- 
+
     public Card() {
-	} 
-    
+	}
+
 	public Card(Card card) {
 		this.sprite = card.sprite;
 		this.nome = card.nome;
@@ -35,6 +38,7 @@ public class Card {
 		this.informacao = card.informacao;
 		this.tipo = card.tipo;
 		this.posicao = card.posicao;
+		this.audio = card.audio;
 	}
 
 	public Sprite getSprite() {
@@ -84,6 +88,15 @@ public class Card {
 	public void setTipoCard(TipoCard tipo) {
 		this.tipo = tipo;
 	}
+
+	public Audio getAudio() {
+		return audio;
+	}
+
+	public void setAudio(Audio audio) {
+		this.audio = audio;
+	}
+
 	@Override
 	public Card clone() {
 		Card card = new Card();
@@ -100,6 +113,8 @@ public class Card {
 			card.setTipoCard(TipoCard.valueOf(tipo.toString()));
 
 		card.setValor(valor);
+
+		card.setAudio(audio);
 
 		return card;
 	}

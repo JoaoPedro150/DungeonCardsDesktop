@@ -18,6 +18,7 @@ import com.tsi.card.Card.TipoCard;
 import com.tsi.chars.Heroi;
 import com.tsi.chars.Inimigo;
 import com.tsi.item.Pocao;
+import com.tsi.ui.Audio;
 import com.tsi.ui.Sprite;
 
 @SuppressWarnings("unused")
@@ -36,18 +37,20 @@ public class Cards {
 
         			switch (((JSONObject)tipos).get("tipo").toString()) {
 					case "inimigos":
+						card.setAudio(new Audio(((JSONObject)tipos).get("audio").toString()));
 						cards.put(card.getNome(), new Inimigo(card));
 						cardsPorNome.add(card.getNome());
 						break;
 					case "pocoes":
 						pocao = new Pocao(card);
+						pocao.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
 						pocao.setTipoCard(TipoCard.valueOf(((JSONObject) obj).get("tipo").toString()));
 						cards.put(pocao.getNome(), pocao);
 						cardsPorNome.add(pocao.getNome());
 						break;
 					}
-        			
-        			
+
+        			System.out.println(((JSONObject) obj).get("nome").toString());
         		}
             }
 
@@ -78,7 +81,7 @@ public class Cards {
 				card = (Card) method.invoke(this, card);
 
 			} catch (NoSuchMethodException e) {
-				
+
 			}
 			catch (IllegalAccessException | IllegalArgumentException |
 					InvocationTargetException | SecurityException e) {
@@ -86,7 +89,7 @@ public class Cards {
 				e.printStackTrace();
 			}
 		}
-		
+
 		card.setValor(new Random().nextInt(15) + 1);
 		return card.clone();
 	}

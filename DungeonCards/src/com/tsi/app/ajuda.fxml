@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="167.0" prefWidth="333.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="375.0" style="-fx-background-color: #22282c; -fx-alignment: center; -fx-text-fill: white;" text="Herói" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <Label prefHeight="136.0" prefWidth="335.0" style="-fx-background-color: #454449; -fx-alignment: center; -fx-text-fill: white;" text="Salva tudo." BorderPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </center>
+</BorderPane>

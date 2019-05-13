@@ -1,11 +1,12 @@
 [
   {
     "tipo": "inimigos",
+    "audio": "ataque.wav",
     "lista": [
       {
         "nome": "Javali",
         "sprite": "Javali.png"
-      },
+      }
       {
         "nome": "Mosca",
         "sprite": "Mosca.png"
@@ -37,19 +38,23 @@
     "lista": [
       {
         "nome": "Espada de Prata",
-        "sprite": "EspadaDePrata.png"
+        "sprite": "EspadaDePrata.png",
+        "audio" : "espada.wav"
       },
       {
         "nome": "Espada de Ouro",
-        "sprite": "EspadaDeOuro.png"
+        "sprite": "EspadaDeOuro.png",
+        "audio" : "espada.wav"
       },
       {
         "nome": "Varinha de Fogo",
-        "sprite": "VarinhaDeFogo.png"
+        "sprite": "VarinhaDeFogo.png",
+        "audio":"varinha.wav"
       },
       {
         "nome": "Varinha de Gelo",
-        "sprite": "VarinhaDeGelo.png"
+        "sprite": "VarinhaDeGelo.png",
+        "audio" : "varinha.wav"
       }
     ]
   },
@@ -57,22 +62,25 @@
     "tipo": "pocoes",
     "lista": [
       {
-        "nome": "Po√ß√£o Azul",
+        "nome": "PoÁ„o Azul",
         "sprite": "PocaoAzul.png",
         "tipo": "BOM",
-        "info": "Cura o her√≥i ao longo do tempo. Anula o efeito do veneno."
+        "info": "Cura o herÛi ao longo do tempo. Anula o efeito do veneno.",
+        "audio": "pocao.wav"
       },
       {
-        "nome": "Po√ß√£o Vermelha",
+        "nome": "PoÁ„o Vermelha",
         "sprite": "PocaoVermelha.png",
         "tipo": "BOM",
-        "info": "Cura o her√≥i. Anula o efeito do veneno."
-      },
+        "info": "Cura o herÛi. Anula o efeito do veneno.",
+        "audio": "pocao.wav"
+        },
       {
         "nome": "Veneno",
         "sprite": "Veneno.png",
         "tipo": "RUIM",
-        "info": "Envenena o her√≥i. Her√≥is envenenados sofrem 1 de dano a cada rodada e s√£o curados ao chegar em 1 de vida. Este efeito tamb√©m pode ser curado com a po√ß√£o de cura."
+        "info": "Envenena o herÛi. HerÛis envenenados sofrem 1 de dano a cada rodada e s„o curados ao chegar em 1 de vida. Este efeito tambÈm pode ser curado com a poÁ„o de cura.",
+        "audio": "veneno.wav"
       }
     ]
   },
@@ -82,7 +90,8 @@
       {
         "tipo": "Moeda",
         "nome": "Moeda",
-        "sprite": "Moeda.png"
+        "sprite": "Moeda.png",
+        "audio": "coins.wav"
       }
     ]
   }
