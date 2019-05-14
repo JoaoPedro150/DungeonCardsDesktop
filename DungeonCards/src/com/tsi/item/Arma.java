@@ -6,6 +6,9 @@ import com.tsi.chars.Heroi;
 
 public class Arma extends CardDeAtaque {
 
+	public Arma(Card card) {
+		super(card);
+	}
 	public Arma() {
 		setTipoCard(TipoCard.BOM);
 	}
@@ -19,4 +22,8 @@ public class Arma extends CardDeAtaque {
 		return null;
 	}
 
+	@Override
+	public Arma clone() {
+		return new Arma(super.clone());
+	}
 }

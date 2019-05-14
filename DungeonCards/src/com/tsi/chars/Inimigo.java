@@ -14,7 +14,7 @@ public class Inimigo extends CardInteragivel {
 	public Inimigo(Card card) {
 		super(card);
 	}
-	
+
 	@Override
 	public Card receberAtaque(CardDeAtaque cardAtaque) {
 		if (cardAtaque instanceof Arma)

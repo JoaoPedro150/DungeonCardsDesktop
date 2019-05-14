@@ -24,12 +24,28 @@
         "sprite": "MonstroTentaculo.png"
       },
       {
-        "nome": "Zumbi",
-        "sprite": "Zumbi.png"
+        "nome": "Goblin",
+        "sprite": "Goblin.png"
+      },
+      {
+        "nome": "Tronco de árvore",
+        "sprite": "TroncoDeArvore.png"
       },
       {
         "nome": "Zumbi Mascarado",
-        "sprite": "ZumbiMascarado.png"
+        "sprite": "ZumbiMascarado.png",
+        "transformavel": {
+	        "nome": "Zumbi",
+	        "sprite": "Zumbi.png"
+      	},
+      },
+      {
+        "nome": "Cogumelo com chapéu",
+        "sprite": "CogumeloComChapeu.png"
+        "transformavel": {
+	        "nome": "Cogumelo sem chapéu",
+	        "sprite": "CogumeloSemChapeu.png"
+        }
       }
     ]
   },
@@ -39,21 +55,25 @@
       {
         "nome": "Espada de Prata",
         "sprite": "EspadaDePrata.png",
+		"tipo": "GELO",
         "audio" : "espada.wav"
       },
       {
         "nome": "Espada de Ouro",
         "sprite": "EspadaDeOuro.png",
+		"tipo": "FOGO",
         "audio" : "espada.wav"
       },
       {
         "nome": "Varinha de Fogo",
         "sprite": "VarinhaDeFogo.png",
+		"tipo": "FOGO",
         "audio":"varinha.wav"
       },
       {
         "nome": "Varinha de Gelo",
         "sprite": "VarinhaDeGelo.png",
+		"tipo": "GELO",
         "audio" : "varinha.wav"
       }
     ]
@@ -79,7 +99,7 @@
         "nome": "Veneno",
         "sprite": "Veneno.png",
         "tipo": "RUIM",
-        "info": "Envenena o herói. Heróis envenenados sofrem 1 de dano a cada rodada e são curados ao chegar em 1 de vida. Este efeito também pode ser curado com a poção de cura.",
+        "info": "Envenena o herói. heróis envenenados sofrem 1 de dano a cada rodada e são curados ao chegar em 1 de vida. Este efeito também pode ser curado com a Poção de cura.",
         "audio": "veneno.wav"
       }
     ]

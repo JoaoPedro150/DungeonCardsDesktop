@@ -5,6 +5,7 @@ import com.tsi.card.CardInteragivel;
 import com.tsi.card.CardMutavel;
 import com.tsi.card.Cards;
 import com.tsi.chars.Heroi;
+import com.tsi.chars.Inimigo;
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
@@ -17,8 +18,6 @@ import javafx.geometry.Pos;
 public class Jogo {
 	private Grid grid;
 
-	private Cards cards;
-
 	// Mantém a referência do objeto heroi.
 	private Heroi heroi;
 
@@ -30,36 +29,44 @@ public class Jogo {
 
    public Jogo() {
 	   	grid = new Grid();
-		cards = new Cards();
+	   	Cards.carregarCards();
 
 		Card card;
 
 		for (int i = 0; i < Grid.TAMANHO_X; i++)
 			for (int j = 0; j < Grid.TAMANHO_Y; j++) {
-				card = cards.getRandomCard();
+				card = Cards.getRandomCard();
 				card.setPosicao(new Posicao(i, j));
 				grid.setCard(card);
 			}
 
 		heroi = new Heroi();
 		heroi.setNome("Herói");
-		heroi.setValor(1000);
-		heroi.setPosicao(new Posicao(0, 0));
+		heroi.setValor(500);
+		heroi.setPosicao(new Posicao(1, 1));
 		heroi.setSprite(new Sprite("Medusa.png"));
 		grid.setCard(heroi);
+		grid.setPosicaoHeroi(heroi.getPosicao().clone());
 	}
 
    public void interagir() throws InteracaoException {
 	   Posicao pos = grid.interagir();
 	   Card card = grid.getCard(pos);
 
-
 	   if (card != null) {
 		   card.getAudio().play();
-		   card = ((CardInteragivel)card).interagir(heroi);
+
+		   if (heroi.getArma() == null || !(card instanceof Inimigo))
+			   card = ((CardInteragivel)card).interagir(heroi);
+		   else {
+			   card = ((CardInteragivel)card).receberAtaque(heroi.getArma());
+
+			   if (card != null)
+				   heroi.setArma(null);
+		   }
 	   }
 	   if (card == null) {
-		   card = cards.getRandomCard();
+		   card = Cards.getRandomCard();
 		   card.setPosicao(heroi.getPosicao().clone());
 		   grid.setCard(card);
 		   grid.setPosicaoHeroi(pos.clone());
@@ -69,28 +76,11 @@ public class Jogo {
 	   grid.setCard(card);
    }
 
-public Grid getGrid() {
+   public Grid getGrid() {
 	   return grid;
-   }
-
-   public Cards getCards() {
-	   return cards;
    }
 
 	public void informacao() {
 		System.out.println("Informacao");
 	}
-
-
-	private static void novaRodada() {
-        // cardsModificaveis[todos].novaRodada();
-
-        //  if cardsSobEfeitoPocao[todos] instanceof Heroi || Inimigo {
-        //    cardsSobEfeitoPocao[todos].getPocao().efeito(
-        //        cardsSobEfeitoPocao[todos]);
-        //  }
-        // }
-
-		//TODO
-    }
 }

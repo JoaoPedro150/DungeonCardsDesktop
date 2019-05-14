@@ -1,7 +1,7 @@
 package com.tsi.card;
 
 public abstract class CardDeAtaque extends CardInteragivel {
-	
+
 	public CardDeAtaque() {
 	}
     public CardDeAtaque(Card card) {

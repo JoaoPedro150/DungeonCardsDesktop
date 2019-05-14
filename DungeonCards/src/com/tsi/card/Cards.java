@@ -15,20 +15,26 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.tsi.card.Card.TipoCard;
+import com.tsi.card.CardDeAtaque.TipoArma;
 import com.tsi.chars.Heroi;
 import com.tsi.chars.Inimigo;
+import com.tsi.chars.InimigoTransformavel;
+import com.tsi.item.Arma;
 import com.tsi.item.Pocao;
 import com.tsi.ui.Audio;
 import com.tsi.ui.Sprite;
 
 @SuppressWarnings("unused")
 public class Cards {
-	private HashMap<String, Card> cards = new HashMap<>();
-	private ArrayList<String> cardsPorNome = new ArrayList<>();
+	private static HashMap<String, Card> cards = new HashMap<>();
+	private static ArrayList<String> cardsPorNome = new ArrayList<>();
 
-	public Cards() {
+	public static void carregarCards() {
 		Card card;
+		Inimigo inimigo;
+		InimigoTransformavel inimgoTransformavel;
 		Pocao pocao;
+		Arma arma;
 
         try {
         	for (Object tipos : (JSONArray) new JSONParser().parse(new FileReader("cards.json"))) {
@@ -38,8 +44,20 @@ public class Cards {
         			switch (((JSONObject)tipos).get("tipo").toString()) {
 					case "inimigos":
 						card.setAudio(new Audio(((JSONObject)tipos).get("audio").toString()));
-						cards.put(card.getNome(), new Inimigo(card));
+
+						if (((JSONObject) obj).get("transformavel") != null) {
+							inimigo = new Inimigo(parseCard((JSONObject)((JSONObject) obj).get("transformavel")));
+							inimigo.setAudio(card.getAudio());
+
+							inimgoTransformavel = new InimigoTransformavel(card, inimigo);
+							cards.put(inimgoTransformavel.getNome(), inimgoTransformavel);
+						}
+						else
+							inimigo = new Inimigo(card);
+
+						cards.put(inimigo.getNome(), inimigo);
 						cardsPorNome.add(card.getNome());
+
 						break;
 					case "pocoes":
 						pocao = new Pocao(card);
@@ -48,9 +66,14 @@ public class Cards {
 						cards.put(pocao.getNome(), pocao);
 						cardsPorNome.add(pocao.getNome());
 						break;
+					case "armas":
+	        			card.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
+	    				arma = new Arma(card);
+	    				arma.setTipoArma(TipoArma.valueOf(((JSONObject) obj).get("tipo").toString()));
+	    				cards.put(arma.getNome(), arma);
+						cardsPorNome.add(arma.getNome());
+						break;
 					}
-
-        			System.out.println(((JSONObject) obj).get("nome").toString());
         		}
             }
 
@@ -66,35 +89,13 @@ public class Cards {
         }
 	}
 
-	public Card getRandomCard() {
-		return getCard((cardsPorNome.get(new Random().nextInt(cardsPorNome.size()))));
-	}
-
-	public Card getCard(String nome) {
-		Card card = cards.get(nome);
-
-		if (card != null) {
-			try {
-				Method method = this.getClass().getDeclaredMethod("get" + nome.replace(" ", ""), Card.class);
-				method.setAccessible(true);
-
-				card = (Card) method.invoke(this, card);
-
-			} catch (NoSuchMethodException e) {
-
-			}
-			catch (IllegalAccessException | IllegalArgumentException |
-					InvocationTargetException | SecurityException e) {
-
-				e.printStackTrace();
-			}
-		}
-
-		card.setValor(new Random().nextInt(15) + 1);
+	public static Card getRandomCard() {
+		Card card = cards.get(cardsPorNome.get(new Random().nextInt(cardsPorNome.size())));
+		card.setValor(new Random().nextInt(30) + 1);
 		return card.clone();
 	}
 
-	private Card parseCard(JSONObject jsonCard) {
+	private static Card parseCard(JSONObject jsonCard) {
 		Card card = new Card();
 
 		card.setNome(jsonCard.get("nome").toString());
@@ -102,21 +103,4 @@ public class Cards {
 
 		return card;
 	}
-
-	private Inimigo getZumbiMascarado(Card card) {
-    	card.setInformacao("Transforma-se em Zumbi.");
-
-        return new Inimigo(card) {
-    		@Override
-        	public Inimigo clone() {
-        		return new Inimigo(super.clone()) {
-        			@Override
-                    public Card interagir(Heroi heroi) {
-                        Card card = super.interagir(heroi);
-                        return (card == null) ? getCard("Zumbi") : card;
-                    }
-        		};
-        	}
-        };
-    }
 }

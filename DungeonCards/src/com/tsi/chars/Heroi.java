@@ -20,6 +20,11 @@ public class Heroi extends Card {
 		setInformacao("O cavaleiro adora tomar chá enquanto lê um bom livro. Ele também gosta de matar monstros e possui muita vida.");
 	}
 
+	@Override
+	public String getNome() {
+		return super.getNome() + ((arma == null) ? "" : " (" + arma.getValor() + ")");
+	}
+
 	public Arma getArma() {
 		return arma;
 	}
