@@ -56,25 +56,29 @@
         "nome": "Espada de Prata",
         "sprite": "EspadaDePrata.png",
 		"tipo": "GELO",
-        "audio" : "espada.wav"
+        "audio" : "espada.wav",
+		"alcance": 1
       },
       {
         "nome": "Espada de Ouro",
         "sprite": "EspadaDeOuro.png",
 		"tipo": "FOGO",
-        "audio" : "espada.wav"
+        "audio" : "espada.wav",
+		"alcance": 1
       },
       {
         "nome": "Varinha de Fogo",
         "sprite": "VarinhaDeFogo.png",
 		"tipo": "FOGO",
-        "audio":"varinha.wav"
+        "audio":"varinha.wav",
+		"alcance": 2
       },
       {
         "nome": "Varinha de Gelo",
         "sprite": "VarinhaDeGelo.png",
 		"tipo": "GELO",
-        "audio" : "varinha.wav"
+        "audio" : "varinha.wav",
+		"alcance": 2
       }
     ]
   },

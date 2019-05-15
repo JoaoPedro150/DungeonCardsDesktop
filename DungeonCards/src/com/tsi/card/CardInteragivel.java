@@ -19,11 +19,13 @@ public abstract class CardInteragivel extends Card {
 	}
 
 	protected Card receberAtaque(Card card) {
-		if (getValor() - card.getValor() <= 0)
-			return null;
-		else
-			setValor(getValor() - card.getValor());
+		int vidaRestante = getValor() - card.getValor();
 
-		return this;
+		if (vidaRestante <= 0)
+			return null;
+		else {
+			setValor(vidaRestante);
+			return this;
+		}
 	}
 }

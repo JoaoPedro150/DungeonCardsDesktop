@@ -23,14 +23,18 @@ public class InimigoTransformavel extends Inimigo {
 
 	@Override
 	public Card interagir(Heroi heroi) {
-		Inimigo inimigo = (Inimigo) super.interagir(heroi);
+		if (heroi.getArma() != null) {
+			Inimigo inimigo = (Inimigo) super.interagir(heroi);
 
-		if (inimigo == null) {
-			inimigoATransformar.setValor(new Random().nextInt((getValor() > 1) ? getValor() - 1 : getValor()) + 1);
-			return inimigoATransformar.clone();
+			if (inimigo == null) {
+				inimigoATransformar.setValor(new Random().nextInt((getValor() > 1) ? getValor() - 1 : getValor()) + 1);
+				return inimigoATransformar.clone();
+			}
+			else
+				return inimigo;
 		}
 		else
-			return inimigo;
+			return super.interagir(heroi);
 	}
 
 	@Override

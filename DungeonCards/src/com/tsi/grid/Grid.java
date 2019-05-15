@@ -1,7 +1,6 @@
 package com.tsi.grid;
 
 import com.tsi.card.Card;
-import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 
 public class Grid {
@@ -10,7 +9,7 @@ public class Grid {
 	private int[][] grid;
 
 	//Coordenada x(posicao 0), y(posicao 1)
-	private Posicao posicaoCursor, posicaoHeroi;
+	private Posicao posicaoCursor;
 
 	public static final int CIMA = 1, BAIXO = 2, DIREITA = 3, ESQUERDA = 4;
 	public static final int TAMANHO_X = 3, TAMANHO_Y = 3;
@@ -21,7 +20,10 @@ public class Grid {
 		cards = new Card[TAMANHO_X][TAMANHO_Y];
 		grid = new int[TAMANHO_X][TAMANHO_Y];
 		posicaoCursor = new Posicao();
-		posicaoHeroi = new Posicao();
+	}
+	public Grid(Posicao posicaoDeInicio) {
+		this();
+		posicaoCursor = posicaoDeInicio;
 	}
 
 	public Posicao moverCursor(int direcao) throws MovimentoException {
@@ -59,18 +61,6 @@ public class Grid {
 		return posicaoCursor;
 	}
 
-	public Posicao interagir() throws InteracaoException {
-		Boolean interacao = posicaoCursor.isAdjacente(posicaoHeroi);
-		if (interacao == Boolean.TRUE) {
-			System.out.println("Interagiu com " + posicaoCursor.toString());
-			return posicaoCursor.clone();
-		}
-		else if(interacao == null)
-			throw new InteracaoException("Interação com o próprio herói.");
-
-		throw new InteracaoException();
-	}
-
 	public Posicao getPosicaoCursor() {
 		return posicaoCursor;
 	}
@@ -81,10 +71,6 @@ public class Grid {
 
 	public void setCard(Card card) {
 		cards[card.getPosicao().getX()][card.getPosicao().getY()] = card;
-	}
-
-	public void setPosicaoHeroi(Posicao posicaoHeroi) {
-		this.posicaoHeroi = posicaoHeroi;
 	}
 
 	public void removeCard(Posicao posicao) {

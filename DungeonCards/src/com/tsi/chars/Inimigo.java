@@ -1,9 +1,7 @@
 package com.tsi.chars;
 
 import com.tsi.card.Card;
-import com.tsi.card.CardDeAtaque;
 import com.tsi.card.CardInteragivel;
-import com.tsi.item.Arma;
 
 public class Inimigo extends CardInteragivel {
 	public Inimigo() {
@@ -16,24 +14,27 @@ public class Inimigo extends CardInteragivel {
 	}
 
 	@Override
-	public Card receberAtaque(CardDeAtaque cardAtaque) {
-		if (cardAtaque instanceof Arma)
-			return lutar(cardAtaque);
-		else
-			return receberAtaque(cardAtaque);
-	}
-
-	@Override
 	public Card interagir(Heroi heroi) {
-		return lutar(heroi);
-	}
+		if (heroi.getArma() == null) {
+			Inimigo inimigo = (Inimigo)receberAtaque(heroi);
 
-	protected Inimigo lutar(Card card) {
-		Inimigo inimigo = (Inimigo)receberAtaque(card);
+			heroi.setValor(heroi.getValor() - getValor());
 
-		card.setValor(card.getValor() - getValor());
+			return inimigo;
+		}
+		else {
+			int vidaRestante = getValor() - heroi.getArma().getValor();
 
-		return inimigo;
+			heroi.getArma().setValor(heroi.getArma().getValor() - getValor());
+
+			if (vidaRestante <= 0) {
+				return null;
+			}
+			else {
+				setValor(vidaRestante);
+				return this;
+			}
+		}
 	}
 
 	@Override

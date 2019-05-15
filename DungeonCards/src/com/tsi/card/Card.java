@@ -5,7 +5,7 @@ import com.tsi.ui.Audio;
 import com.tsi.ui.Sprite;
 
 
-public class Card {
+public abstract class Card {
 	/**Objeto sprite que representa o card*/
 	private Sprite sprite;
 
@@ -97,9 +97,14 @@ public class Card {
 		this.audio = audio;
 	}
 
+	public static Card getInstance() {
+		return new Card() {
+		};
+	}
+
 	@Override
 	public Card clone() {
-		Card card = new Card();
+		Card card = Card.getInstance();
 		card.setInformacao(informacao);
 		card.setNome(nome);
 

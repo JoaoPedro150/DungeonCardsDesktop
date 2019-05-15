@@ -6,6 +6,7 @@ import com.tsi.card.CardMutavel;
 import com.tsi.card.Cards;
 import com.tsi.chars.Heroi;
 import com.tsi.chars.Inimigo;
+import com.tsi.chars.InimigoTransformavel;
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
@@ -27,8 +28,10 @@ public class Jogo {
    // Mantém a referência dos objetos que estão sob efeito de alguma pocao.
    private Card cardsSobEfeitoPocao[];
 
+   private static final Posicao POSICAO_DE_INICIO = new Posicao(1, 1);
+
    public Jogo() {
-	   	grid = new Grid();
+	   	grid = new Grid(POSICAO_DE_INICIO);
 	   	Cards.carregarCards();
 
 		Card card;
@@ -43,37 +46,40 @@ public class Jogo {
 		heroi = new Heroi();
 		heroi.setNome("Herói");
 		heroi.setValor(500);
-		heroi.setPosicao(new Posicao(1, 1));
+		heroi.setPosicao(POSICAO_DE_INICIO.clone());
 		heroi.setSprite(new Sprite("Medusa.png"));
 		grid.setCard(heroi);
-		grid.setPosicaoHeroi(heroi.getPosicao().clone());
 	}
 
    public void interagir() throws InteracaoException {
-	   Posicao pos = grid.interagir();
-	   Card card = grid.getCard(pos);
+	   Boolean interacao = grid.getPosicaoCursor().isAdjacente(heroi.getPosicao());
 
-	   if (card != null) {
-		   card.getAudio().play();
+		if (interacao == Boolean.TRUE) {
+			Card card = grid.getCard(grid.getPosicaoCursor());
 
-		   if (heroi.getArma() == null || !(card instanceof Inimigo))
+			System.out.println(heroi.getNome() + " interagiu com " + card.getNome());
+
+		   if (card != null) {
 			   card = ((CardInteragivel)card).interagir(heroi);
-		   else {
-			   card = ((CardInteragivel)card).receberAtaque(heroi.getArma());
 
-			   if (card != null)
+			   if (heroi.getArma() != null && heroi.getArma().getValor() <= 0)
 				   heroi.setArma(null);
 		   }
-	   }
-	   if (card == null) {
-		   card = Cards.getRandomCard();
-		   card.setPosicao(heroi.getPosicao().clone());
+		   if (card == null) {
+			   card = Cards.getRandomCard();
+			   card.setPosicao(heroi.getPosicao().clone());
+			   grid.setCard(card);
+			   card = heroi;
+		   }
+
+		   card.setPosicao(grid.getPosicaoCursor().clone());
 		   grid.setCard(card);
-		   grid.setPosicaoHeroi(pos.clone());
-		   card = heroi;
-	   }
-	   card.setPosicao(pos);
-	   grid.setCard(card);
+		   return;
+		}
+		else if(interacao == null)
+			throw new InteracaoException("Interação com o próprio herói.");
+
+		throw new InteracaoException();
    }
 
    public Grid getGrid() {

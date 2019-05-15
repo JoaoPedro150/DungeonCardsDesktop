@@ -70,6 +70,7 @@ public class Cards {
 	        			card.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
 	    				arma = new Arma(card);
 	    				arma.setTipoArma(TipoArma.valueOf(((JSONObject) obj).get("tipo").toString()));
+	    				arma.setAlcance(Integer.valueOf(((JSONObject) obj).get("alcance").toString()));
 	    				cards.put(arma.getNome(), arma);
 						cardsPorNome.add(arma.getNome());
 						break;
@@ -96,7 +97,7 @@ public class Cards {
 	}
 
 	private static Card parseCard(JSONObject jsonCard) {
-		Card card = new Card();
+		Card card = Card.getInstance();
 
 		card.setNome(jsonCard.get("nome").toString());
 		card.setSprite(new Sprite(jsonCard.get("sprite").toString()));
