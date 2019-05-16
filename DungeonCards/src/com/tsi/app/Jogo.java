@@ -1,5 +1,7 @@
 package com.tsi.app;
 
+import java.io.IOException;
+
 import com.tsi.card.Card;
 import com.tsi.card.CardInteragivel;
 import com.tsi.card.CardMutavel;
@@ -11,6 +13,7 @@ import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
+import com.tsi.ui.Ajuda;
 import com.tsi.ui.Sprite;
 
 import javafx.geometry.Pos;
@@ -27,6 +30,8 @@ public class Jogo {
 
    // Mantém a referência dos objetos que estão sob efeito de alguma pocao.
    private Card cardsSobEfeitoPocao[];
+   
+   private Ajuda ajuda;
 
    private static final Posicao POSICAO_DE_INICIO = new Posicao(1, 1);
 
@@ -49,11 +54,12 @@ public class Jogo {
 		heroi.setPosicao(POSICAO_DE_INICIO.clone());
 		heroi.setSprite(new Sprite("Medusa.png"));
 		grid.setCard(heroi);
+		ajuda = new Ajuda(DungeonCards.getStage());
 	}
 
-   public void interagir() throws InteracaoException {
+   public boolean interagir() throws InteracaoException {
 	   Boolean interacao = grid.getPosicaoCursor().isAdjacente(heroi.getPosicao());
-
+	   boolean movimentoHeroi = false;
 		if (interacao == Boolean.TRUE) {
 			Card card = grid.getCard(grid.getPosicaoCursor());
 
@@ -70,23 +76,31 @@ public class Jogo {
 			   card.setPosicao(heroi.getPosicao().clone());
 			   grid.setCard(card);
 			   card = heroi;
+			   movimentoHeroi = true;
 		   }
 
 		   card.setPosicao(grid.getPosicaoCursor().clone());
 		   grid.setCard(card);
-		   return;
+		   return movimentoHeroi;
 		}
 		else if(interacao == null)
 			throw new InteracaoException("Interação com o próprio herói.");
 
 		throw new InteracaoException();
    }
+   
 
    public Grid getGrid() {
 	   return grid;
    }
 
 	public void informacao() {
-		System.out.println("Informacao");
+		Card card = grid.getCard(grid.getPosicaoCursor());
+		ajuda.exibirAjuda(card.getInformacao(), card.getNome());
+		
+	}
+
+	public void fecharInfo() {
+		ajuda.esconderAjuda();
 	}
 }

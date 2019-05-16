@@ -29,20 +29,21 @@ public class Controle {
 
 
 				if(event.getCode() == KeyCode.SPACE) {
-					game.interagir();
+					game.alterarModo();
+					
 				}
 				else {
 					switch(event.getCode()) {
 					case DOWN:
-						game.moverCursor(Grid.BAIXO);
+						game.mover(Grid.BAIXO);
 							break;
 					case UP:
-						game.moverCursor(Grid.CIMA); break;
+						game.mover(Grid.CIMA); break;
 					case LEFT:
-						game.moverCursor(Grid.ESQUERDA); break;
+						game.mover(Grid.ESQUERDA); break;
 
 					case RIGHT:
-						game.moverCursor(Grid.DIREITA); break;
+						game.mover(Grid.DIREITA); break;
 					default:
 						break;
 
@@ -72,7 +73,8 @@ public class Controle {
 		 * que a tecla foi segurada.*/
 		scene.setOnKeyReleased(espaco -> {
 			if(keyCombination.match(espaco) && contador.get() > 1.5) {
-				game.informacao();
+				game.alterarModo();
+				//game.informacao();
 
 			}
 			contador.set(0);

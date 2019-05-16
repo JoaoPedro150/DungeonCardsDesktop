@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
+import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
 import com.tsi.ui.CardPane;
 import com.tsi.ui.Controle;
@@ -21,6 +22,7 @@ public class DungeonCards extends Application {
 	private static Stage stage;
 	private Controle controle;
 	private Jogo jogo;
+	private boolean cursorLivre;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -54,7 +56,7 @@ public class DungeonCards extends Application {
 			DungeonCards.stage = stage;
 
 			stage.setScene(scene);
-			
+
 			Platform.runLater(() ->  atualizar());
 
 			controle = new Controle(this);
@@ -69,13 +71,16 @@ public class DungeonCards extends Application {
 
 	}
 
-	public void interagir() {
+	public boolean interagir() {
 		try {
-			jogo.interagir();
+			boolean movimentoHeroi = jogo.interagir();
 			Platform.runLater(() ->  atualizar());
 
+
+			return movimentoHeroi;
 		}catch(InteracaoException e) {
 			System.out.println(e);
+			return false;
 		}
 	}
 
@@ -85,18 +90,20 @@ public class DungeonCards extends Application {
 				obterCard(new Posicao(i, j)).setCard(jogo.getGrid().getCard(new Posicao(i, j)));
 	}
 
-	public void informacao() {
-		System.out.println("Informacao");
+	public void alterarModo() {
+		cursorLivre = !cursorLivre;
+		if(!cursorLivre) jogo.fecharInfo();
 	}
 
-
-	public boolean moverCursor(int movimento) {
+	private boolean moverCursor(int movimento) {
 
 		try {
-			Posicao posicaoAnterior = new Posicao(jogo.getGrid().getPosicaoCursor().getX(),
-					jogo.getGrid().getPosicaoCursor().getY());
+			Posicao posicaoAnterior = jogo.getGrid().getPosicaoCursor().clone();
 
 			jogo.getGrid().moverCursor(movimento);
+
+			//Este método não deve colorir a celúla se o modo livre do cursor não estiver ativado
+			//if(!cursorAtivado)
 
 			colorirCelula(posicaoAnterior);
 
@@ -105,10 +112,36 @@ public class DungeonCards extends Application {
 			System.out.println(e);
 			return false;
 		}
+	}
+
+
+	public boolean mover(int direcao) {
+		//Tenta mover o cursor. Aqui verifica se excede os limites do grid
+		if(!moverCursor(direcao)) return false;
+
+		//Aqui vê se o cursor se move junto com o herói ou se está no modo livre. 
+		if(cursorLivre == false) {
+
+			//Tenta interagir
+			if(!interagir()) 
+				//Se entrou aqui o herói não se moveu, então desfaz o movimento do jogador no cursor
+				moverCursor(Grid.inverterDirecao(direcao));
+		}
+
+		else {
+			//Se o cursor estiver livre, apenas exibe a informação da celula na 
+			//posicao atual do cursor
+			jogo.informacao();
+		}
+
+		return true;
 
 	}
 
 	/*AVISO: Os métodos abaixo podem não estar nas classes corretas. Temos que pensar onde encaixá-los.*/
+
+
+
 
 	/**Transforma uma posição do grid na tag FXML do painel que corresponde a essa posição.
 	 * Por exemplo: Posicão (x=0, y=2), corresponde ao painel de tag "#pane20";

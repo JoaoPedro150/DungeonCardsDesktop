@@ -16,7 +16,6 @@ public class Posicao {
 
 	}
 
-
 	public int getX() {
 		return x;
 	}

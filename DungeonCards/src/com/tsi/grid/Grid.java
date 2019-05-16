@@ -46,6 +46,16 @@ public class Grid {
 		}
 	}
 
+	public static int inverterDirecao(int direcao) {
+		switch (direcao) {
+		case BAIXO: return CIMA;
+		case CIMA: return BAIXO;
+		case DIREITA: return ESQUERDA;
+		case ESQUERDA: return DIREITA;
+		default: return 0;
+		}
+	}
+
 	private Posicao moverCursor(int x, int y) throws MovimentoException{
 		int oldX = posicaoCursor.getX(), oldY = posicaoCursor.getY();
 		try {
