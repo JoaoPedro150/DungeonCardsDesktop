@@ -9,8 +9,12 @@
 	-fx-border-width: 1.7;
 }
 
-.colorBlock{
+.colorBlockYellow{
 	-fx-border-color: #b1850c !important;
+}
+
+.colorBlockRed{
+	-fx-border-color: #772408 !important;
 }
 
 #gridPane CardPane Text{

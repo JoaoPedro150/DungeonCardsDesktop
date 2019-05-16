@@ -46,6 +46,7 @@ public class Grid {
 		}
 	}
 
+
 	public static int inverterDirecao(int direcao) {
 		switch (direcao) {
 		case BAIXO: return CIMA;
@@ -69,6 +70,14 @@ public class Grid {
 		}
 
 		return posicaoCursor;
+	}
+
+	public void moverCursor(Posicao posicao){
+		int oldX = posicaoCursor.getX(), oldY = posicaoCursor.getY();
+		grid[oldX][oldY] = 0;
+		grid[posicao.getX()][posicao.getY()] = 1;
+		posicaoCursor.setX(posicao.getX());
+		posicaoCursor.setY(posicao.getY());
 	}
 
 	public Posicao getPosicaoCursor() {

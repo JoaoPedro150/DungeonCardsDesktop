@@ -30,7 +30,7 @@ public class Jogo {
 
    // Mantém a referência dos objetos que estão sob efeito de alguma pocao.
    private Card cardsSobEfeitoPocao[];
-   
+
    private Ajuda ajuda;
 
    private static final Posicao POSICAO_DE_INICIO = new Posicao(1, 1);
@@ -54,7 +54,7 @@ public class Jogo {
 		heroi.setPosicao(POSICAO_DE_INICIO.clone());
 		heroi.setSprite(new Sprite("Medusa.png"));
 		grid.setCard(heroi);
-		ajuda = new Ajuda(DungeonCards.getStage());
+		ajuda = Ajuda.getInstance(DungeonCards.getStage());
 	}
 
    public boolean interagir() throws InteracaoException {
@@ -88,7 +88,7 @@ public class Jogo {
 
 		throw new InteracaoException();
    }
-   
+
 
    public Grid getGrid() {
 	   return grid;
@@ -97,10 +97,11 @@ public class Jogo {
 	public void informacao() {
 		Card card = grid.getCard(grid.getPosicaoCursor());
 		ajuda.exibirAjuda(card.getInformacao(), card.getNome());
-		
+
 	}
 
 	public void fecharInfo() {
 		ajuda.esconderAjuda();
+
 	}
 }

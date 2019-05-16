@@ -12,8 +12,10 @@ public class Ajuda {
 	private BorderPane root;
 	private Stage primaryStage;
 	private Popup popUp;
-	
-	public Ajuda(Stage primaryStage) {
+
+	private static Ajuda ajuda;
+
+	private Ajuda(Stage primaryStage) {
 		try {
 			popUp = new Popup();
 			root = (BorderPane)FXMLLoader.load(getClass().getResource("/com/tsi/app/ajuda.fxml"));
@@ -27,21 +29,22 @@ public class Ajuda {
 
 	}
 
+	public static Ajuda getInstance(final Stage primaryStage){
+		return ajuda == null ? new Ajuda(primaryStage) : ajuda;
+	}
+
 	public void exibirAjuda(String texto, String titulo) {
-		
-		System.out.println("opa");
-		System.out.println(root);
 		Label top = (Label) root.getTop(),
 				center = (Label) root.getCenter();
 
 		top.setText(titulo);
 		center.setText(texto);
-		
-		
+
+
 		if(!popUp.isShowing()) popUp.show(primaryStage);
 
 	}
-	
+
 	public void esconderAjuda() {
 		popUp.hide();
 	}

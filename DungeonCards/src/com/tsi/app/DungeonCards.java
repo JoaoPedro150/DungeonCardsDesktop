@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -24,7 +25,9 @@ public class DungeonCards extends Application {
 	private Jogo jogo;
 	private boolean cursorLivre;
 
-	@Override
+	private Posicao posicaoHeroi = null;
+
+	@Override 
 	public void start(Stage primaryStage) throws Exception {
 
 		inicializar(primaryStage);
@@ -44,6 +47,7 @@ public class DungeonCards extends Application {
 		stage.setHeight(600);
 		stage.setTitle("Dungeon Cards");
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.getIcons().add(new Image("/com/tsi/sprites/GameIcon.png"));
 		colorirCelula(null);
 	}
 
@@ -91,9 +95,25 @@ public class DungeonCards extends Application {
 	}
 
 	public void alterarModo() {
+		//Muda a variável de instância
 		cursorLivre = !cursorLivre;
-		if(!cursorLivre) jogo.fecharInfo();
+
+		if(!cursorLivre) fecharInfo();
+
+		else
+			posicaoHeroi = jogo.getGrid().getPosicaoCursor().clone();
+
+		colorirCelula(jogo.getGrid().getPosicaoCursor());
 	}
+
+	public void fecharInfo(){
+		jogo.fecharInfo();
+		Posicao posicaoAnterior = jogo.getGrid().getPosicaoCursor().clone();
+		jogo.getGrid().moverCursor(posicaoHeroi);
+		colorirCelula(posicaoAnterior);
+	}
+
+
 
 	private boolean moverCursor(int movimento) {
 
@@ -101,9 +121,6 @@ public class DungeonCards extends Application {
 			Posicao posicaoAnterior = jogo.getGrid().getPosicaoCursor().clone();
 
 			jogo.getGrid().moverCursor(movimento);
-
-			//Este método não deve colorir a celúla se o modo livre do cursor não estiver ativado
-			//if(!cursorAtivado)
 
 			colorirCelula(posicaoAnterior);
 
@@ -119,17 +136,17 @@ public class DungeonCards extends Application {
 		//Tenta mover o cursor. Aqui verifica se excede os limites do grid
 		if(!moverCursor(direcao)) return false;
 
-		//Aqui vê se o cursor se move junto com o herói ou se está no modo livre. 
+		//Aqui vê se o cursor se move junto com o herói ou se está no modo livre.
 		if(cursorLivre == false) {
 
 			//Tenta interagir
-			if(!interagir()) 
+			if(!interagir())
 				//Se entrou aqui o herói não se moveu, então desfaz o movimento do jogador no cursor
 				moverCursor(Grid.inverterDirecao(direcao));
 		}
 
 		else {
-			//Se o cursor estiver livre, apenas exibe a informação da celula na 
+			//Se o cursor estiver livre, apenas exibe a informação da celula na
 			//posicao atual do cursor
 			jogo.informacao();
 		}
@@ -161,18 +178,23 @@ public class DungeonCards extends Application {
 	 * @param posicaoAnterior posição anterior que deve ser descolorida no grid.
 	 * Pode ser passado <b>null</b> caso não se deseje apagar a posição anteriormente colorida
 	 */
-	private void colorirCelula(Posicao posicaoAnterior) {
-
+	private void colorirCelula(final Posicao posicaoAnterior) {
+		String paneIDAnterior = null;
 		//Apaga a cor de seleção da célula antes selecionada
 		if(posicaoAnterior != null) {
-			String paneIDAnterior = formatarPaneTag(posicaoAnterior);
-			scene.lookup(paneIDAnterior).getStyleClass().remove("colorBlock");
+			paneIDAnterior = formatarPaneTag(posicaoAnterior);
+
+			scene.lookup(paneIDAnterior).getStyleClass().remove("colorBlockYellow");
+			scene.lookup(paneIDAnterior).getStyleClass().remove("colorBlockRed");
 		}
 
 		//Acende a cor na célula do grid atual
 		String paneID = formatarPaneTag(jogo.getGrid().getPosicaoCursor());
-		scene.lookup(paneID).getStyleClass().add("colorBlock");
 
+		//Colore o seletor de acordo com o contexto do cursor.
+		scene.lookup(paneID).getStyleClass().add(cursorLivre ? "colorBlockRed" : "colorBlockYellow");
+
+		System.out.println("PID " + paneID +"\nPIDA " + paneIDAnterior);
 	}
 
 	public static void main(String[] args) {
