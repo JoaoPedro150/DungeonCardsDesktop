@@ -11,7 +11,7 @@ Trabalho de Linguagem de Programação Visual, cujo objetivo é desenvolver uma 
   -João Pedro Fonseca Diniz  
   -Hugo Leonardo Bianchetti  
   -Eva Costa De Melo  
-  -Ramon Giovani Dias Rosa  
+  -Ramon Giovane Dias Rosa  
 
 ## Link pro jogo original 
 
