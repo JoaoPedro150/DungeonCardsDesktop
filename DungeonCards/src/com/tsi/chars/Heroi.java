@@ -3,7 +3,6 @@ package com.tsi.chars;
 import com.tsi.card.Card;
 import com.tsi.item.Arma;
 import com.tsi.item.Pocao;
-import com.tsi.ui.Sprite;
 
 public class Heroi extends Card {
 
@@ -16,7 +15,6 @@ public class Heroi extends Card {
 	public Heroi() {
 		setValor(10);
 		setNome("Herói");
-		setSprite(new Sprite("Esqueleto.png"));
 		setInformacao("O cavaleiro adora tomar chá enquanto lê um bom livro. Ele também gosta de matar monstros e possui muita vida.");
 	}
 

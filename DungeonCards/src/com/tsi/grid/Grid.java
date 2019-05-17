@@ -30,16 +30,12 @@ public class Grid {
 
 		switch(direcao) {
 		case BAIXO:
-			System.out.println("Down");
 			return moverCursor(0, 1);
 		case CIMA:
-			System.out.println("Up");
 			return moverCursor(0, -1);
 		case ESQUERDA:
-			System.out.println("Left");
 			return moverCursor(-1, 0);
 		case DIREITA:
-			System.out.println("Right");
 			return moverCursor(1, 0);
 		default:
 			throw new MovimentoException();

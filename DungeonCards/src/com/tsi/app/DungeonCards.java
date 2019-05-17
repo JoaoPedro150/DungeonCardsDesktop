@@ -27,7 +27,7 @@ public class DungeonCards extends Application {
 
 	private Posicao posicaoHeroi = null;
 
-	@Override 
+	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		inicializar(primaryStage);
@@ -45,6 +45,8 @@ public class DungeonCards extends Application {
 	private void estilizar() {
 		stage.setWidth(500);
 		stage.setHeight(600);
+		stage.setMinWidth(500);
+		stage.setMinHeight(600);
 		stage.setTitle("Dungeon Cards");
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.getIcons().add(new Image("/com/tsi/sprites/GameIcon.png"));
@@ -69,7 +71,6 @@ public class DungeonCards extends Application {
 			estilizar();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -193,8 +194,6 @@ public class DungeonCards extends Application {
 
 		//Colore o seletor de acordo com o contexto do cursor.
 		scene.lookup(paneID).getStyleClass().add(cursorLivre ? "colorBlockRed" : "colorBlockYellow");
-
-		System.out.println("PID " + paneID +"\nPIDA " + paneIDAnterior);
 	}
 
 	public static void main(String[] args) {

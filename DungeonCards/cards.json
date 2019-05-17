@@ -1,6 +1,6 @@
 [
   {
-    "tipo": "inimigos",
+    "tipo": "inimigo",
     "audio": "ataque.wav",
     "lista": [
       {
@@ -28,7 +28,7 @@
         "sprite": "Goblin.png"
       },
       {
-        "nome": "Tronco de ·rvore",
+        "nome": "Tronco de √°rvore",
         "sprite": "TroncoDeArvore.png"
       },
       {
@@ -40,17 +40,17 @@
       	},
       },
       {
-        "nome": "Cogumelo com chapÈu",
+        "nome": "Cogumelo",
         "sprite": "CogumeloComChapeu.png"
         "transformavel": {
-	        "nome": "Cogumelo sem chapÈu",
+	        "nome": "Cogumelo sem chap√©u",
 	        "sprite": "CogumeloSemChapeu.png"
         }
       }
     ]
   },
   {
-    "tipo": "armas",
+    "tipo": "arma",
     "lista": [
       {
         "nome": "Espada de Prata",
@@ -63,6 +63,13 @@
         "nome": "Espada de Ouro",
         "sprite": "EspadaDeOuro.png",
 		"tipo": "FOGO",
+        "audio" : "espada.wav",
+		"alcance": 1
+      },
+	  {
+        "nome": "Espada Vampiro",
+        "sprite": "EspadaAzul.png",
+		"tipo": "GELO",
         "audio" : "espada.wav",
 		"alcance": 1
       },
@@ -83,27 +90,27 @@
     ]
   },
   {
-    "tipo": "pocoes",
+    "tipo": "pocao",
     "lista": [
       {
-        "nome": "PoÁ„o Azul",
+        "nome": "Po√ß√£o Azul",
         "sprite": "PocaoAzul.png",
         "tipo": "BOM",
-        "info": "Cura o herÛi ao longo do tempo. Anula o efeito do veneno.",
+        "info": "Cura o her√≥i ao longo do tempo. Anula o efeito do veneno.",
         "audio": "pocao.wav"
       },
       {
-        "nome": "PoÁ„o Vermelha",
+        "nome": "Po√ß√£o Vermelha",
         "sprite": "PocaoVermelha.png",
         "tipo": "BOM",
-        "info": "Cura o herÛi. Anula o efeito do veneno.",
+        "info": "Cura o her√≥i. Anula o efeito do veneno.",
         "audio": "pocao.wav"
         },
       {
         "nome": "Veneno",
         "sprite": "Veneno.png",
         "tipo": "RUIM",
-        "info": "Envenena o herÛi. herÛis envenenados sofrem 1 de dano a cada rodada e s„o curados ao chegar em 1 de vida. Este efeito tambÈm pode ser curado com a PoÁ„o de cura.",
+        "info": "Envenena o her√≥i. Her√≥is envenenados sofrem 1 de dano a cada rodada e s√£o curados ao chegar em 1 de vida. Este efeito tamb√©m pode ser curado com a Po√ß√£o de cura.",
         "audio": "veneno.wav"
       }
     ]
@@ -116,6 +123,21 @@
         "nome": "Moeda",
         "sprite": "Moeda.png",
         "audio": "coins.wav"
+      }
+    ]
+  },
+  {
+    "tipo": "bau",
+    "lista": [
+      {
+        "nome": "Ba√∫ bom",
+        "sprite": "BauBom.png",
+		"tipo": "BOM"
+      },
+	  {
+        "nome": "Ba√∫ ruim",
+        "sprite": "BauRuim.png",
+		"tipo": "RUIM",
       }
     ]
   }

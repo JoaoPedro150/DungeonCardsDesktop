@@ -16,6 +16,8 @@ public abstract class CardDeAtaque extends CardInteragivel {
 	}
     public void setTipoArma(TipoArma tipoArma) {
 		this.tipoArma = tipoArma;
+
+		setInformacao("Causa dano e absorve poder de " + tipoArma.toString().toLowerCase() + ".");
 	}
     public int getAlcance() {
 		return alcance;

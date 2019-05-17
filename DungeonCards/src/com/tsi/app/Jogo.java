@@ -6,6 +6,7 @@ import com.tsi.card.Card;
 import com.tsi.card.CardInteragivel;
 import com.tsi.card.CardMutavel;
 import com.tsi.card.Cards;
+import com.tsi.card.Card.TipoCard;
 import com.tsi.chars.Heroi;
 import com.tsi.chars.Inimigo;
 import com.tsi.chars.InimigoTransformavel;
@@ -35,6 +36,9 @@ public class Jogo {
 
    private static final Posicao POSICAO_DE_INICIO = new Posicao(1, 1);
 
+   private int qtdCardsRuim = 0;
+   private int qtdCardsBom = 0;
+
    public Jogo() {
 	   	grid = new Grid(POSICAO_DE_INICIO);
 	   	Cards.carregarCards();
@@ -43,7 +47,7 @@ public class Jogo {
 
 		for (int i = 0; i < Grid.TAMANHO_X; i++)
 			for (int j = 0; j < Grid.TAMANHO_Y; j++) {
-				card = Cards.getRandomCard();
+				card = getRandomCard();
 				card.setPosicao(new Posicao(i, j));
 				grid.setCard(card);
 			}
@@ -57,27 +61,57 @@ public class Jogo {
 		ajuda = Ajuda.getInstance(DungeonCards.getStage());
 	}
 
+   private Card getRandomCard() {
+	   Card card;
+
+	   if (qtdCardsRuim - qtdCardsBom > 1) {
+			card = Cards.getRandomCard(TipoCard.BOM);
+			qtdCardsBom++;
+		}
+		else if (qtdCardsBom - qtdCardsRuim > 1) {
+			card = Cards.getRandomCard(TipoCard.RUIM);
+			qtdCardsRuim++;
+		}
+		else {
+			card = Cards.getRandomCard();
+
+			if (card.getTipoCard().equals(TipoCard.BOM))
+				qtdCardsBom++;
+			else
+				qtdCardsRuim++;
+		}
+
+	   return card;
+   }
+
    public boolean interagir() throws InteracaoException {
 	   Boolean interacao = grid.getPosicaoCursor().isAdjacente(heroi.getPosicao());
 	   boolean movimentoHeroi = false;
+
 		if (interacao == Boolean.TRUE) {
 			Card card = grid.getCard(grid.getPosicaoCursor());
-
-			System.out.println(heroi.getNome() + " interagiu com " + card.getNome());
+			Card resultadoInteracao = null;
 
 		   if (card != null) {
-			   card = ((CardInteragivel)card).interagir(heroi);
+			   resultadoInteracao = ((CardInteragivel)card).interagir(heroi);
 
 			   if (heroi.getArma() != null && heroi.getArma().getValor() <= 0)
 				   heroi.setArma(null);
 		   }
-		   if (card == null) {
-			   card = Cards.getRandomCard();
+		   if (resultadoInteracao == null) {
+			   if (card.getTipoCard().equals(TipoCard.BOM))
+					qtdCardsBom--;
+				else
+					qtdCardsRuim--;
+
+			   card = getRandomCard();
 			   card.setPosicao(heroi.getPosicao().clone());
 			   grid.setCard(card);
 			   card = heroi;
 			   movimentoHeroi = true;
 		   }
+		   else
+			   card = resultadoInteracao;
 
 		   card.setPosicao(grid.getPosicaoCursor().clone());
 		   grid.setCard(card);

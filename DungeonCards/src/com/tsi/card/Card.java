@@ -111,8 +111,7 @@ public abstract class Card {
 		if (posicao != null)
 			card.setPosicao(posicao.clone());
 
-		if (sprite != null)
-			card.setSprite(sprite.clone());
+		card.setSprite(sprite);
 
 		if (tipo != null)
 			card.setTipoCard(TipoCard.valueOf(tipo.toString()));

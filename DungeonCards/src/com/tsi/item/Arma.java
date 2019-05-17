@@ -8,8 +8,13 @@ public class Arma extends CardDeAtaque {
 
 	public Arma(Card card) {
 		super(card);
+		inicializar();
 	}
 	public Arma() {
+		inicializar();
+	}
+
+	public void inicializar() {
 		setTipoCard(TipoCard.BOM);
 	}
 

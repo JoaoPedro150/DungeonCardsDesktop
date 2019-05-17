@@ -1,10 +1,7 @@
 package com.tsi.card;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -16,25 +13,26 @@ import org.json.simple.parser.ParseException;
 
 import com.tsi.card.Card.TipoCard;
 import com.tsi.card.CardDeAtaque.TipoArma;
-import com.tsi.chars.Heroi;
 import com.tsi.chars.Inimigo;
 import com.tsi.chars.InimigoTransformavel;
 import com.tsi.item.Arma;
 import com.tsi.item.Pocao;
+import com.tsi.itemespecial.Bau;
 import com.tsi.ui.Audio;
 import com.tsi.ui.Sprite;
 
-@SuppressWarnings("unused")
 public class Cards {
 	private static HashMap<String, Card> cards = new HashMap<>();
 	private static ArrayList<String> cardsPorNome = new ArrayList<>();
+	private static ArrayList<String> cardsRuim = new ArrayList<>();
+	private static ArrayList<String> cardsBom = new ArrayList<>();
 
 	public static void carregarCards() {
 		Card card;
 		Inimigo inimigo;
-		InimigoTransformavel inimgoTransformavel;
 		Pocao pocao;
 		Arma arma;
+		Bau bau;
 
         try {
         	for (Object tipos : (JSONArray) new JSONParser().parse(new FileReader("cards.json"))) {
@@ -42,57 +40,76 @@ public class Cards {
         			card = parseCard((JSONObject) obj);
 
         			switch (((JSONObject)tipos).get("tipo").toString()) {
-					case "inimigos":
+					case "inimigo":
 						card.setAudio(new Audio(((JSONObject)tipos).get("audio").toString()));
 
 						if (((JSONObject) obj).get("transformavel") != null) {
 							inimigo = new Inimigo(parseCard((JSONObject)((JSONObject) obj).get("transformavel")));
 							inimigo.setAudio(card.getAudio());
+							cards.put(inimigo.getNome(), inimigo);
 
-							inimgoTransformavel = new InimigoTransformavel(card, inimigo);
-							cards.put(inimgoTransformavel.getNome(), inimgoTransformavel);
+							inimigo = new InimigoTransformavel(card, inimigo);
 						}
 						else
 							inimigo = new Inimigo(card);
 
-						cards.put(inimigo.getNome(), inimigo);
-						cardsPorNome.add(card.getNome());
+						addCard(inimigo);
 
 						break;
-					case "pocoes":
+					case "pocao":
 						pocao = new Pocao(card);
 						pocao.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
 						pocao.setTipoCard(TipoCard.valueOf(((JSONObject) obj).get("tipo").toString()));
-						cards.put(pocao.getNome(), pocao);
-						cardsPorNome.add(pocao.getNome());
+						pocao.setInformacao(((JSONObject) obj).get("info").toString());
+						addCard(pocao);
 						break;
-					case "armas":
-	        			card.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
+					case "arma":
 	    				arma = new Arma(card);
+	    				arma.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
 	    				arma.setTipoArma(TipoArma.valueOf(((JSONObject) obj).get("tipo").toString()));
 	    				arma.setAlcance(Integer.valueOf(((JSONObject) obj).get("alcance").toString()));
-	    				cards.put(arma.getNome(), arma);
-						cardsPorNome.add(arma.getNome());
+	    				addCard(arma);
+						break;
+					case "bau":
+	    				bau = new Bau(card);
+	    				bau.setTipoCard(TipoCard.valueOf(((JSONObject) obj).get("tipo").toString()));
+	    				addCard(bau);
 						break;
 					}
         		}
             }
 
         }
-        //Trata as exceptions que podem ser lançadas no decorrer do processo
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
+        catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 	}
 
+	private static <T extends Card> void addCard(T card) {
+		cards.put(card.getNome(), card);
+		cardsPorNome.add(card.getNome());
+
+		if (card.getTipoCard().equals(TipoCard.BOM)) {
+			cardsBom.add(card.getNome());
+		}
+		else
+			cardsRuim.add(card.getNome());
+	}
+
 	public static Card getRandomCard() {
-		Card card = cards.get(cardsPorNome.get(new Random().nextInt(cardsPorNome.size())));
-		card.setValor(new Random().nextInt(30) + 1);
+		return getRandomCard(null);
+	}
+	public static Card getRandomCard(TipoCard tipo) {
+		Card card;
+
+		if (tipo == null)
+			card = cards.get(cardsPorNome.get(new Random().nextInt(cardsPorNome.size())));
+		else if (tipo.equals(TipoCard.BOM))
+			card = cards.get(cardsBom.get(new Random().nextInt(cardsBom.size())));
+		else
+			card = cards.get(cardsRuim.get(new Random().nextInt(cardsRuim.size())));
+
+		card.setValor(new Random().nextInt(15) + 1);
 		return card.clone();
 	}
 

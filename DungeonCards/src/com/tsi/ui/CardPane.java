@@ -5,6 +5,7 @@ package com.tsi.ui;
 import java.io.File;
 
 import com.tsi.card.Card;
+import com.tsi.chars.Heroi;
 
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -41,14 +42,8 @@ public class CardPane extends BorderPane {
 
 		if (card != null) {
 			setTop(hBox);
-			BorderPane pane;
-
-			if (card.getSprite() != null)
-				pane = new BorderPane(card.getSprite().clone().getImagem(), null, null, cardName, null);
-			else
-				pane = new BorderPane(null, null, null, cardName, null);
-
-			setCenter(pane);
+			setCenter(new BorderPane(card.getSprite().getImageView(), null, null, cardName,
+					((card instanceof Heroi && ((Heroi) card).getArma() != null) ? ((Heroi) card).getArma().getSprite().getImageView(40, 60) : null)));
 			this.setVisible(true);
 		}
 	}

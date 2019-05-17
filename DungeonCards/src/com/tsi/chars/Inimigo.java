@@ -5,12 +5,17 @@ import com.tsi.card.CardInteragivel;
 
 public class Inimigo extends CardInteragivel {
 	public Inimigo() {
-		setTipoCard(TipoCard.RUIM);
-		setInformacao("Inimigo comum. Causa dano igual aos seus pontos de vida.");
+		inimigoComum();
 	}
 
 	public Inimigo(Card card) {
 		super(card);
+		inimigoComum();
+	}
+
+	private void inimigoComum() {
+		setTipoCard(TipoCard.RUIM);
+		setInformacao("Inimigo comum. Causa dano igual aos seus pontos de vida.");
 	}
 
 	@Override
