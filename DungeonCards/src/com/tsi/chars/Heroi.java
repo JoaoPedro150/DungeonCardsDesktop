@@ -20,7 +20,8 @@ public class Heroi extends Card {
 
 	@Override
 	public String getNome() {
-		return super.getNome() + ((arma == null) ? "" : " (" + arma.getValor() + ")");
+		// + ((arma == null) ? "" : " (" + arma.getValor() + ")")
+		return super.getNome();
 	}
 
 	public Arma getArma() {

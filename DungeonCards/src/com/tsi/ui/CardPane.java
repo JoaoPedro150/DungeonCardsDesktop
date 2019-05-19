@@ -1,19 +1,21 @@
 package com.tsi.ui;
 
-
-
 import java.io.File;
 
 import com.tsi.card.Card;
 import com.tsi.chars.Heroi;
+import com.tsi.item.Arma;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class CardPane extends BorderPane {
@@ -23,6 +25,7 @@ public class CardPane extends BorderPane {
 	private Text cardValue = new Text();
 	private ImageView valueIcon = new ImageView(new Image(Sprite.CAMINHO + File.separator + "CoracaoIcon.png", 27, 22, false, false));
 	private HBox hBox = new HBox();
+	private Node armaSprite;
 
 	public Card getCard() {
 		return card;
@@ -42,10 +45,35 @@ public class CardPane extends BorderPane {
 
 		if (card != null) {
 			setTop(hBox);
-			setCenter(new BorderPane(card.getSprite().getImageView(), null, null, cardName,
-					((card instanceof Heroi && ((Heroi) card).getArma() != null) ? ((Heroi) card).getArma().getSprite().getImageView(40, 60) : null)));
+			if(card instanceof Heroi && ((Heroi) card).getArma() != null){
+				Arma arma = ((Heroi) card).getArma();
+				Node topPane = definirValorArma(arma);
+				armaSprite = arma.getSprite().getImageView(55, 70);
+				setCenter(new BorderPane(new StackPane(card.getSprite().getImageView(),armaSprite), null, null , cardName,topPane));
+				corrigirAlinhamentoDaArma();
+			}else
+				setCenter(new BorderPane(card.getSprite().getImageView(), null, null, cardName,null));
+
 			this.setVisible(true);
 		}
+	}
+
+	private Node definirValorArma(Arma arma) {
+		StackPane node = new StackPane();
+		Text valor = new Text("" + arma.getValor());
+		valor.setStyle("-fx-font: 14px 'OCR A Extended';");
+		valor.setTranslateX(19);
+		node.getChildren().addAll(new ImageView(new Image(Sprite.CAMINHO+File.separator+"EspadaIcon.png", 26, 21, false, false)),valor);
+		//node.setTranslateY(-60);
+		node.setTranslateX(2);
+		node.setPadding(new Insets(-129, -13, 0, 0));
+		return node;
+	}
+
+	private void corrigirAlinhamentoDaArma() {
+		armaSprite.setTranslateX(-12);
+		armaSprite.setTranslateY(-7);
+
 	}
 
 	private void setCardStyle() {
@@ -62,6 +90,10 @@ public class CardPane extends BorderPane {
 		cardValue.setTranslateY(11);
 		valueIcon.setTranslateX(-5);
 		valueIcon.setTranslateY(7);
+
+		Node arma = getRight();
+		if(arma != null)arma.setTranslateX(500);
+
 
 		Region region = new Region();
         HBox.setHgrow(region, Priority.ALWAYS);

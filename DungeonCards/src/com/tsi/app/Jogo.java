@@ -56,7 +56,7 @@ public class Jogo {
 		heroi.setNome("Herói");
 		heroi.setValor(500);
 		heroi.setPosicao(POSICAO_DE_INICIO.clone());
-		heroi.setSprite(new Sprite("Medusa.png"));
+		heroi.setSprite(new Sprite("Heroi.png"));
 		grid.setCard(heroi);
 		ajuda = Ajuda.getInstance(DungeonCards.getStage());
 	}
