@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -93,6 +94,8 @@ public class DungeonCards extends Application {
 		for (int i = 0; i < 3; i++)
 			for (int j = 0; j < 3; j++)
 				obterCard(new Posicao(i, j)).setCard(jogo.getGrid().getCard(new Posicao(i, j)));
+		
+		((Label)scene.lookup("#lblMoedas")).setText(jogo.getQtdMoedas() + "");
 	}
 
 	public void alterarModo() {

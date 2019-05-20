@@ -14,6 +14,7 @@ import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
+import com.tsi.itemespecial.Moeda;
 import com.tsi.ui.Ajuda;
 import com.tsi.ui.Sprite;
 
@@ -44,6 +45,12 @@ public class Jogo {
 	   	Cards.carregarCards();
 
 		Card card;
+		
+		heroi = new Heroi(25);
+		heroi.setNome("Herói");
+		heroi.setPosicao(POSICAO_DE_INICIO.clone());
+		heroi.setSprite(new Sprite("Medusa.png"));
+		ajuda = Ajuda.getInstance(DungeonCards.getStage());
 
 		for (int i = 0; i < Grid.TAMANHO_X; i++)
 			for (int j = 0; j < Grid.TAMANHO_Y; j++) {
@@ -51,30 +58,29 @@ public class Jogo {
 				card.setPosicao(new Posicao(i, j));
 				grid.setCard(card);
 			}
+		
 
-		heroi = new Heroi();
-		heroi.setNome("Herói");
-		heroi.setValor(500);
-		heroi.setPosicao(POSICAO_DE_INICIO.clone());
-		heroi.setSprite(new Sprite("Medusa.png"));
 		grid.setCard(heroi);
-		ajuda = Ajuda.getInstance(DungeonCards.getStage());
 	}
+   
+   public int getQtdMoedas() {
+	   return heroi.getQtdMoedas();
+   }
 
    private Card getRandomCard() {
-	   Card card;
+	    Card card;
 
-	   if (qtdCardsRuim - qtdCardsBom > 1) {
-			card = Cards.getRandomCard(TipoCard.BOM);
-			qtdCardsBom++;
-		}
-		else if (qtdCardsBom - qtdCardsRuim > 1) {
-			card = Cards.getRandomCard(TipoCard.RUIM);
+		if (qtdCardsBom - qtdCardsRuim  > 0) {
+			card = Cards.getRandomCard(TipoCard.RUIM, heroi.getQtdMoedas());
 			qtdCardsRuim++;
 		}
+		else if (qtdCardsRuim - qtdCardsBom  > 0) {
+			card = Cards.getRandomCard(TipoCard.BOM, heroi.getQtdMoedas());
+			qtdCardsBom++;
+		}
 		else {
-			card = Cards.getRandomCard();
-
+			card = Cards.getRandomCard(heroi.getQtdMoedas());
+		
 			if (card.getTipoCard().equals(TipoCard.BOM))
 				qtdCardsBom++;
 			else
@@ -99,20 +105,39 @@ public class Jogo {
 				   heroi.setArma(null);
 		   }
 		   if (resultadoInteracao == null) {
-			   if (card.getTipoCard().equals(TipoCard.BOM))
-					qtdCardsBom--;
-				else
-					qtdCardsRuim--;
-
 			   card = getRandomCard();
+			  
+			   // Posicoes dos cantos
+			   card = trocarPosicao(new Posicao(0, 0), 1, 0, 0, 1, card);
+			   card = trocarPosicao(new Posicao(0, 2), 1, 2, 0, 1, card);
+			   card = trocarPosicao(new Posicao(2, 2), 1, 2, 2, 1, card);
+			   card = trocarPosicao(new Posicao(2, 0), 1, 0, 2, 1, card);
+			   
+			   // Posicao do centro
+			   card = trocarPosicao(new Posicao(1, 1), 1, (heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))),
+					   (heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 1, card);
+			   
+			   // Posicoes do meio
+			   card = trocarPosicao(new Posicao(0, 1), 0, (heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))), 0, 2, card);
+			   card = trocarPosicao(new Posicao(2, 1), 2, (heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))), 2, 0, card);
+			   card = trocarPosicao(new Posicao(1, 0), 0, 0, (heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 0, card);
+			   card = trocarPosicao(new Posicao(1, 2), 2, 2, (heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 2, card);
+			   
 			   card.setPosicao(heroi.getPosicao().clone());
 			   grid.setCard(card);
+			   
 			   card = heroi;
 			   movimentoHeroi = true;
 		   }
-		   else
+		   else {
 			   card = resultadoInteracao;
-
+			   
+			   if (card.getTipoCard().equals(TipoCard.BOM))
+					qtdCardsBom++;
+			   else
+					qtdCardsRuim++;
+		   }
+		   
 		   card.setPosicao(grid.getPosicaoCursor().clone());
 		   grid.setCard(card);
 		   return movimentoHeroi;
@@ -123,7 +148,25 @@ public class Jogo {
 		throw new InteracaoException();
    }
 
-
+   private Card trocarPosicao(Posicao posicao, int x, int y, int x1, int y2, Card card) {
+	   Posicao posTroca;
+	   Card cardAux = card;
+	   
+	   if (heroi.getPosicao().comparar(posicao)) {
+		   if (grid.getPosicaoCursor().getX() == heroi.getPosicao().getX()) 
+			   posTroca = new Posicao(x, y);
+		   else
+			   posTroca = new Posicao(x1, y2);
+		   
+		   cardAux = grid.getCard(posTroca);
+		   card.setPosicao(posTroca);
+		   grid.setCard(card);
+		   return cardAux;
+	   }
+	   
+	   return cardAux;
+   }
+   
    public Grid getGrid() {
 	   return grid;
    }

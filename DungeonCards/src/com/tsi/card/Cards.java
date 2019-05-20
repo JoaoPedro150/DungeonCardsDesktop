@@ -18,6 +18,7 @@ import com.tsi.chars.InimigoTransformavel;
 import com.tsi.item.Arma;
 import com.tsi.item.Pocao;
 import com.tsi.itemespecial.Bau;
+import com.tsi.itemespecial.Moeda;
 import com.tsi.ui.Audio;
 import com.tsi.ui.Sprite;
 
@@ -33,6 +34,7 @@ public class Cards {
 		Pocao pocao;
 		Arma arma;
 		Bau bau;
+		Moeda moeda;
 
         try {
         	for (Object tipos : (JSONArray) new JSONParser().parse(new FileReader("cards.json"))) {
@@ -75,10 +77,15 @@ public class Cards {
 	    				bau.setTipoCard(TipoCard.valueOf(((JSONObject) obj).get("tipo").toString()));
 	    				addCard(bau);
 						break;
-					}
+	        		case "outros":
+	        			if (((JSONObject) obj).get("tipo").toString().equalsIgnoreCase("moeda")) {
+	        				moeda = new Moeda(card);
+	        				addCard(moeda); 
+	        			}
+	        			break;
+        			}
         		}
-            }
-
+        	}
         }
         catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -96,21 +103,25 @@ public class Cards {
 			cardsRuim.add(card.getNome());
 	}
 
-	public static Card getRandomCard() {
-		return getRandomCard(null);
+	public static Card getRandomCard(int limit) {
+		return getRandomCard(null, limit);
 	}
-	public static Card getRandomCard(TipoCard tipo) {
+	public static Card getRandomCard(TipoCard tipo, int limit) {
 		Card card;
 
 		if (tipo == null)
 			card = cards.get(cardsPorNome.get(new Random().nextInt(cardsPorNome.size())));
-		else if (tipo.equals(TipoCard.BOM))
+		else if (tipo.equals(TipoCard.BOM)) 
 			card = cards.get(cardsBom.get(new Random().nextInt(cardsBom.size())));
 		else
 			card = cards.get(cardsRuim.get(new Random().nextInt(cardsRuim.size())));
 
-		card.setValor(new Random().nextInt(15) + 1);
+		card.setValor(new Random().nextInt((limit/10) + 5) + 1);
 		return card.clone();
+	}
+	
+	public static Moeda getMoeda() {
+		return (Moeda) cards.get("Moeda");
 	}
 
 	private static Card parseCard(JSONObject jsonCard) {

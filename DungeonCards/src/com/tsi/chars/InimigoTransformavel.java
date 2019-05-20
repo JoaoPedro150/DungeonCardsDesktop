@@ -3,6 +3,7 @@ package com.tsi.chars;
 import java.util.Random;
 
 import com.tsi.card.Card;
+import com.tsi.itemespecial.Moeda;
 
 public class InimigoTransformavel extends Inimigo {
 	Inimigo inimigoATransformar;
@@ -24,14 +25,15 @@ public class InimigoTransformavel extends Inimigo {
 	@Override
 	public Card interagir(Heroi heroi) {
 		if (heroi.getArma() != null) {
-			Inimigo inimigo = (Inimigo) super.interagir(heroi);
+			Card card = super.interagir(heroi);
 
-			if (inimigo == null) {
+			if (card != null && card instanceof Moeda) {
 				inimigoATransformar.setValor(new Random().nextInt((getValor() > 1) ? getValor() - 1 : getValor()) + 1);
+				inimigoATransformar.vidaInicial = card.getValor();
 				return inimigoATransformar.clone();
 			}
 			else
-				return inimigo;
+				return card;
 		}
 		else
 			return super.interagir(heroi);

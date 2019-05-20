@@ -8,9 +8,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class Ajuda {
+public abstract class Ajuda {
 	private BorderPane root;
-	private Stage primaryStage;
+	private Stage primaryStage; 
 	private Popup popUp;
 
 	private static Ajuda ajuda;
@@ -20,9 +20,7 @@ public class Ajuda {
 			popUp = new Popup();
 			root = (BorderPane)FXMLLoader.load(getClass().getResource("/com/tsi/app/ajuda.fxml"));
 			this.primaryStage = primaryStage;
-
 			popUp.getContent().add(root);
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -30,7 +28,7 @@ public class Ajuda {
 	}
 
 	public static Ajuda getInstance(final Stage primaryStage){
-		return ajuda == null ? new Ajuda(primaryStage) : ajuda;
+		return ajuda == null ? new Ajuda(primaryStage){} : ajuda;
 	}
 
 	public void exibirAjuda(String texto, String titulo) {
@@ -39,7 +37,6 @@ public class Ajuda {
 
 		top.setText(titulo);
 		center.setText(texto);
-
 
 		if(!popUp.isShowing()) popUp.show(primaryStage);
 

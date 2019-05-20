@@ -9,11 +9,14 @@ public class Heroi extends Card {
 	private Arma arma;
 
 	private Pocao pocao;
+	
+	private int maxVida;
 
 	private int qtdMoedas;
 
-	public Heroi() {
-		setValor(10);
+	public Heroi(int vida) {
+		maxVida = vida;
+		setValor(vida);
 		setNome("Herói");
 		setInformacao("O cavaleiro adora tomar chá enquanto lê um bom livro. Ele também gosta de matar monstros e possui muita vida.");
 	}
@@ -21,6 +24,12 @@ public class Heroi extends Card {
 	@Override
 	public String getNome() {
 		return super.getNome() + ((arma == null) ? "" : " (" + arma.getValor() + ")");
+	}
+	
+	@Override
+	public void setValor(int valor) {
+		if (valor <= maxVida)
+			super.setValor(valor);
 	}
 
 	public Arma getArma() {
