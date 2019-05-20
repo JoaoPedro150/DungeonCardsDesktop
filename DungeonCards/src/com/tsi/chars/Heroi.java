@@ -3,6 +3,7 @@ package com.tsi.chars;
 import com.tsi.card.Card;
 import com.tsi.item.Arma;
 import com.tsi.item.Pocao;
+import com.tsi.ui.Sprite;
 
 public class Heroi extends Card {
 
@@ -17,13 +18,15 @@ public class Heroi extends Card {
 	public Heroi(int vida) {
 		maxVida = vida;
 		setValor(vida);
+		setSprite(new Sprite("Heroi.png"));
 		setNome("Herói");
 		setInformacao("O cavaleiro adora tomar chá enquanto lê um bom livro. Ele também gosta de matar monstros e possui muita vida.");
 	}
 
 	@Override
 	public String getNome() {
-		return super.getNome() + ((arma == null) ? "" : " (" + arma.getValor() + ")");
+		// + ((arma == null) ? "" : " (" + arma.getValor() + ")")
+		return super.getNome();
 	}
 	
 	@Override

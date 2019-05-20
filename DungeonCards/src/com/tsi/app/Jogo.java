@@ -47,9 +47,7 @@ public class Jogo {
 		Card card;
 		
 		heroi = new Heroi(25);
-		heroi.setNome("Herói");
 		heroi.setPosicao(POSICAO_DE_INICIO.clone());
-		heroi.setSprite(new Sprite("Medusa.png"));
 		ajuda = Ajuda.getInstance(DungeonCards.getStage());
 
 		for (int i = 0; i < Grid.TAMANHO_X; i++)
@@ -59,7 +57,6 @@ public class Jogo {
 				grid.setCard(card);
 			}
 		
-
 		grid.setCard(heroi);
 	}
    
