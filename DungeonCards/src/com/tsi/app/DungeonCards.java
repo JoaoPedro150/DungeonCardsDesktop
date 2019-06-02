@@ -1,18 +1,21 @@
 package com.tsi.app;
 
-import java.io.IOException;
+import java.awt.Toolkit;
 
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
+import com.tsi.ui.Ajuda;
 import com.tsi.ui.CardPane;
 import com.tsi.ui.Controle;
+import com.tsi.ui.GameOver;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -20,8 +23,8 @@ import javafx.stage.Stage;
 
 /**Nesta classe encontra-se o método main*/
 public class DungeonCards extends Application {
-	private Scene scene;
-	private static Stage stage;
+	private Scene gameScene, menuScene;
+	private static Stage primaryStaage;
 	private Controle controle;
 	private Jogo jogo;
 	private boolean cursorLivre;
@@ -30,49 +33,69 @@ public class DungeonCards extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		DungeonCards.primaryStaage = primaryStage;
+		
+		//Método que constói a janela principal comum a todas as cenas
+		estilizarJanela();
 
-		inicializar(primaryStage);
+		//inicializarMenuPrincipal();
+		
+		//Chama o método que construi e abre o jogo
+		inicializarJogo(primaryStage); //TODO: Tirar isso daqui! Aqui será chamado o menu. E do menu sera chamado o jogo
+		
+		
 
-		controle.eventosDeTeclado(scene);
-
-		stage.show();
+		primaryStaage.show();
+		
 	}
 
+	private void inicializarMenuPrincipal() {
+		new Menu(primaryStaage);
+	}
 
 	public static Stage getStage(){
-		return stage;
+		return primaryStaage;
 	}
 
-	private void estilizar() {
-		stage.setWidth(500);
-		stage.setHeight(600);
-		stage.setMinWidth(500);
-		stage.setMinHeight(600);
-		stage.setTitle("Dungeon Cards");
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		stage.getIcons().add(new Image("/com/tsi/sprites/GameIcon.png"));
-		colorirCelula(null);
+	private void estilizarJanela() {
+		primaryStaage.setWidth(500);
+		primaryStaage.setHeight(600);
+		primaryStaage.setMinWidth(500);
+		primaryStaage.setMinHeight(600);
+		primaryStaage.setTitle("Dungeon Cards");
+		
+		primaryStaage.getIcons().add(new Image("/com/tsi/sprites/GameIcon.png"));
+		
 	}
 
-	private void inicializar(Stage stage) {
+	private void inicializarJogo(Stage stage) {
 		BorderPane root;
 		try {
-			root = (BorderPane)FXMLLoader.load(getClass().getResource("index.fxml"));
-			scene = new Scene(root,0,0);
+			root = (BorderPane)FXMLLoader.load(getClass().getResource("game.fxml"));
+			gameScene = new Scene(root,0,0);
 
-			DungeonCards.stage = stage;
+			
 
-			stage.setScene(scene);
+			stage.setScene(gameScene);
 
 			Platform.runLater(() ->  atualizar());
 
 			controle = new Controle(this);
 			jogo = new Jogo();
 
-			estilizar();
+			
+			gameScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			colorirCelula(null);
+			
+			controle.eventosDeTeclado(gameScene);
+		} catch (Exception e) {
+			Toolkit.getDefaultToolkit().beep();
 
-		} catch (IOException e) {
+			Ajuda.alerta("Dungeon Cards" , 
+					"O jogo não pôde ser carregado. Arquivos corrompidos.", AlertType.ERROR);
+			
 			e.printStackTrace();
+			System.exit(0);
 		}
 
 	}
@@ -95,7 +118,7 @@ public class DungeonCards extends Application {
 			for (int j = 0; j < 3; j++)
 				obterCard(new Posicao(i, j)).setCard(jogo.getGrid().getCard(new Posicao(i, j)));
 		
-		((Label)scene.lookup("#lblMoedas")).setText(jogo.getQtdMoedas() + "");
+		((Label)gameScene.lookup("#lblMoedas")).setText(jogo.getQtdMoedas() + "");
 	}
 
 	public void alterarModo() {
@@ -174,7 +197,7 @@ public class DungeonCards extends Application {
 	}
 
 	private CardPane obterCard(Posicao posicao){
-		return (CardPane)scene.lookup(formatarPaneTag(posicao));
+		return (CardPane)gameScene.lookup(formatarPaneTag(posicao));
 	}
 
 	/**Produz a indicação visual do cursor, colorindo a posição que este atualmente se encontra.
@@ -188,15 +211,19 @@ public class DungeonCards extends Application {
 		if(posicaoAnterior != null) {
 			paneIDAnterior = formatarPaneTag(posicaoAnterior);
 
-			scene.lookup(paneIDAnterior).getStyleClass().remove("colorBlockYellow");
-			scene.lookup(paneIDAnterior).getStyleClass().remove("colorBlockRed");
+			gameScene.lookup(paneIDAnterior).getStyleClass().remove("colorBlockYellow");
+			gameScene.lookup(paneIDAnterior).getStyleClass().remove("colorBlockRed");
 		}
 
 		//Acende a cor na célula do grid atual
 		String paneID = formatarPaneTag(jogo.getGrid().getPosicaoCursor());
 
 		//Colore o seletor de acordo com o contexto do cursor.
-		scene.lookup(paneID).getStyleClass().add(cursorLivre ? "colorBlockRed" : "colorBlockYellow");
+		gameScene.lookup(paneID).getStyleClass().add(cursorLivre ? "colorBlockRed" : "colorBlockYellow");
+	}
+	
+	public boolean isGameOver() {
+		return jogo.isGameOver();
 	}
 
 	public static void main(String[] args) {

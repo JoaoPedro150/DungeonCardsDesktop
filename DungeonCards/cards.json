@@ -132,12 +132,14 @@
       {
         "nome": "Baú bom",
         "sprite": "BauBom.png",
-		"tipo": "BOM"
+		"tipo": "BOM",
+		"audio": "bau.wav"
       },
 	  {
         "nome": "Baú ruim",
         "sprite": "BauRuim.png",
 		"tipo": "RUIM",
+		 "audio": "bau.wav"
       }
     ]
   }

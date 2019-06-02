@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+         <content>
+            <GridPane fx:id="gridPane" minHeight="-Infinity" minWidth="-Infinity" opacity="0.99" prefHeight="450.0" prefWidth="363.0" style="-fx-background-color: #454449; -fx-hgap: 0; -fx-vgap: 6;">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="191.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="10.0" prefWidth="189.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="324.0" minHeight="10.0" prefHeight="239.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="205.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <BorderPane fx:id="pane00" prefHeight="281.0" prefWidth="127.0">
+                     <bottom>
+                        <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" style="-fx-background-color: GRAY; -fx-border-color: WHITE; -fx-border-radius: 4;" text="100" textFill="#d1f00a" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </bottom>
+                     <center>
+                        <BorderPane BorderPane.alignment="CENTER">
+                           <top>
+                              <Label text="VIDA - NÍVEL: 1" textFill="#cdc3c0" BorderPane.alignment="CENTER" />
+                           </top>
+                           <center>
+                              <BorderPane prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <ImageView fitWidth="127.0">
+                                       <image>
+                                          <Image url="@../Documents/DungeonCards/DugeonCardsDesktop/DungeonCards/src/com/tsi/sprites/Coracao.png" />
+                                       </image>
+                                    </ImageView>
+                                 </center>
+                                 <bottom>
+                                    <Label prefHeight="33.0" prefWidth="125.0" text="Representa a barreira entre vida e morte" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#cef50f" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Label>
+                                 </bottom>
+                                 <top>
+                                    <Label prefHeight="2.0" prefWidth="59.0" text="100 -&gt; 125" BorderPane.alignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#cef50f" />
+                                                <Stop color="#f51111" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                    </Label>
+                                 </top>
+                              </BorderPane>
+                           </center>
+                        </BorderPane>
+                     </center>
+                  </BorderPane>
+                  
+            			<BorderPane fx:id="pane01" prefHeight="254.0" prefWidth="172.0" GridPane.columnIndex="1">
+      			                      <bottom>
+                        <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" style="-fx-background-color: GRAY; -fx-border-color: WHITE; -fx-border-radius: 4;" text="100" textFill="#d1f00a" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </bottom>
+                     <center>
+                        <BorderPane BorderPane.alignment="CENTER">
+                           <top>
+                              <Label text="VIDA - NÍVEL: 1" textFill="#cdc3c0" BorderPane.alignment="CENTER" />
+                           </top>
+                           <center>
+                              <BorderPane prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <ImageView fitWidth="127.0">
+                                       <image>
+                                          <Image url="@../Documents/DungeonCards/DugeonCardsDesktop/DungeonCards/src/com/tsi/sprites/Coracao.png" />
+                                       </image>
+                                    </ImageView>
+                                 </center>
+                                 <bottom>
+                                    <Label prefHeight="33.0" prefWidth="125.0" text="Representa a barreira entre vida e morte" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#cef50f" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Label>
+                                 </bottom>
+                                 <top>
+                                    <Label prefHeight="2.0" prefWidth="59.0" text="100 -&gt; 125" BorderPane.alignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#cef50f" />
+                                                <Stop color="#f51111" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                    </Label>
+                                 </top>
+                              </BorderPane>
+                           </center>
+                        </BorderPane>
+                     </center>
+      			</BorderPane>
+                  
+            			<BorderPane fx:id="pane10" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+      			                      <bottom>
+                        <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" style="-fx-background-color: GRAY; -fx-border-color: WHITE; -fx-border-radius: 4;" text="100" textFill="#d1f00a" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </bottom>
+                     <center>
+                        <BorderPane BorderPane.alignment="CENTER">
+                           <top>
+                              <Label text="VIDA - NÍVEL: 1" textFill="#cdc3c0" BorderPane.alignment="CENTER" />
+                           </top>
+                           <center>
+                              <BorderPane prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <ImageView fitWidth="127.0">
+                                       <image>
+                                          <Image url="@../Documents/DungeonCards/DugeonCardsDesktop/DungeonCards/src/com/tsi/sprites/Coracao.png" />
+                                       </image>
+                                    </ImageView>
+                                 </center>
+                                 <bottom>
+                                    <Label prefHeight="33.0" prefWidth="125.0" text="Representa a barreira entre vida e morte" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#cef50f" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Label>
+                                 </bottom>
+                                 <top>
+                                    <Label prefHeight="2.0" prefWidth="59.0" text="100 -&gt; 125" BorderPane.alignment="CENTER">
+                                       <textFill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop color="#cef50f" />
+                                                <Stop color="#f51111" offset="1.0" />
+                                             </stops>
+                                          </LinearGradient>
+                                       </textFill>
+                                    </Label>
+                                 </top>
+                              </BorderPane>
+                           </center>
+                        </BorderPane>
+                     </center>
+					 </BorderPane>
+      			
+                        <BorderPane fx:id="pane11" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      				 <bottom>
+                        <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" style="-fx-background-color: #babaca;" text="Upgrade" BorderPane.alignment="CENTER" />
+                     </bottom>
+                     <center>
+                        <BorderPane prefHeight="170.0" prefWidth="127.0" BorderPane.alignment="CENTER" />
+                     </center>
+      			</BorderPane>
+               </children>
+      
+                  </GridPane>
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <Pane prefHeight="48.0" prefWidth="400.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
+         <children>
+            <Label id="lblMoedas" layoutX="342.0" layoutY="16.0" text="0" textFill="#e5ff00">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Escolha  um Upgrade" textAlignment="CENTER" textFill="#b8b9b3">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </top>
+   <bottom>
+      <Pane prefHeight="37.0" prefWidth="400.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <left>
+      <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

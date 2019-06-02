@@ -17,6 +17,11 @@ public class Audio {
 		audioClip = new AudioClip(getClass().getResource(CAMINHO + File.separator + nomeAudio).toString());
 		audioClip.play();
 	}
+	
+	public void stop(){
+		audioClip.stop();
+	}
+	
 
 	public String getNomeAudio() {
 		return nomeAudio;

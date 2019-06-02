@@ -22,12 +22,14 @@ public class Controle {
 
 	public void eventosDeTeclado(Scene scene) {
 
+		
 		EventHandler<KeyEvent> keyEvent = new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
 
-
+				if(game.isGameOver()) return; 
+				
 				if(event.getCode() == KeyCode.SPACE) {
 					game.alterarModo();
 					

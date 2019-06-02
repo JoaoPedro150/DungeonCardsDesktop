@@ -75,11 +75,13 @@ public class Cards {
 					case "bau":
 	    				bau = new Bau(card);
 	    				bau.setTipoCard(TipoCard.valueOf(((JSONObject) obj).get("tipo").toString()));
+	    				bau.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
 	    				addCard(bau);
 						break;
 	        		case "outros":
 	        			if (((JSONObject) obj).get("tipo").toString().equalsIgnoreCase("moeda")) {
 	        				moeda = new Moeda(card);
+	        				moeda.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
 	        				addCard(moeda); 
 	        			}
 	        			break;
