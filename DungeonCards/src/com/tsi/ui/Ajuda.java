@@ -25,7 +25,7 @@ public abstract class Ajuda {
 	private Ajuda(Stage primaryStage) {
 		try {
 			popUp = new Popup();
-			root = (BorderPane)FXMLLoader.load(getClass().getResource("/com/tsi/app/ajuda.fxml"));
+			root = (BorderPane)FXMLLoader.load(getClass().getResource("fxml/ajuda.fxml"));
 			this.primaryStage = primaryStage;
 			popUp.getContent().add(root);
 		} catch (IOException e) {

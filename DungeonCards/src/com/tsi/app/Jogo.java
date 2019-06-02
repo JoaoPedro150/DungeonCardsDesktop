@@ -1,231 +1,183 @@
 package com.tsi.app;
 
-import java.io.IOException;
+import java.awt.Toolkit;
 
-import com.tsi.card.Card;
-import com.tsi.card.CardInteragivel;
-import com.tsi.card.CardMutavel;
-import com.tsi.card.Cards;
-import com.tsi.card.Card.TipoCard;
-import com.tsi.chars.Heroi;
-import com.tsi.chars.Inimigo;
-import com.tsi.chars.InimigoTransformavel;
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
-import com.tsi.itemespecial.Moeda;
 import com.tsi.ui.Ajuda;
-import com.tsi.ui.GameOver;
-import com.tsi.ui.Sprite;
+import com.tsi.ui.CardPane;
 
-import javafx.geometry.Pos;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
-@SuppressWarnings("unused")
+/**Nesta classe encontra-se o método main*/
 public class Jogo {
-	private Grid grid;
+	private Scene gameScene;
+	private InputControl inputControl;
+	private LogicaJogo logicaJogo;
+	private boolean cursorLivre;
 
-	// Mantém a referência do objeto heroi.
-	private Heroi heroi;
-
-	// Mantém a referência dos objetos modificaveis.
-	private CardMutavel cardsModificaveis[];
-
-	public boolean isGameOver() {
-		System.err.println(gameOver);
-		return gameOver;
-	}
-
-	// Mantém a referência dos objetos que estão sob efeito de alguma pocao.
-	private Card cardsSobEfeitoPocao[];
-
-	private boolean gameOver;
-
-	private Ajuda ajuda;
-
-	private static final Posicao POSICAO_DE_INICIO = new Posicao(1, 1);
-
-	private int qtdCardsRuim = 0;
-	private int qtdCardsBom = 0;
-
-	/*TODO: Definir uma quantidade maxima de cartas ruins e boas de acordo com a quantiade de moedas
-	 * Quanto maior o número de moedas, mais difícil o jogo deve ficar*/
-	private int maxCardsRuim = 3, maxCardsBom;
-
+	private Posicao posicaoHeroi = null;
+	
 	public Jogo() {
-		gameOver = false;	
+		BorderPane root;
+		try {
+			root = (BorderPane)FXMLLoader.load(getClass().getResource("../ui/fxml/game.fxml"));
+			gameScene = new Scene(root,0,0);
 
-		grid = new Grid(POSICAO_DE_INICIO);
-		Cards.carregarCards();
+			DungeonCards.getPrimaryStage().setScene(gameScene);
 
-		Card card;
+			Platform.runLater(() ->  atualizar());
 
-		heroi = new Heroi(25);
-		heroi.setPosicao(POSICAO_DE_INICIO.clone());
-		ajuda = Ajuda.getInstance(DungeonCards.getStage());
+			inputControl = new InputControl(this);
+			logicaJogo = new LogicaJogo();
 
-		for (int i = 0; i < Grid.TAMANHO_X; i++)
-			for (int j = 0; j < Grid.TAMANHO_Y; j++) {
-				card = getRandomCard();
-				card.setPosicao(new Posicao(i, j));
-				grid.setCard(card);
-			}
+			
+			gameScene.getStylesheets().add(getClass().getResource("../ui/css/application.css").toExternalForm());
+			colorirCelula(null);
+			
+			inputControl.eventosDeTeclado(gameScene);
+		} catch (Exception e) {
+			Toolkit.getDefaultToolkit().beep();
 
-		grid.setCard(heroi);
-	}
-
-	public int getQtdMoedas() {
-		return heroi.getQtdMoedas();
-	}
-
-	private Card getRandomCard() {
-		Card card;
-
-		if (qtdCardsBom - qtdCardsRuim  > 0) {
-			//if (qtdCardsRuim < maxCardsRuim) {
-			card = Cards.getRandomCard(TipoCard.RUIM, heroi.getQtdMoedas());
-			qtdCardsRuim++;
+			Ajuda.alerta("Dungeon Cards" , 
+					"O jogo não pôde ser carregado. Arquivos corrompidos.", AlertType.ERROR);
+			
+			e.printStackTrace();
+			System.exit(0);
 		}
 
-		else if (qtdCardsRuim - qtdCardsBom  > 0) {
-			card = Cards.getRandomCard(TipoCard.BOM, heroi.getQtdMoedas());
-			qtdCardsBom++;
-		}
-		else {
-			card = Cards.getRandomCard(heroi.getQtdMoedas());
-
-			if (card.getTipoCard().equals(TipoCard.BOM))
-				qtdCardsBom++;
-			else
-				qtdCardsRuim++;
-		}
-
-		return card;
 	}
 
-	public boolean interagir() throws InteracaoException {
-		Boolean interacao = grid.getPosicaoCursor().isAdjacente(heroi.getPosicao());
-		boolean movimentoHeroi = false;
-
-		if (interacao == Boolean.TRUE) {
-
-			Card card = grid.getCard(grid.getPosicaoCursor());
-			Card resultadoInteracao = null;
-			reproduzirSom(grid.getCard(grid.getPosicaoCursor()));
+	public boolean interagir() {
+		try {
+			boolean movimentoHeroi = logicaJogo.interagir();
+			Platform.runLater(() ->  atualizar());
 
 
-
-			if (card != null) {
-				resultadoInteracao = ((CardInteragivel)card).interagir(heroi);
-
-				//Verifica se arma do herói deve ser retirada
-				if (heroi.getArma() != null && heroi.getArma().getValor() <= 0)
-					heroi.setArma(null);
-			}
-
-
-			if (resultadoInteracao == null) {
-				card = getRandomCard();
-
-				// Posicoes dos cantos
-				card = trocarPosicao(new Posicao(0, 0), 1, 0, 0, 1, card);
-				card = trocarPosicao(new Posicao(0, 2), 1, 2, 0, 1, card);
-				card = trocarPosicao(new Posicao(2, 2), 1, 2, 2, 1, card);
-				card = trocarPosicao(new Posicao(2, 0), 1, 0, 2, 1, card);
-
-				// Posicao do centro
-				card = trocarPosicao(new Posicao(1, 1), 1, 
-						(heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))),
-						(heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 1, card);
-
-				// Posicoes do meio
-				card = trocarPosicao(new Posicao(0, 1), 0, 
-						(heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))), 0, 2, card);
-
-				card = trocarPosicao(new Posicao(2, 1), 2, 
-						(heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))), 2, 0, card);
-
-				card = trocarPosicao(new Posicao(1, 0), 0, 0, 
-						(heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 0, card);
-
-				card = trocarPosicao(new Posicao(1, 2), 2, 2, 
-						(heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 2, card);
-
-				card.setPosicao(heroi.getPosicao().clone());
-				grid.setCard(card);
-
-				card = heroi;
-				movimentoHeroi = true;
-			}
-			else {
-				card = resultadoInteracao;
-
-				if (card.getTipoCard().equals(TipoCard.BOM))
-					qtdCardsBom++;
-				else
-					qtdCardsRuim++;
-			}
-			if(heroi.getValor() <= 0) {
-				System.err.println("GAME OVER");
-				heroi.setValor(0);
-
-				gameOver = true;
-				
-				//TODO: Programar a transição para o menu, e passar a variável gameOver para false.
-				GameOver.getInstance(DungeonCards.getStage()).exibirGameOver();
-			}
-			card.setPosicao(grid.getPosicaoCursor().clone());
-			grid.setCard(card);
 			return movimentoHeroi;
+		}catch(InteracaoException e) {
+			System.out.println(e);
+			return false;
 		}
-		else if(interacao == null)
-			throw new InteracaoException("Interação com o próprio herói.");
-
-		throw new InteracaoException();
 	}
 
-	private void reproduzirSom(Card card) {
-		System.out.println(card);
-		System.out.println(card.getAudio());
-		card.getAudio().play();
-
+	private void atualizar() {
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++)
+				obterCard(new Posicao(i, j)).setCard(logicaJogo.getGrid().getCard(new Posicao(i, j)));
+		
+		((Label)gameScene.lookup("#lblMoedas")).setText(logicaJogo.getQtdMoedas() + "");
 	}
 
-	private Card trocarPosicao(Posicao posicao, int x, int y, int x1, int y2, Card card) {
-		Posicao posTroca;
-		Card cardAux = card;
+	public void alterarModo() {
+		//Muda a variável de instância
+		cursorLivre = !cursorLivre;
 
-		if (heroi.getPosicao().comparar(posicao)) {
-			if (grid.getPosicaoCursor().getX() == heroi.getPosicao().getX()) 
-				posTroca = new Posicao(x, y);
-			else
-				posTroca = new Posicao(x1, y2);
+		if(!cursorLivre) fecharInfo();
 
-			cardAux = grid.getCard(posTroca);
-			card.setPosicao(posTroca);
-			grid.setCard(card);
-			return cardAux;
+		else
+			posicaoHeroi = logicaJogo.getGrid().getPosicaoCursor().clone();
+
+		colorirCelula(logicaJogo.getGrid().getPosicaoCursor());
+	}
+
+	public void fecharInfo(){
+		logicaJogo.fecharInfo();
+		Posicao posicaoAnterior = logicaJogo.getGrid().getPosicaoCursor().clone();
+		logicaJogo.getGrid().moverCursor(posicaoHeroi);
+		colorirCelula(posicaoAnterior);
+	}
+
+
+
+	private boolean moverCursor(int movimento) {
+
+		try {
+			Posicao posicaoAnterior = logicaJogo.getGrid().getPosicaoCursor().clone();
+
+			logicaJogo.getGrid().moverCursor(movimento);
+
+			colorirCelula(posicaoAnterior);
+
+			return true;
+		} catch (MovimentoException e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+
+
+	public boolean mover(int direcao) {
+		//Tenta mover o cursor. Aqui verifica se excede os limites do grid
+		if(!moverCursor(direcao)) return false;
+
+		//Aqui vê se o cursor se move junto com o herói ou se está no modo livre.
+		if(cursorLivre == false) {
+
+			//Tenta interagir
+			if(!interagir())
+				//Se entrou aqui o herói não se moveu, então desfaz o movimento do jogador no cursor
+				moverCursor(Grid.inverterDirecao(direcao));
 		}
 
-		return cardAux;
-	}
+		else {
+			//Se o cursor estiver livre, apenas exibe a informação da celula na
+			//posicao atual do cursor
+			logicaJogo.informacao();
+		}
 
-	public Grid getGrid() {
-		return grid;
-	}
-
-	public void informacao() {
-		Card card = grid.getCard(grid.getPosicaoCursor());
-		ajuda.exibirAjuda(card.getInformacao(), card.getNome(), obterPosicaoHeroi());
+		return true;
 
 	}
 
-	private int obterPosicaoHeroi() {
-		return heroi.getPosicao().getY() == 0 ? Ajuda.POSICAO_INFERIOR : Ajuda.POSICAO_SUPERIOR;
+	/*AVISO: Os métodos abaixo podem não estar nas classes corretas. Temos que pensar onde encaixá-los.*/
+
+
+
+
+	/**Transforma uma posição do grid na tag FXML do painel que corresponde a essa posição.
+	 * Por exemplo: Posicão (x=0, y=2), corresponde ao painel de tag "#pane20";
+	 * @param posicao a ser acessada no painel
+	 * @return tag FXML da posição fornecida.
+	 */
+	private String formatarPaneTag(Posicao posicao) {
+		return String.format("#pane%d%d", posicao.getY(),  posicao.getX());
 	}
 
-	public void fecharInfo() {
-		ajuda.esconderAjuda();
+	private CardPane obterCard(Posicao posicao){
+		return (CardPane)gameScene.lookup(formatarPaneTag(posicao));
+	}
 
+	/**Produz a indicação visual do cursor, colorindo a posição que este atualmente se encontra.
+	 *
+	 * @param posicaoAnterior posição anterior que deve ser descolorida no grid.
+	 * Pode ser passado <b>null</b> caso não se deseje apagar a posição anteriormente colorida
+	 */
+	private void colorirCelula(final Posicao posicaoAnterior) {
+		String paneIDAnterior = null;
+		//Apaga a cor de seleção da célula antes selecionada
+		if(posicaoAnterior != null) {
+			paneIDAnterior = formatarPaneTag(posicaoAnterior);
+
+			gameScene.lookup(paneIDAnterior).getStyleClass().remove("colorBlockYellow");
+			gameScene.lookup(paneIDAnterior).getStyleClass().remove("colorBlockRed");
+		}
+
+		//Acende a cor na célula do grid atual
+		String paneID = formatarPaneTag(logicaJogo.getGrid().getPosicaoCursor());
+
+		//Colore o seletor de acordo com o contexto do cursor.
+		gameScene.lookup(paneID).getStyleClass().add(cursorLivre ? "colorBlockRed" : "colorBlockYellow");
+	}
+	
+	public boolean isGameOver() {
+		return logicaJogo.isGameOver();
 	}
 }

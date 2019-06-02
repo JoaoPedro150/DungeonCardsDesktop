@@ -5,6 +5,7 @@ import java.io.File;
 import com.tsi.card.Card;
 import com.tsi.chars.Heroi;
 import com.tsi.item.Arma;
+import com.tsi.itemespecial.Bau;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,20 +42,29 @@ public class CardPane extends BorderPane {
 		this.card = card;
 		cardName.setText(card.getNome());
 		cardValue.setText("" + card.getValor());
-		setCardStyle();
 
 		if (card != null) {
-			setTop(hBox);
 			if(card instanceof Heroi && ((Heroi) card).getArma() != null){
 				Arma arma = ((Heroi) card).getArma();
 				Node topPane = definirValorArma(arma);
 				armaSprite = arma.getSprite().getImageView(55, 70);
 				setCenter(new BorderPane(new StackPane(card.getSprite().getImageView(),armaSprite), null, null , cardName,topPane));
 				corrigirAlinhamentoDaArma();
-			}else
+			} else if (card instanceof Arma) {
+				Arma arma = ((Arma) card);
+				Node topPane = definirValorArma(arma);
+				setCenter(new BorderPane(card.getSprite().getImageView(), null, null , cardName,topPane));
+			}
+			else
 				setCenter(new BorderPane(card.getSprite().getImageView(), null, null, cardName,null));
 
 			this.setVisible(true);
+			
+			setCardStyle();
+			
+			if (!(card instanceof Arma || card instanceof Bau))
+				setTop(hBox);
+			
 		}
 	}
 

@@ -1,6 +1,5 @@
-package com.tsi.ui;
+package com.tsi.app;
 
-import com.tsi.app.DungeonCards;
 import com.tsi.grid.Grid;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -12,11 +11,11 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 /**Esta classe é responsável por capturar os inputs do usuário e tratá-los com os comandos correspondentes*/
-public class Controle {
+public class InputControl {
 
-	private DungeonCards game;
+	private Jogo game;
 
-	public Controle(DungeonCards game) {
+	public InputControl(Jogo game) {
 		this.game = game;
 	}
 

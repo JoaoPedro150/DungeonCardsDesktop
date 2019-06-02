@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.chart.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="386" prefWidth="380" style="-fx-background-color: #22282c;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="386" prefWidth="380" style="-fx-background-color: #22282c;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane alignment="CENTER" layoutX="-8.0" layoutY="38.0" prefHeight="480.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -36,16 +36,16 @@
                      <center>
                         <ImageView fitHeight="80.0" fitWidth="73.0" BorderPane.alignment="CENTER">
                            <image>
-                              <Image url="@icon_heroi.png" />
+                              <Image url="@../img/icon_heroi.png" />
                            </image>
                         </ImageView>
                      </center>
                   </BorderPane>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <center>
-                        <ImageView fitHeight="79.0" fitWidth="60.0" BorderPane.alignment="CENTER">
+                        <ImageView fx:id="botaoPlay" fitHeight="79.0" fitWidth="60.0" BorderPane.alignment="CENTER">
                            <image>
-                              <Image url="@botao_play.png" />
+                              <Image url="@../img/botao_play.png" />
                            </image>
                         </ImageView>
                      </center>
@@ -56,7 +56,7 @@
                <center>
                   <ImageView fitHeight="215.0" fitWidth="358.0" BorderPane.alignment="CENTER">
                      <image>
-                        <Image url="@fundo_texto.png" />
+                        <Image url="@../img/fundo_texto.png" />
                      </image>
                   </ImageView>
                </center>
