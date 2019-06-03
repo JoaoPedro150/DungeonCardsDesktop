@@ -2,21 +2,27 @@
 Trabalho de Linguagem de Programação Visual, cujo objetivo é desenvolver uma cópia para desktop do jogo mobile "Dungeon Cards".
 
 <p align="center">
-  <img src="https://github.com/JoaoPedro150/DugeonCardsDesktop/blob/master/static/DungeonCards.png" width="600"/>
+  <img src="https://github.com/JoaoPedro150/DugeonCardsDesktop/blob/master/static/menu.png" width="600"/>
 </p>
 
 ## Equipe  
  
-    
-  -João Pedro Fonseca Diniz  
-  -Hugo Leonardo Bianchetti  
-  -Eva Costa De Melo  
-  -Ramon Giovane Dias Rosa  
+ <ul>
+  <li>João Pedro Fonseca Diniz</li>  
+  <li>Hugo Leonardo Bianchetti</li>  
+  <li>Eva Costa De Melo</li>
+  <li>Ramon Giovane Dias Rosa</li>
+</ul>
 
-## Link pro jogo original 
+## Detalhes
+O jogo foi desenvolvido em JavaFX baseando-se no funcionamento do jogo original.
+<p align="center">
+  <img src="https://github.com/JoaoPedro150/DugeonCardsDesktop/blob/master/static/jogo.png" width="600"/>
+</p>
+
+## Link para o jogo original 
 
 <a href="https://play.google.com/store/apps/details?id=com.The717pixels.DungeonCards&hl=pt_BR">Dungeon Cards</a>
 
-## Detalhes
-O jogo foi desenvolvido em JavaFX, baseando no funcionamento do jogo original[continua...]
+
   
