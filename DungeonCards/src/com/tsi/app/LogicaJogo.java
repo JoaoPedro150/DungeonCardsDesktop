@@ -52,7 +52,7 @@ public class LogicaJogo {
 	private int maxCardsRuim = 3, maxCardsBom;
 
 	public LogicaJogo() {
-		gameOver = false;	
+		gameOver = false;
 
 		grid = new Grid(POSICAO_DE_INICIO);
 		Cards.carregarCards();
@@ -133,21 +133,21 @@ public class LogicaJogo {
 				card = trocarPosicao(new Posicao(2, 0), 1, 0, 2, 1, card);
 
 				// Posicao do centro
-				card = trocarPosicao(new Posicao(1, 1), 1, 
+				card = trocarPosicao(new Posicao(1, 1), 1,
 						(heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))),
 						(heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 1, card);
 
 				// Posicoes do meio
-				card = trocarPosicao(new Posicao(0, 1), 0, 
+				card = trocarPosicao(new Posicao(0, 1), 0,
 						(heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))), 0, 2, card);
 
-				card = trocarPosicao(new Posicao(2, 1), 2, 
+				card = trocarPosicao(new Posicao(2, 1), 2,
 						(heroi.getPosicao().getY() + ((heroi.getPosicao().getY() > grid.getPosicaoCursor().getY() ?  1 : -1))), 2, 0, card);
 
-				card = trocarPosicao(new Posicao(1, 0), 0, 0, 
+				card = trocarPosicao(new Posicao(1, 0), 0, 0,
 						(heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 0, card);
 
-				card = trocarPosicao(new Posicao(1, 2), 2, 2, 
+				card = trocarPosicao(new Posicao(1, 2), 2, 2,
 						(heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 2, card);
 
 				card.setPosicao(heroi.getPosicao().clone());
@@ -168,7 +168,7 @@ public class LogicaJogo {
 				heroi.setValor(0);
 
 				gameOver = true;
-				
+
 				//TODO: Programar a transição para o menu, e passar a variável gameOver para false.
 				GameOver.getInstance(DungeonCards.getPrimaryStage()).exibirGameOver(heroi.getQtdMoedas());
 			}
@@ -194,7 +194,7 @@ public class LogicaJogo {
 		Card cardAux = card;
 
 		if (heroi.getPosicao().comparar(posicao)) {
-			if (grid.getPosicaoCursor().getX() == heroi.getPosicao().getX()) 
+			if (grid.getPosicaoCursor().getX() == heroi.getPosicao().getX())
 				posTroca = new Posicao(x, y);
 			else
 				posTroca = new Posicao(x1, y2);

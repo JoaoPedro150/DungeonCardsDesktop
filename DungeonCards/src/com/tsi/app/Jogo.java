@@ -24,7 +24,7 @@ public class Jogo {
 	private boolean cursorLivre;
 
 	private Posicao posicaoHeroi = null;
-	
+
 	public Jogo() {
 		BorderPane root;
 		try {
@@ -38,17 +38,16 @@ public class Jogo {
 			inputControl = new InputControl(this);
 			logicaJogo = new LogicaJogo();
 
-			
 			gameScene.getStylesheets().add(getClass().getResource("../ui/css/application.css").toExternalForm());
 			colorirCelula(null);
-			
+
 			inputControl.eventosDeTeclado(gameScene);
 		} catch (Exception e) {
 			Toolkit.getDefaultToolkit().beep();
 
-			Ajuda.alerta("Dungeon Cards" , 
+			Ajuda.alerta("Dungeon Cards" ,
 					"O jogo não pôde ser carregado. Arquivos corrompidos.", AlertType.ERROR);
-			
+
 			e.printStackTrace();
 			System.exit(0);
 		}
@@ -72,7 +71,7 @@ public class Jogo {
 		for (int i = 0; i < 3; i++)
 			for (int j = 0; j < 3; j++)
 				obterCard(new Posicao(i, j)).setCard(logicaJogo.getGrid().getCard(new Posicao(i, j)));
-		
+
 		((Label)gameScene.lookup("#lblMoedas")).setText(logicaJogo.getQtdMoedas() + "");
 	}
 
@@ -176,7 +175,7 @@ public class Jogo {
 		//Colore o seletor de acordo com o contexto do cursor.
 		gameScene.lookup(paneID).getStyleClass().add(cursorLivre ? "colorBlockRed" : "colorBlockYellow");
 	}
-	
+
 	public boolean isGameOver() {
 		return logicaJogo.isGameOver();
 	}

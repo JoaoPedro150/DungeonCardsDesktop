@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public abstract class GameOver {
-	private Stage primaryStage; 
+	private Stage primaryStage;
 	private BorderPane root;
 	private Audio audio;
 	private static GameOver gameOver;
@@ -35,22 +35,16 @@ public abstract class GameOver {
 
 	}
 
-	public static GameOver getInstance(final Stage primaryStage){
+	public static GameOver getInstance(Stage primaryStage){
 		return gameOver == null ? new GameOver(primaryStage){} : gameOver;
 	}
 
 	public void exibirGameOver(int qtdMoedas) {
-		audio.play();
-		final FadeTransition fadeOut = new FadeTransition(Duration.millis(2500), primaryStage.getScene().getRoot());
-		fadeOut.setFromValue(1.0);
-		fadeOut.setToValue(0.0);
-		fadeOut.play();
-		
 		Scene scene = new Scene(root);
-		
+
 		// Define evento de click no botao Play
 		((Label)scene.lookup("#lblQtdMoedas")).setText("" + qtdMoedas);
-		
+
 		// Define evento de click no botao Play
 		((ImageView)scene.lookup("#botaoPlay")).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
@@ -60,7 +54,7 @@ public abstract class GameOver {
 		         event.consume();
 		     }
 		});
-		
+
 		// Define evento de click no botao Play
 		((ImageView)scene.lookup("#botaoMenu")).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
@@ -69,7 +63,13 @@ public abstract class GameOver {
 		    	 DungeonCards.restart();
 		     }
 		});
-		
+
+		FadeTransition fadeOut = new FadeTransition(Duration.millis(2500), primaryStage.getScene().getRoot());
+		System.out.println(fadeOut.getNode().getStyle());
+		fadeOut.setFromValue(1);
+		fadeOut.setToValue(0);
+		audio.play();
+		fadeOut.play();
 		fadeOut.setOnFinished((value) -> { primaryStage.setScene(scene); });
 	}
 

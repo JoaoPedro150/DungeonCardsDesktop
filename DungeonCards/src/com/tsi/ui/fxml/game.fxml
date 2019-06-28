@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -9,9 +15,9 @@
 <?import javafx.scene.text.Font?>
 <?import com.tsi.ui.CardPane?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" style="-fx-background-color: #454449;" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <GridPane fx:id="gridPane" opacity="0.99" prefHeight="386.0" prefWidth="380.0" style="-fx-background-color: #454449;" BorderPane.alignment="CENTER">
+      <GridPane fx:id="gridPane" opacity="0.99" prefHeight="386.0" prefWidth="380.0" BorderPane.alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,23 +42,38 @@
 
       </GridPane>
    </center>
+   <bottom>
+      <Pane prefHeight="37.0" prefWidth="400.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
+   </bottom>
    <top>
-      <Pane prefHeight="48.0" prefWidth="400.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
+      <HBox alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="400.0" spacing="5.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
          <children>
-            <Label id="lblMoedas" layoutX="342.0" layoutY="16.0" text="0" textFill="#e5ff00">
+            <Label id="lblMoedas" text="0" textFill="#e5ff00">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-         </children></Pane>
+            <ImageView fitHeight="32.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../sprites/Moeda.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D height="50.0" minX="50.0" minY="40.0" width="50.0" />
+               </viewport>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
    </top>
-   <bottom>
-      <Pane prefHeight="37.0" prefWidth="400.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
-   </bottom>
-   <left>
-      <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
-   </left>
    <right>
       <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
    </right>
+   <left>
+      <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>
