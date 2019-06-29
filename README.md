@@ -25,7 +25,7 @@ O jogo foi desenvolvido em JavaFX baseando-se no funcionamento do jogo original 
  <ul>
   <li>Setas direcionais controlam a carta do herói que pode interagir com outras de inimigos e itens.</li>  
   <li>A tecla espaço mostra informações sobre as cartas disponíveis </li>  
-  <li>Ao colidir com um inimigo, o herói o atacará  mas também perderá vida, ao menos que tenha em mãos alguma arma!
+  <li>Ao colidir com um inimigo, o herói o atacará  mas também perderá vida, ao menos que tenha em mãos alguma arma!</li>
   <li>Quando a vida do herói chegar a zero o jogo será fim de jogo.</li>  
 </ul>
 
