@@ -2,8 +2,10 @@
 Trabalho de Linguagem de Programação Visual do curso de <b>Tecnologia em Sistemas para Internet</b> do <b>Instituto Federal do Sudeste de Minas Gerais (Campus Barbacena)</b>.<br>
 Tem como objetivo o desenvolvimentio a versão desktop do jogo mobile "<b>Dungeon Cards</b>".
 
+<a href="https://joaopedro150.github.io/DugeonCardsDesktop/">Dungeon Cards Page</a>
+
 <p align="center">
-  <img src="https://raw.githubusercontent.com/JoaoPedro150/DugeonCardsDesktop/master/static/menu.png" width="600"/>
+  <img src="https://raw.githubusercontent.com/JoaoPedro150/DugeonCardsDesktop/master/static/telaPrincipal.png" width="600"/>
 </p>
 
 ## Equipe  
@@ -18,7 +20,7 @@ Tem como objetivo o desenvolvimentio a versão desktop do jogo mobile "<b>Dungeo
 ## Detalhes
 O jogo foi desenvolvido em JavaFX baseando-se no funcionamento do jogo original trocando os comandos de tela pelo mouse (apenas para os menus) e o teclado.
 <p align="center">
-  <img src="https://raw.githubusercontent.com/JoaoPedro150/DugeonCardsDesktop/master/static/jogo.png" width="600"/>
+  <img src="https://raw.githubusercontent.com/JoaoPedro150/DugeonCardsDesktop/master/static/tela.png" width="600"/>
 </p>
 
 ## Como Jogar
