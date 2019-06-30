@@ -19,29 +19,29 @@ import javafx.scene.layout.BorderPane;
 
 /**Nesta classe encontra-se o método main*/
 public class Jogo {
-	private Scene gameScene;
+	private static Scene gameScene;
 	private InputControl inputControl;
 	private LogicaJogo logicaJogo;
 	private boolean cursorLivre;
-	
+
 	private static Audio musica;
-	
+
 	private Posicao posicaoHeroi = null;
 
 	public Jogo() {
 		BorderPane root;
 		try {
 			instanciarMusica();
-			
+
 			root = (BorderPane)FXMLLoader.load(getClass().getResource("../ui/fxml/game.fxml"));
 			gameScene = new Scene(root,0,0);
 
-			
-			
+
+
 			DungeonCards.getPrimaryStage().setScene(gameScene);
 
-			
-			
+
+
 			Platform.runLater(() ->  atualizar());
 
 			inputControl = new InputControl(this);
@@ -51,10 +51,10 @@ public class Jogo {
 			colorirCelula(null);
 
 			inputControl.eventosDeTeclado(gameScene);
-			
-			
-			
-			
+
+
+
+
 		} catch (Exception e) {
 			Toolkit.getDefaultToolkit().beep();
 
@@ -195,16 +195,20 @@ public class Jogo {
 		gameScene.lookup(paneID).getStyleClass().add(cursorLivre ? "colorBlockRed" : "colorBlockYellow");
 	}
 
-	
+
 	public boolean isGameOver() {
 		return logicaJogo.isGameOver();
 	}
-	
+
 	public static void ativarMusica() {
 		musica.play();
 	}
-	
+
 	public static void desativarMusica() {
 		musica.stop();
+	}
+
+	public static Scene getGameScene(){
+		return gameScene;
 	}
 }

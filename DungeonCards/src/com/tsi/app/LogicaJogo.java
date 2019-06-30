@@ -12,7 +12,10 @@ import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
 import com.tsi.ui.Ajuda;
 import com.tsi.ui.Audio;
+import com.tsi.ui.CardPane;
 import com.tsi.ui.GameOver;
+
+import javafx.scene.Scene;
 
 @SuppressWarnings("unused")
 public class LogicaJogo {
@@ -20,6 +23,9 @@ public class LogicaJogo {
 
 	// Mantém a referência do objeto heroi.
 	private Heroi heroi;
+
+	private Scene gameScene = Jogo.getGameScene();
+	private Posicao posicaoAtualHeroi;
 
 	// Mantém a referência dos objetos modificaveis.
 	private CardMutavel cardsModificaveis[];
@@ -36,7 +42,7 @@ public class LogicaJogo {
 	private Ajuda ajuda;
 
 	private ArquivoHeroi arquivoHeroi;
-	
+
 	private static final Posicao POSICAO_DE_INICIO = new Posicao(1, 1);
 
 	private int qtdCardsRuim = 0;
@@ -55,11 +61,12 @@ public class LogicaJogo {
 		Card card;
 
 		arquivoHeroi = new ArquivoHeroi();
-		
+
 		heroi = instanciarHeroi();//new Heroi(25);
-		
+
 		heroi.setPosicao(POSICAO_DE_INICIO.clone());
-		
+		posicaoAtualHeroi = POSICAO_DE_INICIO;
+
 		ajuda = Ajuda.getInstance(DungeonCards.getPrimaryStage());
 
 		for (int i = 0; i < Grid.TAMANHO_X; i++)
@@ -73,18 +80,18 @@ public class LogicaJogo {
 	}
 
 	private Heroi instanciarHeroi() {
-		
+
 		Heroi heroi = new Heroi(25), novoHeroi;
-		
+
 		if((novoHeroi = arquivoHeroi.carregarHeroi()) != null) {
 			heroi.adicionarMoedas(novoHeroi.getQtdMoedas());
 			heroi.setQtdMoedasPartida(0);
-			
+
 		}
-			
-		
+
+
 		return heroi;
-		
+
 	}
 
 	public int getQtdMoedas() {
@@ -119,6 +126,8 @@ public class LogicaJogo {
 	public boolean interagir() throws InteracaoException {
 		Boolean interacao = grid.getPosicaoCursor().isAdjacente(heroi.getPosicao());
 		boolean movimentoHeroi = false;
+		Posicao pos = new Posicao();
+		Posicao posCard = new Posicao();
 
 		if (interacao == Boolean.TRUE) {
 
@@ -138,6 +147,7 @@ public class LogicaJogo {
 
 
 			if (resultadoInteracao == null) {
+				pos = heroi.getPosicao().clone();
 				card = getRandomCard();
 
 				// Posicoes dos cantos
@@ -164,7 +174,9 @@ public class LogicaJogo {
 				card = trocarPosicao(new Posicao(1, 2), 2, 2,
 						(heroi.getPosicao().getX() + ((heroi.getPosicao().getX() > grid.getPosicaoCursor().getX() ?  1 : -1))), 2, card);
 
+				posCard = card.getPosicao();
 				card.setPosicao(heroi.getPosicao().clone());
+				animarCardPosicao(card.getPosicao().clone(), posCard);
 				grid.setCard(card);
 
 				card = heroi;
@@ -184,9 +196,14 @@ public class LogicaJogo {
 				gameOver = true;
 
 				gameOver();
-				
+
 			}
 			card.setPosicao(grid.getPosicaoCursor().clone());
+
+			if(movimentoHeroi){
+				posicaoAtualHeroi = card.getPosicao().clone();
+				animarCardPosicao(posicaoAtualHeroi, pos);
+			}else animarCardDano(card);
 			grid.setCard(card);
 			return movimentoHeroi;
 		}
@@ -197,21 +214,50 @@ public class LogicaJogo {
 	}
 
 	private void gameOver() {
-		
+
 		//Desativando música
 		Jogo.desativarMusica();
-		
+
 		//Exibindo game over
 		GameOver.getInstance(DungeonCards.getPrimaryStage()).exibirGameOver(heroi.getQtdMoedasPartida());
-		
+
 		//Salvando moedas do jogador
 		arquivoHeroi.salvarHeroi(heroi);
-		
+
 		//Resetando moedas da partida
 		heroi.resetarMoedasPartida();
-		
-		
+
+
 	}
+
+	public void animarCardTamanho(Card card, boolean reverse) {
+		CardPane animationTarget = (CardPane) gameScene.lookup(("#pane" + card.getPosicao().getY()) + card.getPosicao().getX());
+		animationTarget.animacaoTamanho(reverse);
+
+	}
+
+	public void animarCardPosicao(Posicao posicaoInicio, Posicao posicaoFinal) {
+		CardPane animationTarget = (CardPane) gameScene.lookup(("#pane" + posicaoInicio.getY()) + posicaoInicio.getX());
+
+		if(posicaoInicio.getX() > posicaoFinal.getX())
+			animationTarget.animacaoPosicao(-150, 0, 0, 0);
+		else if(posicaoInicio.getX() < posicaoFinal.getX())
+			animationTarget.animacaoPosicao(150, 0, 0, 0);
+		else{
+			if(posicaoInicio.getY() > posicaoFinal.getY())
+				animationTarget.animacaoPosicao(0, -150, 0, 0);
+			else if(posicaoInicio.getY() < posicaoFinal.getY())
+				animationTarget.animacaoPosicao(0, 150, 0, 0);
+		}
+
+	}
+
+	public void animarCardDano(Card card){
+		CardPane animationTarget = (CardPane) gameScene.lookup(("#pane" + card.getPosicao().getY()) + card.getPosicao().getX());
+		animationTarget.animacaoDano();
+
+	}
+
 
 	private void reproduzirSom(Card card) {
 		System.out.println(card);
@@ -231,6 +277,7 @@ public class LogicaJogo {
 				posTroca = new Posicao(x1, y2);
 
 			cardAux = grid.getCard(posTroca);
+			animarCardTamanho(cardAux, true);
 			card.setPosicao(posTroca);
 			grid.setCard(card);
 			return cardAux;

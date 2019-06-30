@@ -7,8 +7,12 @@ import com.tsi.chars.Heroi;
 import com.tsi.item.Arma;
 import com.tsi.itemespecial.Bau;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +22,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class CardPane extends BorderPane {
 	private Card card;
@@ -59,12 +64,12 @@ public class CardPane extends BorderPane {
 				setCenter(new BorderPane(card.getSprite().getImageView(), null, null, cardName,null));
 
 			this.setVisible(true);
-			
+
 			setCardStyle();
-			
+
 			if (!(card instanceof Arma || card instanceof Bau))
 				setTop(hBox);
-			
+
 		}
 	}
 
@@ -114,4 +119,58 @@ public class CardPane extends BorderPane {
 	public void setCardName(String name){
 		cardName.setText(name);
 	}
+
+	public void animacaoTamanho(boolean reverse){
+		setCache(true);
+		setCacheShape(true);
+		setCacheHint(CacheHint.SPEED);
+		Platform.runLater(()->{
+			ScaleTransition st = new ScaleTransition(Duration.millis(200), this);
+			st.setFromX(1);
+			st.setFromY(1);
+			st.setToX(0);
+			st.setToY(0);
+			st.setCycleCount(2);
+		    st.setAutoReverse(reverse);
+		    st.play();
+		});
+
+
+	}
+
+	public void animacaoPosicao(double origemX, double origemY, double destinoX, double destinoY){
+		setCache(true);
+		setCacheShape(true);
+		setCacheHint(CacheHint.SPEED);
+		Platform.runLater(()->{
+			TranslateTransition tt = new TranslateTransition(Duration.millis(200), this);
+			tt.setFromX(origemX);
+			tt.setFromY(origemY);
+			tt.setToX(destinoX);
+			tt.setToY(destinoY);
+			tt.setCycleCount(1);
+		    tt.setAutoReverse(true);
+		    tt.play();
+		});
+
+	}
+
+	public void animacaoDano(){
+		setCache(true);
+		setCacheShape(true);
+		setCacheHint(CacheHint.SPEED);
+		Platform.runLater(()->{
+			TranslateTransition tt = new TranslateTransition(Duration.millis(40), this);
+			tt.setFromX(10);
+			tt.setFromY(0);
+			tt.setToX(-10);
+			tt.setFromX(0);
+			tt.setCycleCount(6);
+		    tt.setAutoReverse(true);
+		    tt.play();
+
+		});
+	}
+
+
 }
