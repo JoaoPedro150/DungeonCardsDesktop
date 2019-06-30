@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="386" prefWidth="380" style="-fx-background-color: #22282c;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="386" prefWidth="380" style="-fx-background-color: #22282c;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane alignment="CENTER" layoutX="-8.0" layoutY="38.0" prefHeight="480.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -22,7 +25,6 @@
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -33,22 +35,13 @@
               </rowConstraints>
                <children>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                     <center>
-                        <ImageView fitHeight="80.0" fitWidth="73.0" BorderPane.alignment="CENTER">
-                           <image>
-                              <Image url="@icon_heroi.png" />
-                           </image>
-                        </ImageView>
-                     </center>
-                  </BorderPane>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-                     <center>
-                        <ImageView fitHeight="79.0" fitWidth="60.0" fx:id="botaoPlay" BorderPane.alignment="CENTER">
+                     <bottom>
+                        <ImageView fx:id="botaoPlay" fitHeight="79.0" fitWidth="60.0" BorderPane.alignment="CENTER">
                            <image>
                               <Image url="@botao_play.png" />
                            </image>
                         </ImageView>
-                     </center>
+                     </bottom>
                   </BorderPane>
                </children>
             </GridPane>
