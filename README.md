@@ -2,6 +2,8 @@
 Trabalho de Linguagem de Programação Visual do curso de <b>Tecnologia em Sistemas para Internet</b> do <b>Instituto Federal do Sudeste de Minas Gerais (Campus Barbacena)</b>.<br>
 Tem como objetivo o desenvolvimentio a versão desktop do jogo mobile "<b>Dungeon Cards</b>".
 
+<a href="https://joaopedro150.github.io/DugeonCardsDesktop/">Dungeon Cards Page</a>
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/JoaoPedro150/DugeonCardsDesktop/master/static/menu.png" width="600"/>
 </p>
