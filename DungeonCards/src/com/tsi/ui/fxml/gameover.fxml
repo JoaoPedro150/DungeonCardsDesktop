@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane id="ajudaPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="167.0" prefWidth="333.0" style="-fx-background-color: #454449;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <BorderPane maxHeight="150.0" maxWidth="300.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
+      <BorderPane maxHeight="187.0" maxWidth="355.0" prefHeight="187.0" prefWidth="355.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
          <right>
-            <ImageView fx:id="botaoPlay" fitHeight="60.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fx:id="botaoPlay" fitHeight="60.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../img/botaoPlay.png" />
                </image>
@@ -28,7 +30,7 @@
             </Label>
          </top>
          <left>
-            <ImageView fx:id="botaoMenu" fitHeight="60.0" fitWidth="62.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fx:id="botaoMenu" fitHeight="60.0" fitWidth="62.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../img/botaoPlay.png" />
                </image>
@@ -38,7 +40,7 @@
             </ImageView>
          </left>
          <bottom>
-            <Label prefHeight="20.0" prefWidth="243.0" text="     Menu                         Reiniciar" textFill="WHITE" BorderPane.alignment="CENTER">
+            <Label prefHeight="20.0" prefWidth="291.0" text="      Menu                                 Reiniciar" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
@@ -48,11 +50,26 @@
             </Label>
          </bottom>
          <center>
-            <Label fx:id="lblQtdMoedas" text="0" textFill="#fff600" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblQtdMoedas" text="0" textFill="#fff600">
+                     <font>
+                        <Font name="System Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="botaoPlay1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                     <image>
+                        <Image url="@../../sprites/Moeda.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D height="45.0" minX="50.0" minY="50.0" width="35.0" />
+                     </viewport>
+                  </ImageView>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </HBox>
          </center>
       </BorderPane>
    </center>

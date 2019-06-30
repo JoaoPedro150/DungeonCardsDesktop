@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -42,6 +44,10 @@ public class DungeonCards extends Application {
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+			if (key.getCode() == KeyCode.ENTER)
+				new Jogo();
+		});
 	}
 
 	public static void restart() {
@@ -59,6 +65,11 @@ public class DungeonCards extends Application {
 		setBotaoPlayAction(scene, "botaoPlay");
 
 		primaryStage.setScene(scene);
+		
+		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+			if (key.getCode() == KeyCode.ENTER)
+				new Jogo();
+		});
 	}
 
 	public static Stage getPrimaryStage() {

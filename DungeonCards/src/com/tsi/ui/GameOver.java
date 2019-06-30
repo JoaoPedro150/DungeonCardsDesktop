@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -42,30 +44,19 @@ public abstract class GameOver {
 	public void exibirGameOver(int qtdMoedas) {
 		Scene scene = new Scene(root);
 
-		// Define evento de click no botao Play
 		((Label)scene.lookup("#lblQtdMoedas")).setText("" + qtdMoedas);
-
-		// Define evento de click no botao Play
-		((ImageView)scene.lookup("#botaoPlay")).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-		     @Override
-		     public void handle(MouseEvent event) {
+		((ImageView)scene.lookup("#botaoPlay")).addEventHandler(MouseEvent.MOUSE_CLICKED, (event) -> new Jogo());
+		((ImageView)scene.lookup("#botaoMenu")).addEventHandler(MouseEvent.MOUSE_CLICKED, (event) -> DungeonCards.restart());
+		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+			if (key.getCode() == KeyCode.RIGHT)
 				new Jogo();
-		         event.consume();
-		     }
 		});
-
-		// Define evento de click no botao Play
-		((ImageView)scene.lookup("#botaoMenu")).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-		     @Override
-		     public void handle(MouseEvent event) {
-		    	 DungeonCards.restart();
-		     }
+		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+			if (key.getCode() == KeyCode.LEFT)
+				DungeonCards.restart();
 		});
 
 		FadeTransition fadeOut = new FadeTransition(Duration.millis(2500), primaryStage.getScene().getRoot());
-		System.out.println(fadeOut.getNode().getStyle());
 		fadeOut.setFromValue(1);
 		fadeOut.setToValue(0);
 		audio.play();

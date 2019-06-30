@@ -12,7 +12,9 @@ public abstract class CardInteragivel extends Card {
 		super(card);
 	}
 
-	public abstract Card interagir(Heroi heroi);
+	public Card interagir(Heroi heroi) {
+		return null;
+	}
 
 	public Card receberAtaque(CardDeAtaque cardAtaque) {
 		return receberAtaque(cardAtaque);

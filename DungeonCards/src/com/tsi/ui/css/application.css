@@ -17,10 +17,9 @@
 	-fx-border-color: #772408 !important;
 }
 
-#gridPane CardPane Text{
-	-fx-fill: white;
+#gridPane CardPane Label{
+	-fx-text-fill: white;
 	-fx-font-size: 16;
-
 }
 
 

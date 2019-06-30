@@ -13,7 +13,9 @@ public class Bau extends CardInteragivel {
 
 	@Override
 	public Card interagir(Heroi heroi) {
-		return Cards.getRandomCard(getTipoCard(), heroi.getQtdMoedasPartida());
+		Card card;
+		while ((card = Cards.getRandomCard(getTipoCard(), heroi.getQtdMoedasPartida())) instanceof Bau);
+		return card;
 	}
 
 	@Override

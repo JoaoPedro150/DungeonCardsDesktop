@@ -6,7 +6,7 @@
       {
         "nome": "Javali",
         "sprite": "Javali.png"
-      }
+      },
       {
         "nome": "Mosca",
         "sprite": "Mosca.png"
@@ -18,6 +18,14 @@
       {
         "nome": "Esqueleto",
         "sprite": "Esqueleto.png"
+      },
+      {
+        "nome": "Medusa",
+        "sprite": "Medusa.png"
+      },
+      {
+        "nome": "Aranha",
+        "sprite": "Aranha.png"
       },
       {
         "nome": "Monstro de tentaculo",
@@ -35,17 +43,41 @@
         "nome": "Zumbi Mascarado",
         "sprite": "ZumbiMascarado.png",
         "transformavel": {
-	        "nome": "Zumbi",
-	        "sprite": "Zumbi.png"
-      	},
+          "nome": "Zumbi",
+          "sprite": "Zumbi.png",
+          "tipo": "inimigo"
+        }
       },
       {
         "nome": "Cogumelo",
-        "sprite": "CogumeloComChapeu.png"
+        "sprite": "CogumeloComChapeu.png",
         "transformavel": {
-	        "nome": "Cogumelo sem chapéu",
-	        "sprite": "CogumeloSemChapeu.png"
+          "nome": "Cogumelo sem chapéu",
+          "sprite": "CogumeloSemChapeu.png",
+          "tipo": "inimigo"
         }
+      },
+      {
+        "nome": "Morcego com poção azul",
+        "sprite": "MorcegoPocaoAzul.png",
+        "transformavel": {
+          "nome": "Poção Azul",
+	        "sprite": "PocaoAzul.png",
+	        "tipo": "BOM",
+	        "info": "Cura o herói ao longo do tempo. Anula o efeito do veneno.",
+	        "audio": "pocao.wav"
+        }
+      },
+      {
+        "nome": "Morcego com poção vermelha",
+        "sprite": "MorcegoPocaoVermelha.png",
+        "transformavel": {
+	        "nome": "Poção Vermelha",
+	        "sprite": "PocaoVermelha.png",
+	        "tipo": "BOM",
+	        "info": "Cura o herói. Anula o efeito do veneno.",
+	        "audio": "pocao.wav"
+      	}
       }
     ]
   },
@@ -105,7 +137,7 @@
         "tipo": "BOM",
         "info": "Cura o herói. Anula o efeito do veneno.",
         "audio": "pocao.wav"
-        },
+      },
       {
         "nome": "Veneno",
         "sprite": "Veneno.png",

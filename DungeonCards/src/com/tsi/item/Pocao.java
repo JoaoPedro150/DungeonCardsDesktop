@@ -15,9 +15,11 @@ public class Pocao extends CardInteragivel {
 		if (getTipoCard().equals(TipoCard.BOM)) {
 			heroi.setValor(heroi.getValor() + getValor());
 		}
-		else if (heroi.getValor() > 1)
+		else if (heroi.getValor() - getValor() > 1)
 			heroi.setValor(heroi.getValor() - getValor());
-		
+		else
+			heroi.setValor(1);
+			
 		return null;
 	}
 	

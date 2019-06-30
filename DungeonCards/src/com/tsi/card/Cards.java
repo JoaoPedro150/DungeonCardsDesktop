@@ -28,8 +28,10 @@ public class Cards {
 	private static ArrayList<String> cardsRuim = new ArrayList<>();
 	private static ArrayList<String> cardsBom = new ArrayList<>();
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void carregarCards() {
 		Card card;
+		Card transformavel;
 		Inimigo inimigo;
 		Pocao pocao;
 		Arma arma;
@@ -46,11 +48,23 @@ public class Cards {
 						card.setAudio(new Audio(((JSONObject)tipos).get("audio").toString()));
 
 						if (((JSONObject) obj).get("transformavel") != null) {
-							inimigo = new Inimigo(parseCard((JSONObject)((JSONObject) obj).get("transformavel")));
-							inimigo.setAudio(card.getAudio());
-							cards.put(inimigo.getNome(), inimigo);
-
-							inimigo = new InimigoTransformavel(card, inimigo);
+							transformavel = parseCard((JSONObject)((JSONObject) obj).get("transformavel"));
+							transformavel.setAudio(card.getAudio());
+							switch (((JSONObject)((JSONObject) obj).get("transformavel")).get("tipo").toString()) {
+							case "inimigo":
+								inimigo = new Inimigo(transformavel);
+								cards.put(transformavel.getNome(), inimigo);
+								inimigo = new InimigoTransformavel(card, inimigo);
+								break;
+							default:
+								obj = (JSONObject)((JSONObject) obj).get("transformavel");
+								pocao = new Pocao(transformavel);
+								pocao.setAudio(new Audio(((JSONObject) obj).get("audio").toString()));
+								pocao.setTipoCard(TipoCard.valueOf(((JSONObject) obj).get("tipo").toString()));
+								pocao.setInformacao(((JSONObject) obj).get("info").toString());
+								cards.put(pocao.getNome(), pocao);
+								inimigo = new InimigoTransformavel(card, pocao);
+							}
 						}
 						else
 							inimigo = new Inimigo(card);

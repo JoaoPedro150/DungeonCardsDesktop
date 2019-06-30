@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -22,13 +23,14 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class CardPane extends BorderPane {
 	private Card card;
 
-	private Text cardName = new Text();
-	private Text cardValue = new Text();
+	private Label cardName = new Label();
+	private Label cardValue = new Label();
 	private ImageView valueIcon = new ImageView(new Image(Sprite.CAMINHO + File.separator + "CoracaoIcon.png", 27, 22, false, false));
 	private HBox hBox = new HBox();
 	private Node armaSprite;
@@ -46,6 +48,8 @@ public class CardPane extends BorderPane {
 		}
 		this.card = card;
 		cardName.setText(card.getNome());
+		cardName.setWrapText(true);
+		cardName.setTextAlignment(TextAlignment.CENTER);
 		cardValue.setText("" + card.getValor());
 
 		if (card != null) {
@@ -58,6 +62,7 @@ public class CardPane extends BorderPane {
 			} else if (card instanceof Arma) {
 				Arma arma = ((Arma) card);
 				Node topPane = definirValorArma(arma);
+				((Region) topPane).setPadding(new Insets(-108, -13, 0, 0));
 				setCenter(new BorderPane(card.getSprite().getImageView(), null, null , cardName,topPane));
 			}
 			else
@@ -75,7 +80,7 @@ public class CardPane extends BorderPane {
 
 	private Node definirValorArma(Arma arma) {
 		StackPane node = new StackPane();
-		Text valor = new Text("" + arma.getValor());
+		Label valor = new Label("" + arma.getValor());
 		valor.setStyle("-fx-font: 14px 'OCR A Extended';");
 		valor.setTranslateX(19);
 		node.getChildren().addAll(new ImageView(new Image(Sprite.CAMINHO+File.separator+"EspadaIcon.png", 26, 21, false, false)),valor);
@@ -96,10 +101,10 @@ public class CardPane extends BorderPane {
 		cardValue.setId("card_value");
 
 
-		cardName.setStyle("#card_name {-fx-fill: white; -fx-font: 12px 'OCR A Extended' ; }");
+		cardName.setStyle("#card_name {-fx-text-fill: white; -fx-font: 12px 'OCR A Extended' ; }");
 		setAlignment(cardName, Pos.CENTER);
 		cardName.setTranslateY(-20);
-		cardValue.setStyle("#card_value {-fx-fill: white; -fx-font: 14px 'OCR A Extended' ; }");
+		cardValue.setStyle("#card_value {-fx-text-fill: white; -fx-font: 14px 'OCR A Extended' ; }");
 
 		cardValue.setTranslateX(-5);
 		cardValue.setTranslateY(11);

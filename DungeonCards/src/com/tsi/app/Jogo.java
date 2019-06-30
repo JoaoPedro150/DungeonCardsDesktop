@@ -1,13 +1,13 @@
 package com.tsi.app;
 
 import java.awt.Toolkit;
+import java.net.URL;
 
 import com.tsi.exception.InteracaoException;
 import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
 import com.tsi.ui.Ajuda;
-import com.tsi.ui.Audio;
 import com.tsi.ui.CardPane;
 
 import javafx.application.Platform;
@@ -16,6 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 /**Nesta classe encontra-se o método main*/
 public class Jogo {
@@ -24,7 +27,7 @@ public class Jogo {
 	private LogicaJogo logicaJogo;
 	private boolean cursorLivre;
 
-	private static Audio musica;
+	private static MediaPlayer musica;
 
 	private Posicao posicaoHeroi = null;
 
@@ -36,13 +39,7 @@ public class Jogo {
 			root = (BorderPane)FXMLLoader.load(getClass().getResource("../ui/fxml/game.fxml"));
 			gameScene = new Scene(root,0,0);
 
-
-
 			DungeonCards.getPrimaryStage().setScene(gameScene);
-
-
-
-			Platform.runLater(() ->  atualizar());
 
 			inputControl = new InputControl(this);
 			logicaJogo = new LogicaJogo();
@@ -53,7 +50,7 @@ public class Jogo {
 			inputControl.eventosDeTeclado(gameScene);
 
 
-
+			atualizar();
 
 		} catch (Exception e) {
 			Toolkit.getDefaultToolkit().beep();
@@ -68,9 +65,15 @@ public class Jogo {
 	}
 
 	private void instanciarMusica() {
-		musica = new Audio("Swords&Dragons.mp3");
-		musica.ajustarVolume(0.163);
+		URL resource = getClass().getResource("/com/tsi/audio/Swords&Dragons.mp3");
+		musica = new MediaPlayer(new Media(resource.toString()));
+		musica.setOnEndOfMedia(new Runnable() {
+			public void run() {
+				musica.seek(Duration.ZERO);
+			}
+		});
 		musica.play();
+		musica.setVolume(0.163);
 	}
 
 	public boolean interagir() {
@@ -91,7 +94,8 @@ public class Jogo {
 			for (int j = 0; j < 3; j++)
 				obterCard(new Posicao(i, j)).setCard(logicaJogo.getGrid().getCard(new Posicao(i, j)));
 
-		((Label)gameScene.lookup("#lblMoedas")).setText(logicaJogo.getQtdMoedas() + "");
+		((Label)gameScene.lookup("#lblTotalMoedas")).setText(logicaJogo.getQtdMoedas() + "");
+		((Label)gameScene.lookup("#lblMoedas")).setText(logicaJogo.getTotalQtdMoedas() + "");
 	}
 
 	public void alterarModo() {

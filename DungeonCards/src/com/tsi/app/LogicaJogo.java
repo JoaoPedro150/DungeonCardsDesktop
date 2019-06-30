@@ -3,7 +3,6 @@ package com.tsi.app;
 import com.tsi.card.Card;
 import com.tsi.card.Card.TipoCard;
 import com.tsi.card.CardInteragivel;
-import com.tsi.card.CardMutavel;
 import com.tsi.card.Cards;
 import com.tsi.chars.Heroi;
 import com.tsi.chars.Heroi.ArquivoHeroi;
@@ -26,10 +25,7 @@ public class LogicaJogo {
 
 	private Scene gameScene = Jogo.getGameScene();
 	private Posicao posicaoAtualHeroi;
-
-	// Mantém a referência dos objetos modificaveis.
-	private CardMutavel cardsModificaveis[];
-
+	
 	public boolean isGameOver() {
 		return gameOver;
 	}
@@ -95,6 +91,10 @@ public class LogicaJogo {
 	}
 
 	public int getQtdMoedas() {
+		return heroi.getQtdMoedasPartida();
+	}
+	
+	public int getTotalQtdMoedas() {
 		return heroi.getQtdMoedas();
 	}
 
@@ -223,11 +223,6 @@ public class LogicaJogo {
 
 		//Salvando moedas do jogador
 		arquivoHeroi.salvarHeroi(heroi);
-
-		//Resetando moedas da partida
-		heroi.resetarMoedasPartida();
-
-
 	}
 
 	public void animarCardTamanho(Card card, boolean reverse) {

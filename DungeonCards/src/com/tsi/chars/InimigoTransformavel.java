@@ -5,20 +5,20 @@ import java.util.Random;
 import com.tsi.card.Card;
 import com.tsi.itemespecial.Moeda;
 
-public class InimigoTransformavel extends Inimigo {
-	Inimigo inimigoATransformar;
+public class InimigoTransformavel<T extends Card> extends Inimigo {
+	T inimigoATransformar;
 
-	public InimigoTransformavel(Card card, Inimigo inimigoATransformar) {
+	public InimigoTransformavel(Card card, T inimigoATransformar) {
 		super(card);
 		this.inimigoATransformar = inimigoATransformar;
 		setInformacao("Transforma-se em " + this.inimigoATransformar.getNome());
 	}
 
-	public Inimigo getInimigoATransformar() {
+	public Card getInimigoATransformar() {
 		return inimigoATransformar;
 	}
 
-	public void setInimigoATransformar(Inimigo inimigoATransformar) {
+	public void setInimigoATransformar(T inimigoATransformar) {
 		this.inimigoATransformar = inimigoATransformar;
 	}
 
@@ -29,7 +29,6 @@ public class InimigoTransformavel extends Inimigo {
 
 			if (card != null && card instanceof Moeda) {
 				inimigoATransformar.setValor(new Random().nextInt((getValor() > 1) ? getValor() - 1 : getValor()) + 1);
-				inimigoATransformar.vidaInicial = card.getValor();
 				return inimigoATransformar.clone();
 			}
 			else
@@ -39,6 +38,7 @@ public class InimigoTransformavel extends Inimigo {
 			return super.interagir(heroi);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Inimigo clone() {
 		return new InimigoTransformavel(super.clone(), inimigoATransformar.clone());

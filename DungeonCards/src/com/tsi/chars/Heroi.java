@@ -41,8 +41,10 @@ public class Heroi extends Card implements Serializable{
 
 	@Override
 	public void setValor(int valor) {
-		if (valor <= maxVida)
+		if (valor < maxVida)
 			super.setValor(valor);
+		else
+			super.setValor(maxVida);
 	}
 
 	public Arma getArma() {
@@ -112,9 +114,5 @@ public class Heroi extends Card implements Serializable{
 
 	public void setQtdMoedasPartida(int qtdMoedasPartida) {
 		this.qtdMoedasPartida = qtdMoedasPartida;
-	}
-
-	public void resetarMoedasPartida() {
-		qtdMoedasPartida = 0;
 	}
 }
