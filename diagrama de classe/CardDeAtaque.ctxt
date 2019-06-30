@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=CardDeAtaque
-comment0.text=\r\n\ Classe\ abstrata\ CardDeAtaque\ -\ escreva\ a\ descri\u00E7\u00E3o\ da\ classe\ aqui\r\n\ \r\n\ @author\ (seu\ nome\ aqui)\r\n\ @version\ (vers\u00E3o\ ou\ data)\r\n
-comment1.params=y
-comment1.target=int\ sampleMethod(int)
-comment1.text=\r\n\ Um\ exemplo\ de\ m\u00E9todo\ -\ substitua\ este\ exemplo\ pelo\ seu\ c\u00F3digo\r\n\ \r\n\ @param\ \ y\ \ \ \ um\ exemplo\ de\ par\u00E2metro\ de\ m\u00E9todo\r\n\ @return\ \ \ \ \ \ \ \ a\ soma\ de\ x\ com\ y\r\n
-numComments=2

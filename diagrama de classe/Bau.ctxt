@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=Bau
-comment0.text=\r\n\ Classe\ abstrata\ ItemEspecial\ -\ Cont\u00E9m\ os\ atributos\ em\ todos\ comum\ dos\ cards\r\n
-comment1.params=card
-comment1.target=Card\ receberAtaque(CardDeAtaque)
-comment2.params=heroi
-comment2.target=Card\ interagir(Heroi)
-numComments=3
