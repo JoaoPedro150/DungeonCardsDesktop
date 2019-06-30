@@ -11,10 +11,10 @@ public class Audio {
 
 	public Audio(String nomeAudio) {
 		setNomeAudio(nomeAudio);
+		audioClip = new AudioClip(getClass().getResource(CAMINHO + File.separator + nomeAudio).toString());
 	}
 
 	public void play(){
-		audioClip = new AudioClip(getClass().getResource(CAMINHO + File.separator + nomeAudio).toString());
 		audioClip.play();
 	}
 	
@@ -22,6 +22,10 @@ public class Audio {
 		audioClip.stop();
 	}
 	
+	
+	public void ajustarVolume(double volume) {
+		audioClip.setVolume(volume);
+	}
 
 	public String getNomeAudio() {
 		return nomeAudio;

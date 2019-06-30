@@ -1,25 +1,18 @@
 package com.tsi.app;
 
-import java.io.IOException;
-
 import com.tsi.card.Card;
+import com.tsi.card.Card.TipoCard;
 import com.tsi.card.CardInteragivel;
 import com.tsi.card.CardMutavel;
 import com.tsi.card.Cards;
-import com.tsi.card.Card.TipoCard;
 import com.tsi.chars.Heroi;
-import com.tsi.chars.Inimigo;
-import com.tsi.chars.InimigoTransformavel;
+import com.tsi.chars.Heroi.ArquivoHeroi;
 import com.tsi.exception.InteracaoException;
-import com.tsi.exception.MovimentoException;
 import com.tsi.grid.Grid;
 import com.tsi.grid.Posicao;
-import com.tsi.itemespecial.Moeda;
 import com.tsi.ui.Ajuda;
+import com.tsi.ui.Audio;
 import com.tsi.ui.GameOver;
-import com.tsi.ui.Sprite;
-
-import javafx.geometry.Pos;
 
 @SuppressWarnings("unused")
 public class LogicaJogo {
@@ -42,6 +35,8 @@ public class LogicaJogo {
 
 	private Ajuda ajuda;
 
+	private ArquivoHeroi arquivoHeroi;
+	
 	private static final Posicao POSICAO_DE_INICIO = new Posicao(1, 1);
 
 	private int qtdCardsRuim = 0;
@@ -59,8 +54,12 @@ public class LogicaJogo {
 
 		Card card;
 
-		heroi = new Heroi(25);
+		arquivoHeroi = new ArquivoHeroi();
+		
+		heroi = instanciarHeroi();//new Heroi(25);
+		
 		heroi.setPosicao(POSICAO_DE_INICIO.clone());
+		
 		ajuda = Ajuda.getInstance(DungeonCards.getPrimaryStage());
 
 		for (int i = 0; i < Grid.TAMANHO_X; i++)
@@ -73,6 +72,21 @@ public class LogicaJogo {
 		grid.setCard(heroi);
 	}
 
+	private Heroi instanciarHeroi() {
+		
+		Heroi heroi = new Heroi(25), novoHeroi;
+		
+		if((novoHeroi = arquivoHeroi.carregarHeroi()) != null) {
+			heroi.adicionarMoedas(novoHeroi.getQtdMoedas());
+			heroi.setQtdMoedasPartida(0);
+			
+		}
+			
+		
+		return heroi;
+		
+	}
+
 	public int getQtdMoedas() {
 		return heroi.getQtdMoedas();
 	}
@@ -82,16 +96,16 @@ public class LogicaJogo {
 
 		if (qtdCardsBom - qtdCardsRuim  > 0) {
 			//if (qtdCardsRuim < maxCardsRuim) {
-			card = Cards.getRandomCard(TipoCard.RUIM, heroi.getQtdMoedas());
+			card = Cards.getRandomCard(TipoCard.RUIM, heroi.getQtdMoedasPartida());
 			qtdCardsRuim++;
 		}
 
 		else if (qtdCardsRuim - qtdCardsBom  > 0) {
-			card = Cards.getRandomCard(TipoCard.BOM, heroi.getQtdMoedas());
+			card = Cards.getRandomCard(TipoCard.BOM, heroi.getQtdMoedasPartida());
 			qtdCardsBom++;
 		}
 		else {
-			card = Cards.getRandomCard(heroi.getQtdMoedas());
+			card = Cards.getRandomCard(heroi.getQtdMoedasPartida());
 
 			if (card.getTipoCard().equals(TipoCard.BOM))
 				qtdCardsBom++;
@@ -169,8 +183,8 @@ public class LogicaJogo {
 
 				gameOver = true;
 
-				//TODO: Programar a transição para o menu, e passar a variável gameOver para false.
-				GameOver.getInstance(DungeonCards.getPrimaryStage()).exibirGameOver(heroi.getQtdMoedas());
+				gameOver();
+				
 			}
 			card.setPosicao(grid.getPosicaoCursor().clone());
 			grid.setCard(card);
@@ -180,6 +194,23 @@ public class LogicaJogo {
 			throw new InteracaoException("Interação com o próprio herói.");
 
 		throw new InteracaoException();
+	}
+
+	private void gameOver() {
+		
+		//Desativando música
+		Jogo.desativarMusica();
+		
+		//Exibindo game over
+		GameOver.getInstance(DungeonCards.getPrimaryStage()).exibirGameOver(heroi.getQtdMoedasPartida());
+		
+		//Salvando moedas do jogador
+		arquivoHeroi.salvarHeroi(heroi);
+		
+		//Resetando moedas da partida
+		heroi.resetarMoedasPartida();
+		
+		
 	}
 
 	private void reproduzirSom(Card card) {

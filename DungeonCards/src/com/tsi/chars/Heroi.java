@@ -1,19 +1,28 @@
 package com.tsi.chars;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import com.tsi.card.Card;
 import com.tsi.item.Arma;
 import com.tsi.item.Pocao;
 import com.tsi.ui.Sprite;
 
-public class Heroi extends Card {
+public class Heroi extends Card implements Serializable{
 
-	private Arma arma;
+	private transient Arma arma;
 
-	private Pocao pocao;
+	private transient Pocao pocao;
 	
 	private int maxVida;
 
 	private int qtdMoedas;
+	
+	private transient int qtdMoedasPartida;
 
 	public Heroi(int vida) {
 		maxVida = vida;
@@ -52,10 +61,59 @@ public class Heroi extends Card {
 	}
 
 	public void adicionarMoedas(int valor) {
+		qtdMoedasPartida += valor;
 		qtdMoedas += valor;
 	}
 
 	public int getQtdMoedas() {
 		return qtdMoedas;
+	}
+	private void writeObject(ObjectOutputStream oos) throws IOException {
+		oos.defaultWriteObject();
+	}
+	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
+		ois.defaultReadObject();
+	}
+	
+	public static class ArquivoHeroi{
+		private final String nomeArquivo = "stats.dat";
+		
+		public boolean salvarHeroi(Heroi heroi) {
+			try(ObjectOutputStream objectInputStream = new ObjectOutputStream(new FileOutputStream(nomeArquivo))) {
+				
+				objectInputStream.writeObject(heroi);
+				
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		public Heroi carregarHeroi() {
+			try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(nomeArquivo))) {
+				
+				Heroi heroi = (Heroi) objectInputStream.readObject();
+				
+				return heroi;
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+	}
+
+	
+	public int getQtdMoedasPartida() {
+		return qtdMoedasPartida;
+	}
+
+	public void setQtdMoedasPartida(int qtdMoedasPartida) {
+		this.qtdMoedasPartida = qtdMoedasPartida;
+	}
+
+	public void resetarMoedasPartida() {
+		qtdMoedasPartida = 0;
 	}
 }

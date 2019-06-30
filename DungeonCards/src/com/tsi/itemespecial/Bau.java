@@ -13,7 +13,7 @@ public class Bau extends CardInteragivel {
 
 	@Override
 	public Card interagir(Heroi heroi) {
-		return Cards.getRandomCard(getTipoCard(), heroi.getQtdMoedas());
+		return Cards.getRandomCard(getTipoCard(), heroi.getQtdMoedasPartida());
 	}
 
 	@Override
