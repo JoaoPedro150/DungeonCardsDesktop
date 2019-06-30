@@ -68,7 +68,7 @@ public class Jogo {
 	}
 
 	private void instanciarMusica() {
-		musica = new Audio("Swords&Dragons-SamuelRibeiro.wav");
+		musica = new Audio("Swords&Dragons.mp3");
 		musica.ajustarVolume(0.163);
 		musica.play();
 	}
