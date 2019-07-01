@@ -13,7 +13,7 @@ Tem como objetivo o desenvolvimentio a versão desktop do jogo mobile "<b>Dungeo
  <ul>
   
   <li><a href=https://github.com/JoaoPedro150>João Pedro Fonseca Diniz</a></li>  
-  <li><a href=https://github.com/hugo-bianchetti>Hugo Leonardo Bianchetti></a></li>  
+  <li><a href=https://github.com/hugo-bianchetti>Hugo Leonardo Bianchetti</a></li>  
   <li><a href=https://github.com/EvaCosta>Eva Costa De Melo</a></li>
   <li><a href=https://github.com/RamonGiovane>Ramon Giovane Dias Rosa</a></li>  
 
