@@ -100,7 +100,7 @@ public class Heroi extends Card implements Serializable{
 
 				return heroi;
 			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				return null;
 			}
 		}

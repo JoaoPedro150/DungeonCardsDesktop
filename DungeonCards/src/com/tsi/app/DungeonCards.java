@@ -1,7 +1,11 @@
+
+
+
 package com.tsi.app;
 
 
 import java.io.IOException;
+import java.net.URL;
 
 import com.tsi.app.Jogo;
 import com.tsi.ui.Audio;
@@ -17,14 +21,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**Nesta classe encontra-se o método main*/
 public class DungeonCards extends Application {
 	private static Scene scene;
 	private static Stage primaryStage;
 
-	private static Audio musica;
+	private static MediaPlayer musica;
 	private static boolean exibirInstrucoes = true;
 	@Override
 	public void start(Stage stage) {
@@ -61,7 +68,13 @@ public class DungeonCards extends Application {
 		});
 	}
 	private void instanciarMusica() {
-		musica = new Audio("TheFireCamp.mp3");
+		URL resource = getClass().getResource("/com/tsi/audio/TheFireCamp.mp3");
+		musica = new MediaPlayer(new Media(resource.toString()));
+		musica.setOnEndOfMedia(new Runnable() {
+			public void run() {
+				musica.seek(Duration.ZERO);
+			}
+		});
 		musica.play();
 	}
 

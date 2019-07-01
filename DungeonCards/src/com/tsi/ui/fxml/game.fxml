@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
@@ -16,7 +23,7 @@
 
 <?import com.tsi.ui.CardPane?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #454449;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: #454449;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <GridPane fx:id="gridPane" opacity="0.99" prefHeight="386.0" prefWidth="380.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -46,10 +53,35 @@
    <bottom>
       <Pane prefHeight="37.0" prefWidth="400.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
    </bottom>
+   <right>
+      <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
+   </left>
    <top>
-      <HBox alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="400.0" spacing="5.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="40.0" prefWidth="400.0" spacing="5.0" style="-fx-background-color: #22282c;">
+      <BorderPane style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
+         <right>
+            <HBox alignment="TOP_RIGHT" spacing="5.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label id="lblTotalMoedas" text="0" textFill="#e5ff00">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="32.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../sprites/Moeda.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D height="50.0" minX="50.0" minY="40.0" width="50.0" />
+                     </viewport>
+                  </ImageView>
+               </children>
+            </HBox>
+         </right>
+         <left>
+            <HBox spacing="5.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
                <children>
                   <Label id="lblMoedas" text="0" textFill="WHITE">
                      <font>
@@ -69,36 +101,10 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="400.0" spacing="5.0" style="-fx-background-color: #22282c;">
-               <children>
-                  <Label id="lblTotalMoedas" text="0" textFill="#e5ff00">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="32.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../sprites/Moeda.png" />
-                     </image>
-                     <viewport>
-                        <Rectangle2D height="50.0" minX="50.0" minY="40.0" width="50.0" />
-                     </viewport>
-                  </ImageView>
-               </children>
-            </HBox>
-         </children>
+         </left>
          <padding>
-            <Insets left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </HBox>
+      </BorderPane>
    </top>
-   <right>
-      <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
-   </right>
-   <left>
-      <Pane prefHeight="386.0" prefWidth="10.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER" />
-   </left>
 </BorderPane>
