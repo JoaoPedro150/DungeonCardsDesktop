@@ -11,10 +11,18 @@ Tem como objetivo o desenvolvimentio a versão desktop do jogo mobile "<b>Dungeo
 ## Equipe  
  
  <ul>
-  <li>João Pedro Fonseca Diniz</li>  
-  <li>Hugo Leonardo Bianchetti</li>  
-  <li>Eva Costa De Melo</li>
-  <li>Ramon Giovane Dias Rosa</li>
+  
+  <li><a href=https://github.com/JoaoPedro150>João Pedro Fonseca Diniz</a></li>  
+  <li><a href=https://github.com/hugo-bianchetti>Hugo Leonardo Bianchetti></a></li>  
+  <li><a href=https://github.com/EvaCosta>Eva Costa De Melo</a></li>
+  <li><a href=https://github.com/RamonGiovane>Ramon Giovane Dias Rosa</a></li>  
+
+</ul>
+
+## Colaboradores  
+ <ul>
+  <li>Músicas: <a>Samuel Ribeiro</a></li>  
+  <li>Arte da tela inicial: <a href="https://github.com/jpdik">João Paulo</a></li>  
 </ul>
 
 ## Detalhes
