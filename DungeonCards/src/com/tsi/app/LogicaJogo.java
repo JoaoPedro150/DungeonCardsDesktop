@@ -287,7 +287,7 @@ public class LogicaJogo {
 
 	public void informacao() {
 		Card card = grid.getCard(grid.getPosicaoCursor());
-		ajuda.exibirAjuda(card.getInformacao(), card.getNome(), obterPosicaoHeroi());
+		ajuda.exibirAjuda(card.getInformacao(), card.getNome());
 
 	}
 

@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="ajudaPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="167.0" prefWidth="333.0" style="-fx-background-color: #454449;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="ajudaPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="167.0" prefWidth="333.0" style="-fx-background-color: #454449;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <BorderPane maxHeight="187.0" maxWidth="355.0" prefHeight="187.0" prefWidth="355.0" style="-fx-background-color: #22282c;" BorderPane.alignment="CENTER">
+      <BorderPane maxHeight="187.0" maxWidth="355.0" prefHeight="187.0" prefWidth="331.0" style="-fx-background-color: #22282c; -fx-border-color: gray;" BorderPane.alignment="CENTER">
          <right>
             <ImageView fx:id="botaoPlay" fitHeight="60.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../img/botaoPlay.png" />
+                  <Image url="@../img/seta_direita.png" />
                </image>
                <BorderPane.margin>
                   <Insets bottom="5.0" right="50.0" />
@@ -32,7 +32,7 @@
          <left>
             <ImageView fx:id="botaoMenu" fitHeight="60.0" fitWidth="62.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../img/botaoPlay.png" />
+                  <Image url="@../img/seta_direita.png" />
                </image>
                <BorderPane.margin>
                   <Insets bottom="5.0" left="50.0" />

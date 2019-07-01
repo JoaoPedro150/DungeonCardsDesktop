@@ -12,6 +12,7 @@ public abstract class CardInteragivel extends Card {
 		super(card);
 	}
 
+	@SuppressWarnings("unused")
 	public Card interagir(Heroi heroi) {
 		return null;
 	}

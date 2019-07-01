@@ -23,12 +23,12 @@
                <children>
                   <ImageView fx:id="botaoPlay" fitHeight="66.0" fitWidth="77.0" style="-fx-cursor: hand;">
                      <image>
-                        <Image url="@../img/botaoPlay.png" />
+                        <Image url="@../img/icon_jogar.png" />
                      </image>
                   </ImageView>
-                  <Label text="Pressione enter" textFill="WHITE">
+                  <Label text="Jogar: [ENTER]" textFill="WHITE">
                      <font>
-                        <Font name="Lucida Console" size="16.0" />
+                        <Font name="Lucida Console" size="12.0" />
                      </font>
                   </Label>
                </children>

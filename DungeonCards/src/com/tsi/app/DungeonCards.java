@@ -1,9 +1,11 @@
- package com.tsi.app;
+package com.tsi.app;
 
 
 import java.io.IOException;
 
 import com.tsi.app.Jogo;
+import com.tsi.ui.Audio;
+import com.tsi.ui.Instrucoes;					 
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -22,10 +24,14 @@ public class DungeonCards extends Application {
 	private static Scene scene;
 	private static Stage primaryStage;
 
+	private static Audio musica;
+	private static boolean exibirInstrucoes = true;
 	@Override
 	public void start(Stage stage) {
 
 		primaryStage = stage;
+
+		instanciarMusica();
 
 		AnchorPane root = null;
 		try {
@@ -45,9 +51,18 @@ public class DungeonCards extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-			if (key.getCode() == KeyCode.ENTER)
-				new Jogo();
+			if (key.getCode() == KeyCode.ENTER) {
+				key.consume();
+				eventoIniciarJogo();
+				
+				
+			
+			}
 		});
+	}
+	private void instanciarMusica() {
+		musica = new Audio("TheFireCamp.mp3");
+		musica.play();
 	}
 
 	public static void restart() {
@@ -59,16 +74,17 @@ public class DungeonCards extends Application {
 			e.printStackTrace();
 		}
 
+		musica.play();
 		scene = new Scene(root);
 
 		// Define evento de click no botao Play
 		setBotaoPlayAction(scene, "botaoPlay");
 
 		primaryStage.setScene(scene);
-		
+
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
 			if (key.getCode() == KeyCode.ENTER)
-				new Jogo();
+				eventoIniciarJogo();
 		});
 	}
 
@@ -83,26 +99,54 @@ public class DungeonCards extends Application {
 	public static void setBotaoPlayAction(Scene scene, String id) {
 		((ImageView)scene.lookup("#" + id)).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
-		     @Override
-		     public void handle(MouseEvent event) {
-		    	 new Jogo();
-		         event.consume();
-		     }
+			@Override
+			public void handle(MouseEvent event) {
+				eventoIniciarJogo();
+				event.consume();
+			}
+
+
+
+
 		});
 	}
+	private static void eventoIniciarJogo() {
+		Instrucoes instrucoes = Instrucoes.getInstance(DungeonCards.getPrimaryStage(), scene);
+		
+		instrucoes.exibir();
+		//instrucoes.setExibindo(true);
+		if(!exibirInstrucoes) {
+			iniciarJogo();
+			
+		}
+		
+		
+	}
+		public static void iniciarJogo() {
+			musica.stop();
+			new Jogo();
 
-	public static void main(String[] args) {
-		launch(args);
+		}		  
+		public static void main(String[] args) {
+			launch(args);
+		}
+
+		private void estilizarJanela() {
+			primaryStage.setWidth(500);
+			primaryStage.setHeight(600);
+			primaryStage.setMinWidth(500);
+			primaryStage.setMinHeight(600);
+			primaryStage.setTitle("Dungeon Cards");
+
+			primaryStage.getIcons().add(new Image("/com/tsi/sprites/GameIcon.png"));
+		}
+		public static boolean isInstrucoesExibindo() {
+			return exibirInstrucoes;
+		}
+
+		public static void setInstrucoesExibindo(boolean instrucoesExibindo) {
+			DungeonCards.exibirInstrucoes = instrucoesExibindo;
+		}
+
 	}
 
-	private void estilizarJanela() {
-		primaryStage.setWidth(500);
-		primaryStage.setHeight(600);
-		primaryStage.setMinWidth(500);
-		primaryStage.setMinHeight(600);
-		primaryStage.setTitle("Dungeon Cards");
-
-		primaryStage.getIcons().add(new Image("/com/tsi/sprites/GameIcon.png"));
-
-	}
-}
