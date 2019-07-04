@@ -1,12 +1,10 @@
 package com.tsi.ui;
 
-import java.io.File;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Sprite  {
-    public static final String CAMINHO = "com/tsi/sprites";
+    public static final String CAMINHO =  "/com/tsi/sprites";
     public static final double TAMANHO_X = 105, TAMANHO_Y = 105;
     private String nomeImagem;
 
@@ -15,11 +13,11 @@ public class Sprite  {
     }
 
     public ImageView getImageView() {
-        return new ImageView(new Image(CAMINHO + File.separator + nomeImagem, TAMANHO_X, TAMANHO_Y, false, false));
+        return new ImageView(new Image(CAMINHO + "/" + nomeImagem, TAMANHO_X, TAMANHO_Y, false, false));
     }
 
     public ImageView getImageView(double tam_x, double tam_y) {
-        return new ImageView(new Image(CAMINHO + File.separator + nomeImagem, tam_x, tam_y, false, false));
+        return new ImageView(new Image(CAMINHO + "/" + nomeImagem, tam_x, tam_y, false, false));
     }
 
     public String getNomeImagem() {

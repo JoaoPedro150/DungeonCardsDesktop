@@ -1,7 +1,5 @@
 package com.tsi.ui;
 
-import java.io.File;
-
 import javafx.scene.media.AudioClip;
 
 public class Audio {
@@ -11,7 +9,7 @@ public class Audio {
 
 	public Audio(String nomeAudio) {
 		setNomeAudio(nomeAudio);
-		audioClip = new AudioClip(getClass().getResource(CAMINHO + File.separator + nomeAudio).toString());
+		audioClip = new AudioClip(getClass().getResource(CAMINHO + "/" + nomeAudio).toString());
 	}
 
 	public void play(){

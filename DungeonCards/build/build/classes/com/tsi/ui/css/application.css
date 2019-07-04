@@ -1,0 +1,25 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#gridPane Line {
+  -fx-stroke   : #22282c;
+  -fx-stroke-width: 5;
+}
+#gridPane CardPane{
+	-fx-border-color: #22282c;
+	-fx-border-width: 1.7;
+}
+
+.colorBlockYellow{
+	-fx-border-color: #b1850c !important;
+}
+
+.colorBlockRed{
+	-fx-border-color: #772408 !important;
+}
+
+#gridPane CardPane Label{
+	-fx-text-fill: white;
+	-fx-font-size: 16;
+}
+
+

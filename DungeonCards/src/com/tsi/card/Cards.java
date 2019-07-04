@@ -1,7 +1,9 @@
 package com.tsi.card;
 
-import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -37,9 +39,13 @@ public class Cards {
 		Arma arma;
 		Bau bau;
 		Moeda moeda;
-
+		
+		
+		
+		
         try {
-        	for (Object tipos : (JSONArray) new JSONParser().parse(new FileReader("cards.json"))) {
+        	String conteudoJSon = abrirJSON();
+        	for (Object tipos : (JSONArray) new JSONParser().parse(conteudoJSon)) {
         		for (Object obj : (JSONArray)((JSONObject)tipos).get("lista")) {
         			card = parseCard((JSONObject) obj);
 
@@ -106,6 +112,20 @@ public class Cards {
         catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+	}
+
+	private static String abrirJSON() throws IOException {
+		String str;
+		StringBuilder conteudo = new StringBuilder();
+
+		InputStream in = Cards.class.getResourceAsStream("/com/tsi/files/json/cards.json"); 
+
+		try(BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"))){
+			while((str = reader.readLine()) != null){
+				conteudo.append(str);
+			}
+		};
+		return conteudo.toString();
 	}
 
 	private static <T extends Card> void addCard(T card) {

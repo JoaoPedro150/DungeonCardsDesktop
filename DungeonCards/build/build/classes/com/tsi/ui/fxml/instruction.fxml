@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <StackPane>
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #22282c;" />
+            <BorderPane id="ajudaPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="481.0" style="-fx-border-color: black;">
+               <top>
+                  <Label id="topLabel" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="477.0" style="-fx-background-color: #22282c; -fx-alignment: center; -fx-text-fill: white;" text="Como Jogar" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </top>
+               <left>
+                  <Pane prefHeight="136.0" prefWidth="8.0" style="-fx-background-color: #454449;" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <Pane prefHeight="136.0" prefWidth="8.0" style="-fx-background-color: #454449;" BorderPane.alignment="CENTER" />
+               </right>
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #454449;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="1. Use o teclado para mover  a carta do herói" textAlignment="CENTER" textFill="#eeeded">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <BorderPane prefHeight="60.0" prefWidth="206.0">
+                           <top>
+                              <ImageView fitHeight="57.0" fitWidth="91.0" nodeOrientation="INHERIT" BorderPane.alignment="CENTER">
+                                 <image>
+                                    <Image url="@../img/teclado.png" />
+                                 </image>
+                              </ImageView>
+                           </top>
+                        </BorderPane>
+                        <Label text="2. Cuidado com os monstros! Ao invadir o espaço de uma carta inimiga,  apenas o mais forte sobrevive." textFill="#f8f8f8" wrapText="true">
+            				<font>
+            					  <Font name="System Bold" size="12.0" />
+            				</font>
+            			</Label>
+                        <Label layoutX="10.0" layoutY="117.0" text="3.  Use as armas para obliterá-los! Beba as poções para se recompor!" textFill="#f8f8f8" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="25.0" prefWidth="465.0" spacing="10.0">
+                           <children>
+                              <Label text="4.   Aperte" textFill="#f8f8f8" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="[ESPAÇO]" textFill="#5aa2fa" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="e posicione em uma carta para ver informações." textFill="#f8f8f8" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox spacing="7.0">
+                           <children>
+                              <Label text="Agora vá e junte o máximo de" textFill="#f2f0f0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="45.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="moedas" textFill="#dcf802">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="que conseguir roubar deles!" textFill="#f2f0f0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children></HBox>
+                        <HBox prefHeight="25.0" prefWidth="465.0" spacing="10.0">
+                           <children>
+                              <Label text="Pressione" textFill="#f8f8f8" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="128.0" />
+                           </VBox.margin>
+            				<Label text="qualquer tecla" textFill="#fc5959" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+            			    
+                                          </Label>
+            <Label text="para continuar" textFill="#f8f8f8" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>			
+            
+                              		 </HBox>
+                      
+                                 </children>
+            		 
+                                 <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+               </center>
+            </BorderPane>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>

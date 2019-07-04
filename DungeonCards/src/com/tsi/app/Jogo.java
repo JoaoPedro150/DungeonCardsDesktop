@@ -36,7 +36,8 @@ public class Jogo {
 		try {
 			instanciarMusica();
 
-			root = (BorderPane)FXMLLoader.load(getClass().getResource("../ui/fxml/game.fxml"));
+			System.err.println("HERE");
+			root = (BorderPane)FXMLLoader.load(getClass().getResource("/com/tsi/ui/fxml/game.fxml"));
 			gameScene = new Scene(root,0,0);
 
 			DungeonCards.getPrimaryStage().setScene(gameScene);
@@ -44,7 +45,7 @@ public class Jogo {
 			inputControl = new InputControl(this);
 			logicaJogo = new LogicaJogo();
 
-			gameScene.getStylesheets().add(getClass().getResource("../ui/css/application.css").toExternalForm());
+			gameScene.getStylesheets().add(getClass().getResource("/com/tsi/ui/css/application.css").toExternalForm());
 			colorirCelula(null);
 
 			inputControl.eventosDeTeclado(gameScene);
@@ -174,7 +175,7 @@ public class Jogo {
 	}
 
 	private CardPane obterCard(Posicao posicao){
-		return (CardPane)gameScene.lookup(formatarPaneTag(posicao));
+		return (CardPane) gameScene.lookup(formatarPaneTag(posicao));
 	}
 
 	/**Produz a indicação visual do cursor, colorindo a posição que este atualmente se encontra.

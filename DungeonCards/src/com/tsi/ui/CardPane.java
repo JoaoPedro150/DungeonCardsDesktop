@@ -1,7 +1,5 @@
 package com.tsi.ui;
 
-import java.io.File;
-
 import com.tsi.card.Card;
 import com.tsi.chars.Heroi;
 import com.tsi.item.Arma;
@@ -27,15 +25,24 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class CardPane extends BorderPane {
+	
 	private Card card;
-
-	private Label cardName = new Label();
-	private Label cardValue = new Label();
-	private ImageView valueIcon = new ImageView(new Image(Sprite.CAMINHO + File.separator + "CoracaoIcon.png", 27, 22, false, false));
-	private HBox hBox = new HBox();
+	private Label cardName;
+	private Label cardValue;
+	private ImageView valueIcon;
+	private HBox hBox;
 	private Node armaSprite;
 
+	public CardPane() {
+		hBox = new HBox();
+		cardName = new Label();
+		cardValue = new Label();
+		System.out.println(Sprite.CAMINHO + "/" + "CoracaoIcon.png");
+		valueIcon = new ImageView(new Image(Sprite.CAMINHO + "/" + "CoracaoIcon.png", 27, 22, false, false));
+	}
+	
 	public Card getCard() {
+	
 		return card;
 
 	}
@@ -83,7 +90,7 @@ public class CardPane extends BorderPane {
 		Label valor = new Label("" + arma.getValor());
 		valor.setStyle("-fx-font: 14px 'OCR A Extended';");
 		valor.setTranslateX(19);
-		node.getChildren().addAll(new ImageView(new Image(Sprite.CAMINHO+File.separator+"EspadaIcon.png", 26, 21, false, false)),valor);
+		node.getChildren().addAll(new ImageView(new Image(Sprite.CAMINHO+ "/" +"EspadaIcon.png", 26, 21, false, false)),valor);
 		//node.setTranslateY(-60);
 		node.setTranslateX(2);
 		node.setPadding(new Insets(-129, -13, 0, 0));
